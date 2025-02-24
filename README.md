@@ -20,3 +20,5 @@ Vulnerability Scanning: Uses Nmap scripts to scan for HTTP title, headers, and m
 Code Analysis: Integrates the Semgrep tool to scan for code vulnerabilities, highlighting those with a HIGH impact.
 HTML Report: Generates a clickable HTML report containing detailed scan results for each command, with links to specific findings.
 AI Integration: Uses an AI tool to analyze the generated report and provide remediation suggestions for identified vulnerabilities.
+
+***To run the developed penetration testing scanning tool, please download the "pentesting" directory and follow the instructions provided in its README file.***
