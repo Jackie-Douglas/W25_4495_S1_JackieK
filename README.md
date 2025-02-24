@@ -1,12 +1,22 @@
 # W25_4495_S1_JackieK
 
-Annual Internal Penetration Testing Plan Development
+Development of an AI-Integrated Automated Scanning Tool for Security Analysis and Remediation
+
 
 Name : Jackie Kim
 Student ID : 300376300
 Course : CSIS4495-001 Applied Research Project
 
-Objectives
-The primary objective of this research is to design and implement an Annual Internal Penetration Testing Plan that integrates with an automated tool to enhance organizational cybersecurity practices. The goal is to provide a standardized, scalable, and resource-efficient solution that helps organizations conduct thorough internal penetration tests regularly.
+Project Overview
+The Automated Penetration Testing Tool is designed to scan an organization's website for potential security vulnerabilities. The tool performs various scanning tasks, including host discovery, port scanning, OS detection, vulnerability scanning, and code analysis. It generates an HTML report summarizing the scan results, highlighting the vulnerabilities, and suggesting remediation methods using an integrated AI tool.
 
-Another key objective is to validate the effectiveness of the automated tool in identifying vulnerabilities within simulated environments. This involves testing the tool’s performance against parameters like accuracy, speed, and adaptability. By assessing these metrics, the research ensures that the tool is practical for real-world use and meets the dynamic needs of modern IT environments.
+This project aims to help organizations identify weaknesses in their web infrastructure and improve security through automated testing.
+
+Features
+Host Discovery: Identifies active and reachable target IP addresses and provides information about open ports, OS guesses, and traceroute data.
+Web Enumeration: Scans for open HTTP and HTTPS ports, identifying services such as Cloudflare's HTTP proxy services.
+DNS Enumeration: Uses DNS brute-forcing to identify subdomains of the target.
+Vulnerability Scanning: Uses Nmap scripts to scan for HTTP title, headers, and methods.
+Code Analysis: Integrates the Semgrep tool to scan for code vulnerabilities, highlighting those with a HIGH impact.
+HTML Report: Generates a clickable HTML report containing detailed scan results for each command, with links to specific findings.
+AI Integration: Uses an AI tool to analyze the generated report and provide remediation suggestions for identified vulnerabilities.
