@@ -7,54 +7,29 @@
             .container { width: 80%; margin: auto; background: white; padding: 20px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); }
             h2 { color: #1e3a8a; }
             .section { border-bottom: 1px solid #ddd; padding: 10px 0; }
-            .output { white-space: pre-wrap; background: #e0e7ff; padding: 10px; display: none; }
-            .toggle { color: #007bff; cursor: pointer; }
+            .output { white-space: pre-wrap; background: #e0e7ff; padding: 10px; }
         </style>
-        <script>
-            function toggleVisibility(id) {
-                var elem = document.getElementById(id);
-                elem.style.display = (elem.style.display === "none") ? "block" : "none";
-            }
-        </script>
     </head>
     <body>
         <div class="container">
             <h1>Security & Penetration Test Report</h1>
+            <p>Check the Semgrep findings below.</p>
     
         <div class="section">
             <h2>Host Discovery</h2>
-            <pre>Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-22 16:37 PST
+            <pre>Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-23 17:13 PST
 Nmap scan report for plantedmeals.ca (199.34.228.73)
-Host is up (0.0089s latency).
+Host is up (0.010s latency).
 rDNS record for 199.34.228.73: pages-custom-25.weebly.com
-Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
-</pre>
-             
-            <pre id="Host Discovery" class="output">Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-22 16:37 PST
-Nmap scan report for plantedmeals.ca (199.34.228.73)
-Host is up (0.0089s latency).
-rDNS record for 199.34.228.73: pages-custom-25.weebly.com
-Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
 </pre>
         </div>
         
         <div class="section">
             <h2>Full Port Scan</h2>
-            <pre>Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-22 16:37 PST
+            <pre>Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-23 17:13 PST
 Nmap scan report for plantedmeals.ca (199.34.228.73)
-Host is up (0.015s latency).
-rDNS record for 199.34.228.73: pages-custom-25.weebly.com
-Not shown: 65522 filtered tcp ports (no-response)
-PORT     STATE SERVICE
-80/tcp   open  http
-443/tcp  open  https
-2052/tcp open  clearvisn
-2053/tcp open  knetd
---more--</pre>
-            <span class="toggle" onclick="toggleVisibility('Full Port Scan')">Show More</span> 
-            <pre id="Full Port Scan" class="output">Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-22 16:37 PST
-Nmap scan report for plantedmeals.ca (199.34.228.73)
-Host is up (0.015s latency).
+Host is up (0.017s latency).
 rDNS record for 199.34.228.73: pages-custom-25.weebly.com
 Not shown: 65522 filtered tcp ports (no-response)
 PORT     STATE SERVICE
@@ -72,15 +47,15 @@ PORT     STATE SERVICE
 8443/tcp open  https-alt
 8880/tcp open  cddbp-alt
 
-Nmap done: 1 IP address (1 host up) scanned in 88.94 seconds
+Nmap done: 1 IP address (1 host up) scanned in 98.04 seconds
 </pre>
         </div>
         
         <div class="section">
             <h2>OS and Version Detection</h2>
-            <pre>Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-22 16:40 PST
+            <pre>Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-23 17:15 PST
 Nmap scan report for plantedmeals.ca (199.34.228.73)
-Host is up (0.0097s latency).
+Host is up (0.010s latency).
 rDNS record for 199.34.228.73: pages-custom-25.weebly.com
 Not shown: 996 filtered tcp ports (no-response)
 PORT     STATE SERVICE  VERSION
@@ -88,23 +63,11 @@ PORT     STATE SERVICE  VERSION
 |_http-server-header: cloudflare
 |_http-title: Did not follow redirect to http://www.plantedmeals.ca/
 443/tcp  open  ssl/http Cloudflare http proxy
---more--</pre>
-            <span class="toggle" onclick="toggleVisibility('OS and Version Detection')">Show More</span> 
-            <pre id="OS and Version Detection" class="output">Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-22 16:40 PST
-Nmap scan report for plantedmeals.ca (199.34.228.73)
-Host is up (0.0097s latency).
-rDNS record for 199.34.228.73: pages-custom-25.weebly.com
-Not shown: 996 filtered tcp ports (no-response)
-PORT     STATE SERVICE  VERSION
-80/tcp   open  http     Cloudflare http proxy
 |_http-server-header: cloudflare
-|_http-title: Did not follow redirect to http://www.plantedmeals.ca/
-443/tcp  open  ssl/http Cloudflare http proxy
 | ssl-cert: Subject: commonName=www.plantedmeals.ca
 | Subject Alternative Name: DNS:plantedmeals.ca, DNS:www.plantedmeals.ca
 | Not valid before: 2025-02-11T04:54:40
 |_Not valid after:  2025-05-12T04:54:39
-|_http-server-header: cloudflare
 |_http-title: Did not follow redirect to https://www.plantedmeals.ca/
 8080/tcp open  http     Cloudflare http proxy
 |_http-server-header: cloudflare
@@ -116,99 +79,75 @@ PORT     STATE SERVICE  VERSION
 | Not valid before: 2025-02-11T04:54:40
 |_Not valid after:  2025-05-12T04:54:39
 Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
-Aggressive OS guesses: Crestron XPanel control system (91%), FreeBSD 11.0-RELEASE (90%), FreeBSD 11.1-RELEASE (90%), FreeBSD 11.1-STABLE (90%), FreeBSD 11.0-STABLE (89%), ASUS RT-N56U WAP (Linux 3.4) (89%), Linux 3.1 (89%), Linux 3.16 (89%), Linux 3.2 (89%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (88%)
+Aggressive OS guesses: Android 6.0 - 7.1.2 (Linux 3.18 - 4.4.1) (88%), Android 7.1.2 (Linux 3.4) (88%), FreeBSD 12.0-RELEASE - 13.0-CURRENT (88%), Android 7.0 (Linux 3.18) (87%), FreeBSD 11.0-RELEASE - 12.0-CURRENT (87%), FreeBSD 11.3-RELEASE (86%), FreeBSD 12.0-RELEASE (86%), Apple macOS 10.13 (High Sierra) - 10.15 (Catalina) or iOS 11.0 - 13.4 (Darwin 17.0.0 - 19.2.0) (86%), FreeBSD 11.0-RELEASE (86%), FreeBSD 11.0-STABLE (86%)
 No exact OS matches for host (test conditions non-ideal).
 Network Distance: 5 hops
 
-TRACEROUTE (using port 80/tcp)
+TRACEROUTE (using port 8080/tcp)
 HOP RTT      ADDRESS
-1   1.46 ms  192.168.1.254
-2   10.51 ms 10.29.214.1
-3   9.97 ms  leaf1.montreal.psi.net (154.11.2.252)
-4   10.93 ms QUBCPQAJDR02.bb.telus.com (154.11.15.73)
-5   10.53 ms pages-custom-25.weebly.com (199.34.228.73)
+1   1.57 ms  192.168.1.254
+2   10.28 ms 10.29.214.1
+3   10.59 ms halifax.leaf.canada.psi.net (154.11.2.254)
+4   10.71 ms QUBCPQAJDR02.bb.telus.com (154.11.15.73)
+5   10.60 ms pages-custom-25.weebly.com (199.34.228.73)
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 87.76 seconds
+Nmap done: 1 IP address (1 host up) scanned in 91.33 seconds
 </pre>
         </div>
         
         <div class="section">
             <h2>Web Enumeration</h2>
-            <pre>Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-22 16:41 PST
+            <pre>Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-23 17:16 PST
 Nmap scan report for plantedmeals.ca (199.34.228.73)
-Host is up (0.0095s latency).
+Host is up (0.0086s latency).
 rDNS record for 199.34.228.73: pages-custom-25.weebly.com
 
 PORT    STATE SERVICE
 80/tcp  open  http
-| http-methods: 
-|_  Supported Methods: GET HEAD POST OPTIONS
 | http-headers: 
---more--</pre>
-            <span class="toggle" onclick="toggleVisibility('Web Enumeration')">Show More</span> 
-            <pre id="Web Enumeration" class="output">Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-22 16:41 PST
-Nmap scan report for plantedmeals.ca (199.34.228.73)
-Host is up (0.0095s latency).
-rDNS record for 199.34.228.73: pages-custom-25.weebly.com
-
-PORT    STATE SERVICE
-80/tcp  open  http
-| http-methods: 
-|_  Supported Methods: GET HEAD POST OPTIONS
-| http-headers: 
-|   Date: Sun, 23 Feb 2025 00:41:41 GMT
+|   Date: Mon, 24 Feb 2025 01:16:59 GMT
 |   Content-Type: text/html; charset=iso-8859-1
 |   Transfer-Encoding: chunked
 |   Connection: close
 |   Location: http://www.plantedmeals.ca/
-|   CF-Ray: 91632bf35e8f2db1-YVR
+|   CF-Ray: 916b9d07c880491d-YVR
 |   CF-Cache-Status: BYPASS
 |   Vary: Accept-Encoding
-|   Set-Cookie: __cf_bm=qa8n64uwDdoj0_ieEqUqt05Qif.YgoqRTTmGKpP_cwE-1740271301-1.0.1.1-eCcfRgJNwaZpiNYcoYA_cehY8U5xsBdYuGBmsUx3pxvG9Sx42bMz9kC9P1V6O5n81fOvLBhCy1.Dyk1SAawxYw; path=/; expires=Sun, 23-Feb-25 01:11:41 GMT; domain=.plantedmeals.ca; HttpOnly
+|   Set-Cookie: __cf_bm=1OAhmws0bL.okKs5VbfFSnouVX1ZCxOq.xMoOJAkAag-1740359819-1.0.1.1-FYXEPQR6hdCxaED0VY0l9AZrt_1c07tXs0GXJas9XO4JluVrKQ5InKswB3YYpOuhm3Cga66iWPH7bFlOQYKhxQ; path=/; expires=Mon, 24-Feb-25 01:46:59 GMT; domain=.plantedmeals.ca; HttpOnly
 |   Server: cloudflare
 |   
 |_  (Request type: GET)
 |_http-title: Did not follow redirect to http://www.plantedmeals.ca/
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
 443/tcp open  https
 |_http-title: Did not follow redirect to https://www.plantedmeals.ca/
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
 | http-headers: 
-|   Date: Sun, 23 Feb 2025 00:41:41 GMT
+|   Date: Mon, 24 Feb 2025 01:16:59 GMT
 |   Content-Type: text/html; charset=iso-8859-1
 |   Transfer-Encoding: chunked
 |   Connection: close
 |   Location: https://www.plantedmeals.ca/
-|   CF-Ray: 91632bf36f392d66-YVR
+|   CF-Ray: 916b9d06eb8b2da7-YVR
 |   CF-Cache-Status: BYPASS
 |   Vary: Accept-Encoding
-|   Set-Cookie: __cf_bm=OCIRVDcKEmPWHR_zOr3uG4LdmwGmlX49UUSG8vJAUWQ-1740271301-1.0.1.1-ppUsZKn2k81Xbk_FMNClK7EqhrQv1glgim3XPEgHJ7rMYNJwjKqIuTbrpchY59yjcw.yGyLcDO0v.SHJBINzMQ; path=/; expires=Sun, 23-Feb-25 01:11:41 GMT; domain=.plantedmeals.ca; HttpOnly; Secure; SameSite=None
+|   Set-Cookie: __cf_bm=WYf.Ov_LGVnG.Q1LgUwqgAM0kYnagmFsUymK9wNYNcM-1740359819-1.0.1.1-hFPpoEgDqtaAM5KxRPaBRB36XmDIdkC2jvq4QFik2aVYm_ZyzXc4WIDQ7GIIvKsdF32g3TW24X2QILKlC9h5.w; path=/; expires=Mon, 24-Feb-25 01:46:59 GMT; domain=.plantedmeals.ca; HttpOnly; Secure; SameSite=None
 |   Server: cloudflare
 |   
 |_  (Request type: GET)
-| http-methods: 
-|_  Supported Methods: GET HEAD POST OPTIONS
 
-Nmap done: 1 IP address (1 host up) scanned in 1.17 seconds
+Nmap done: 1 IP address (1 host up) scanned in 1.21 seconds
 </pre>
         </div>
         
         <div class="section">
             <h2>DNS Enumeration</h2>
-            <pre>Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-22 16:41 PST
+            <pre>Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-23 17:16 PST
 Nmap scan report for plantedmeals.ca (199.34.228.73)
-Host is up (0.0089s latency).
-rDNS record for 199.34.228.73: pages-custom-25.weebly.com
-
-PORT   STATE    SERVICE
-53/tcp filtered domain
-
-Host script results:
-| dns-brute: 
---more--</pre>
-            <span class="toggle" onclick="toggleVisibility('DNS Enumeration')">Show More</span> 
-            <pre id="DNS Enumeration" class="output">Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-22 16:41 PST
-Nmap scan report for plantedmeals.ca (199.34.228.73)
-Host is up (0.0089s latency).
+Host is up (0.019s latency).
 rDNS record for 199.34.228.73: pages-custom-25.weebly.com
 
 PORT   STATE    SERVICE
@@ -227,27 +166,23 @@ Host script results:
 |     shop.plantedmeals.ca - 3.33.161.45
 |_    shop.plantedmeals.ca - 35.71.150.51
 
-Nmap done: 1 IP address (1 host up) scanned in 1.46 seconds
+Nmap done: 1 IP address (1 host up) scanned in 1.52 seconds
 </pre>
         </div>
         
         <div class="section">
             <h2>Vulnerability Scan</h2>
-            <pre>Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-22 16:41 PST
+            <pre>Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-23 17:17 PST
+Stats: 0:00:02 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
+Connect Scan Timing: About 41.40% done; ETC: 17:17 (0:00:03 remaining)
+Stats: 0:00:02 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
+Connect Scan Timing: About 43.00% done; ETC: 17:17 (0:00:03 remaining)
+Stats: 0:00:02 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
+Connect Scan Timing: About 43.85% done; ETC: 17:17 (0:00:03 remaining)
+Stats: 0:00:03 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
+Connect Scan Timing: About 78.10% done; ETC: 17:17 (0:00:01 remaining)
 Nmap scan report for plantedmeals.ca (199.34.228.73)
-Host is up (0.012s latency).
-rDNS record for 199.34.228.73: pages-custom-25.weebly.com
-Not shown: 996 filtered tcp ports (no-response)
-PORT     STATE SERVICE  VERSION
-80/tcp   open  http     Cloudflare http proxy
-|_http-server-header: cloudflare
-443/tcp  open  ssl/http Cloudflare http proxy
-|_http-server-header: cloudflare
---more--</pre>
-            <span class="toggle" onclick="toggleVisibility('Vulnerability Scan')">Show More</span> 
-            <pre id="Vulnerability Scan" class="output">Starting Nmap 7.92 ( https://nmap.org ) at 2025-02-22 16:41 PST
-Nmap scan report for plantedmeals.ca (199.34.228.73)
-Host is up (0.012s latency).
+Host is up (0.014s latency).
 rDNS record for 199.34.228.73: pages-custom-25.weebly.com
 Not shown: 996 filtered tcp ports (no-response)
 PORT     STATE SERVICE  VERSION
@@ -261,15 +196,13 @@ PORT     STATE SERVICE  VERSION
 |_http-server-header: cloudflare
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 31.31 seconds
+Nmap done: 1 IP address (1 host up) scanned in 31.39 seconds
 </pre>
         </div>
         
         <div class="section">
             <h2>Firewall Evasion Scan</h2>
             <pre>Error executing command: Command 'nmap -f --mtu 16 plantedmeals.ca' returned non-zero exit status 1.</pre>
-             
-            <pre id="Firewall Evasion Scan" class="output">Error executing command: Command 'nmap -f --mtu 16 plantedmeals.ca' returned non-zero exit status 1.</pre>
         </div>
         
         <div class="section">
@@ -279,19 +212,7 @@ Nmap done: 1 IP address (1 host up) scanned in 31.31 seconds
 + Target IP:          199.34.228.73
 + Target Hostname:    plantedmeals.ca
 + Target Port:        80
-+ Start Time:         2025-02-22 16:42:14 (GMT-8)
----------------------------------------------------------------------------
-+ Server: cloudflare
-+ IP address found in the '__cf_bm' cookie. The IP is "1.0.1.1".
-+ IP address found in the 'set-cookie' header. The IP is "1.0.1.1".
---more--</pre>
-            <span class="toggle" onclick="toggleVisibility('Nikto Scan (Basic)')">Show More</span> 
-            <pre id="Nikto Scan (Basic)" class="output">- Nikto v2.1.6
----------------------------------------------------------------------------
-+ Target IP:          199.34.228.73
-+ Target Hostname:    plantedmeals.ca
-+ Target Port:        80
-+ Start Time:         2025-02-22 16:42:14 (GMT-8)
++ Start Time:         2025-02-23 17:17:32 (GMT-8)
 ---------------------------------------------------------------------------
 + Server: cloudflare
 + IP address found in the '__cf_bm' cookie. The IP is "1.0.1.1".
@@ -300,16 +221,16 @@ Nmap done: 1 IP address (1 host up) scanned in 31.31 seconds
 + The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
 + The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
 + Root page / redirects to: http://www.plantedmeals.ca/
-+ IP address found in the 'content-security-policy-report-only' header. The IP is "1.0.1.1".
 + IP address found in the 'report-to' header. The IP is "1.0.1.1".
-+ Uncommon header 'report-to' found, with contents: {"endpoints":[{"url":"https:\/\/csp-reporting.cloudflare.com\/cdn-cgi\/script_monitor\/report?m=CagQhy0YznCZzimiWzEA8eVLLdsBjSCo5IZLU1TDJHE-1740271352-1.0.1.1-nnGKNeGk5t82wWBNF73D05tfo69QXoHgGrAlHDzGsn45xy893M2Ne3ZYn.zlFMw6xHOkdTsrlebZNdlokskSQt7TL.mNSZ3Gr064ka2ddhWsvt60hvDZ3yIx.7JGZMSGrL_gThBfcIXwbnxP_mFRvA"}],"group":"cf-csp-endpoint","max_age":86400}
++ IP address found in the 'content-security-policy-report-only' header. The IP is "1.0.1.1".
++ Uncommon header 'report-to' found, with contents: {"endpoints":[{"url":"https:\/\/csp-reporting.cloudflare.com\/cdn-cgi\/script_monitor\/report?m=5HEIQJjt83AO2EKF0bqCOudNMNCpAEgpllQ09IT11Mk-1740359854-1.0.1.1-ASjl9ip_KWSYapHKI5qM0xV_d4DQWf4F0ya.6OuDNrW9q5LnfqhGYCXROYd012OJZ9QCC_2y_9zW95DF60C3nxP4o2sskqI_Eq3BK5xBZ6F9o88gaz5FeuaOXlvQ_Mwh7q9LHv3E95B1lkcABdVOUQ"}],"group":"cf-csp-endpoint","max_age":86400}
 + No CGI Directories found (use '-C all' to force check all possible dirs)
 + Uncommon header 'surrogate-control' found, with contents: max-age=60
 + Cookie language created without the httponly flag
 + Cookie cookie-consent created without the httponly flag
-+ Uncommon header 'x-host' found, with contents: blu52.sf2p.intern.weebly.net
++ Uncommon header 'x-host' found, with contents: blu135.sf2p.intern.weebly.net
 + 7785 requests: 0 error(s) and 12 item(s) reported on remote host
-+ End Time:           2025-02-22 16:52:24 (GMT-8) (610 seconds)
++ End Time:           2025-02-23 17:29:13 (GMT-8) (701 seconds)
 ---------------------------------------------------------------------------
 + 1 host(s) tested
 </pre>
@@ -326,19 +247,7 @@ Nmap done: 1 IP address (1 host up) scanned in 31.31 seconds
 + SSL Info:        Subject:  /CN=www.plantedmeals.ca
                    Ciphers:  TLS_AES_256_GCM_SHA384
                    Issuer:   /C=US/O=Let's Encrypt/CN=R10
-+ Start Time:         2025-02-22 16:52:25 (GMT-8)
---more--</pre>
-            <span class="toggle" onclick="toggleVisibility('Nikto Scan (SSL)')">Show More</span> 
-            <pre id="Nikto Scan (SSL)" class="output">- Nikto v2.1.6
----------------------------------------------------------------------------
-+ Target IP:          199.34.228.73
-+ Target Hostname:    plantedmeals.ca
-+ Target Port:        443
----------------------------------------------------------------------------
-+ SSL Info:        Subject:  /CN=www.plantedmeals.ca
-                   Ciphers:  TLS_AES_256_GCM_SHA384
-                   Issuer:   /C=US/O=Let's Encrypt/CN=R10
-+ Start Time:         2025-02-22 16:52:25 (GMT-8)
++ Start Time:         2025-02-23 17:29:14 (GMT-8)
 ---------------------------------------------------------------------------
 + Server: cloudflare
 + IP address found in the '__cf_bm' cookie. The IP is "1.0.1.1".
@@ -352,7 +261,7 @@ Nmap done: 1 IP address (1 host up) scanned in 31.31 seconds
 + No CGI Directories found (use '-C all' to force check all possible dirs)
 + Uncommon header 'surrogate-control' found, with contents: max-age=60
 + Scan terminated:  20 error(s) and 8 item(s) reported on remote host
-+ End Time:           2025-02-22 16:53:20 (GMT-8) (55 seconds)
++ End Time:           2025-02-23 17:30:11 (GMT-8) (57 seconds)
 ---------------------------------------------------------------------------
 + 1 host(s) tested
 </pre>
@@ -361,16 +270,11 @@ Nmap done: 1 IP address (1 host up) scanned in 31.31 seconds
         <div class="section">
             <h2>WhatWeb Scan</h2>
             <pre>[1m[34mhttp://plantedmeals.ca[0m [301 Moved Permanently] [1mCookies[0m[[0m[22m__cf_bm[0m], [1mCountry[0m[[0m[22mUNITED STATES[0m][[1m[31mUS[0m], [1mHTTPServer[0m[[1m[36mcloudflare[0m], [1mHttpOnly[0m[[0m[22m__cf_bm[0m], [1mIP[0m[[0m[22m199.34.228.73[0m], [1mRedirectLocation[0m[[0m[22mhttp://www.plantedmeals.ca/[0m], [1mTitle[0m[[1m[33m301 Moved Permanently[0m], [1mUncommonHeaders[0m[[0m[22mcf-ray,cf-cache-status[0m]
-[1m[34mhttp://www.plantedmeals.ca/[0m [301 Moved Permanently] [1mCookies[0m[[0m[22m__cf_bm,is_mobile[0m], [1mCountry[0m[[0m[22mUNITED STATES[0m][[1m[31mUS[0m], [1mHTML5[0m, [1mHTTPServer[0m[[1m[36mcloudflare[0m], [1mHttpOnly[0m[[0m[22m__cf_bm[0m], [1mIP[0m[[0m[22m199.34.228.73[0m], [1mMeta-Refresh-Redirect[0m[[0m[22mhttps://www.plantedmeals.ca/[0m], [1mRedirectLocation[0m[[0m[22mhttps://www.plantedmeals.ca/[0m], [1mTitle[0m[[1m[33mRedirecting to https://www.plantedmeals.ca/[0m], [1mUncommonHeaders[0m[[0m[22mcf-ray,cf-cache-status,x-host[0m], [1mWeebly[0m, [1mX-Host[0m[[0m[22mblu77.sf2p.intern.weebly.net[0m], [1mX-UA-Compatible[0m[[0m[22mIE=edge,chrome=1[0m]
-[1m[34mhttps://www.plantedmeals.ca/[0m [200 OK] [1mCloudFlare[0m, [1mCookies[0m[[0m[22m__cf_bm,is_mobile,language[0m], [1mCountry[0m[[0m[22mUNITED STATES[0m][[1m[31mUS[0m], [1mGoogle-Analytics[0m[[1m[36mUA-7870337-1[0m], [1mHTML5[0m, [1mHTTPServer[0m[[1m[36mcloudflare[0m], [1mHttpOnly[0m[[0m[22m__cf_bm[0m], [1mIP[0m[[0m[22m199.34.228.73[0m], [1mJQuery[0m[[1m[32m1.8.3[0m], [1mOpen-Graph-Protocol[0m, [1mScript[0m[[0m[22mtext/javascript[0m], [1mTitle[0m[[1m[33mPlanted Meals - Plant-Based Meal Delivery Service &amp; Greater Vancouver Area[0m], [1mUncommonHeaders[0m[[0m[22mcf-ray,cf-cache-status,x-host[0m], [1mWeebly[0m, [1mX-Host[0m[[0m[22mgrn110.sf2p.intern.weebly.net[0m], [1mX-UA-Compatible[0m[[0m[22mIE=edge,chrome=1[0m]
-</pre>
-             
-            <pre id="WhatWeb Scan" class="output">[1m[34mhttp://plantedmeals.ca[0m [301 Moved Permanently] [1mCookies[0m[[0m[22m__cf_bm[0m], [1mCountry[0m[[0m[22mUNITED STATES[0m][[1m[31mUS[0m], [1mHTTPServer[0m[[1m[36mcloudflare[0m], [1mHttpOnly[0m[[0m[22m__cf_bm[0m], [1mIP[0m[[0m[22m199.34.228.73[0m], [1mRedirectLocation[0m[[0m[22mhttp://www.plantedmeals.ca/[0m], [1mTitle[0m[[1m[33m301 Moved Permanently[0m], [1mUncommonHeaders[0m[[0m[22mcf-ray,cf-cache-status[0m]
-[1m[34mhttp://www.plantedmeals.ca/[0m [301 Moved Permanently] [1mCookies[0m[[0m[22m__cf_bm,is_mobile[0m], [1mCountry[0m[[0m[22mUNITED STATES[0m][[1m[31mUS[0m], [1mHTML5[0m, [1mHTTPServer[0m[[1m[36mcloudflare[0m], [1mHttpOnly[0m[[0m[22m__cf_bm[0m], [1mIP[0m[[0m[22m199.34.228.73[0m], [1mMeta-Refresh-Redirect[0m[[0m[22mhttps://www.plantedmeals.ca/[0m], [1mRedirectLocation[0m[[0m[22mhttps://www.plantedmeals.ca/[0m], [1mTitle[0m[[1m[33mRedirecting to https://www.plantedmeals.ca/[0m], [1mUncommonHeaders[0m[[0m[22mcf-ray,cf-cache-status,x-host[0m], [1mWeebly[0m, [1mX-Host[0m[[0m[22mblu77.sf2p.intern.weebly.net[0m], [1mX-UA-Compatible[0m[[0m[22mIE=edge,chrome=1[0m]
-[1m[34mhttps://www.plantedmeals.ca/[0m [200 OK] [1mCloudFlare[0m, [1mCookies[0m[[0m[22m__cf_bm,is_mobile,language[0m], [1mCountry[0m[[0m[22mUNITED STATES[0m][[1m[31mUS[0m], [1mGoogle-Analytics[0m[[1m[36mUA-7870337-1[0m], [1mHTML5[0m, [1mHTTPServer[0m[[1m[36mcloudflare[0m], [1mHttpOnly[0m[[0m[22m__cf_bm[0m], [1mIP[0m[[0m[22m199.34.228.73[0m], [1mJQuery[0m[[1m[32m1.8.3[0m], [1mOpen-Graph-Protocol[0m, [1mScript[0m[[0m[22mtext/javascript[0m], [1mTitle[0m[[1m[33mPlanted Meals - Plant-Based Meal Delivery Service &amp; Greater Vancouver Area[0m], [1mUncommonHeaders[0m[[0m[22mcf-ray,cf-cache-status,x-host[0m], [1mWeebly[0m, [1mX-Host[0m[[0m[22mgrn110.sf2p.intern.weebly.net[0m], [1mX-UA-Compatible[0m[[0m[22mIE=edge,chrome=1[0m]
+[1m[34mhttp://www.plantedmeals.ca/[0m [301 Moved Permanently] [1mCookies[0m[[0m[22m__cf_bm,is_mobile[0m], [1mCountry[0m[[0m[22mUNITED STATES[0m][[1m[31mUS[0m], [1mHTML5[0m, [1mHTTPServer[0m[[1m[36mcloudflare[0m], [1mHttpOnly[0m[[0m[22m__cf_bm[0m], [1mIP[0m[[0m[22m199.34.228.73[0m], [1mMeta-Refresh-Redirect[0m[[0m[22mhttps://www.plantedmeals.ca/[0m], [1mRedirectLocation[0m[[0m[22mhttps://www.plantedmeals.ca/[0m], [1mTitle[0m[[1m[33mRedirecting to https://www.plantedmeals.ca/[0m], [1mUncommonHeaders[0m[[0m[22mcf-ray,cf-cache-status,x-host[0m], [1mWeebly[0m, [1mX-Host[0m[[0m[22mblu147.sf2p.intern.weebly.net[0m], [1mX-UA-Compatible[0m[[0m[22mIE=edge,chrome=1[0m]
+[1m[34mhttps://www.plantedmeals.ca/[0m [200 OK] [1mCloudFlare[0m, [1mCookies[0m[[0m[22m__cf_bm,is_mobile,language[0m], [1mCountry[0m[[0m[22mUNITED STATES[0m][[1m[31mUS[0m], [1mGoogle-Analytics[0m[[1m[36mUA-7870337-1[0m], [1mHTML5[0m, [1mHTTPServer[0m[[1m[36mcloudflare[0m], [1mHttpOnly[0m[[0m[22m__cf_bm[0m], [1mIP[0m[[0m[22m199.34.228.73[0m], [1mJQuery[0m[[1m[32m1.8.3[0m], [1mOpen-Graph-Protocol[0m, [1mScript[0m[[0m[22mtext/javascript[0m], [1mTitle[0m[[1m[33mPlanted Meals - Plant-Based Meal Delivery Service &amp; Greater Vancouver Area[0m], [1mUncommonHeaders[0m[[0m[22mcf-ray,cf-cache-status,x-host[0m], [1mWeebly[0m, [1mX-Host[0m[[0m[22mblu146.sf2p.intern.weebly.net[0m], [1mX-UA-Compatible[0m[[0m[22mIE=edge,chrome=1[0m]
 </pre>
         </div>
-        <h2>Semgrep Security Findings</h2><h3>rails (Severity: WARNING)</h3><p><b>app/controllers/admin_bag_trackers_controller.rb</b>: Lines 10, 14</p><p><b>app/controllers/admin_gift_cards_controller.rb</b>: Lines 24, 28, 38, 43</p><p><b>app/controllers/admin_orders_controller.rb</b>: Lines 15, 32, 33, 37, 41, 48, 54</p><p><b>app/controllers/admin_referrals_controller.rb</b>: Lines 22, 35, 39</p><p><b>app/controllers/allergies_controller.rb</b>: Lines 18, 34, 36</p><p><b>app/controllers/bag_trackers_controller.rb</b>: Lines 20, 25, 35, 44</p><p><b>app/controllers/coupons_controller.rb</b>: Lines 27, 31, 41</p><p><b>app/controllers/customer_orders_controller.rb</b>: Lines 10</p><p><b>app/controllers/customers_controller.rb</b>: Lines 11, 18, 21, 30, 33, 39, 40, 44, 47</p><p><b>app/controllers/driver_deliveries_controller.rb</b>: Lines 34, 42, 50, 54, 67, 71, 84, 98, 112, 114, 126, 144, 155</p><p><b>app/controllers/eating_instructions_controller.rb</b>: Lines 23, 27, 36</p><p><b>app/controllers/emails_controller.rb</b>: Lines 9, 13, 16, 23, 28, 43</p><p><b>app/controllers/employee_prep_tasks_controller.rb</b>: Lines 24, 45, 52, 57, 63</p><p><b>app/controllers/fair_offers_controller.rb</b>: Lines 12</p><p><b>app/controllers/food_categories_controller.rb</b>: Lines 23, 27, 37</p><p><b>app/controllers/food_items_controller.rb</b>: Lines 5, 14, 21, 22, 29</p><p><b>app/controllers/food_reviews_controller.rb</b>: Lines 9, 14, 15, 22, 30, 31, 35, 36, 51</p><p><b>app/controllers/foods_controller.rb</b>: Lines 23, 28, 31, 40, 44</p><p><b>app/controllers/gift_cards_controller.rb</b>: Lines 13, 20, 24, 27, 34, 41</p><p><b>app/controllers/ingredient_categories_controller.rb</b>: Lines 46</p><p><b>app/controllers/ingredient_groups_controller.rb</b>: Lines 46</p><p><b>app/controllers/ingredient_informations_controller.rb</b>: Lines 5, 9, 11, 16, 19, 21</p><p><b>app/controllers/ingredients_controller.rb</b>: Lines 10, 11, 73, 82, 91, 99, 117</p><p><b>app/controllers/labour_targets_controller.rb</b>: Lines 29, 33, 43</p><p><b>app/controllers/member_weekly_menus_controller.rb</b>: Lines 37, 45, 50, 53, 61, 93, 109, 124, 134, 141, 160, 162, 169, 172, 180, 182</p><p><b>app/controllers/monthly_reports_controller.rb</b>: Lines 45</p><p><b>app/controllers/notices_controller.rb</b>: Lines 29, 63</p><p><b>app/controllers/one_time_purchases_controller.rb</b>: Lines 50, 57, 62, 65</p><p><b>app/controllers/orders_controller.rb</b>: Lines 113, 118, 122, 124, 129, 154</p><p><b>app/controllers/pdfs_controller.rb</b>: Lines 11, 30</p><p><b>app/controllers/plans_controller.rb</b>: Lines 12, 19, 23, 26</p><p><b>app/controllers/plating_guides_controller.rb</b>: Lines 25, 29, 39, 53, 57</p><p><b>app/controllers/plating_stats_controller.rb</b>: Lines 7, 10, 17, 24, 31, 37</p><p><b>app/controllers/prep_handlers_controller.rb</b>: Lines 33, 70, 85, 117, 144, 151</p><p><b>app/controllers/prep_tasks_controller.rb</b>: Lines 41, 52, 56, 59, 66, 70, 73</p><p><b>app/controllers/products_controller.rb</b>: Lines 10, 14, 23, 24, 28, 29, 46, 48</p><p><b>app/controllers/recipe_ingredients_controller.rb</b>: Lines 7, 15, 18, 22, 23, 26, 47</p><p><b>app/controllers/recipe_instructions_controller.rb</b>: Lines 5, 9, 13, 14, 18, 19, 22, 26, 27, 30</p><p><b>app/controllers/recipes_controller.rb</b>: Lines 7, 12, 18, 22, 29, 35, 38</p><p><b>app/controllers/referrals_controller.rb</b>: Lines 29, 42</p><p><b>app/controllers/stripes_controller.rb</b>: Lines 37, 164</p><p><b>app/controllers/temp_orders_controller.rb</b>: Lines 6, 13, 25, 35, 47, 64, 69, 77, 84, 88, 92, 101</p><p><b>app/controllers/thank_you_controller.rb</b>: Lines 6</p><p><b>app/controllers/users_controller.rb</b>: Lines 10, 16, 30, 33, 40, 48, 56</p><p><b>app/controllers/vendor_dashboards_controller.rb</b>: Lines 34, 43, 46, 50</p><p><b>app/controllers/vendor_deliveries_controller.rb</b>: Lines 8, 12</p><p><b>app/controllers/vendor_ingredient_orders_controller.rb</b>: Lines 6, 10, 12</p><p><b>app/controllers/vendors_controller.rb</b>: Lines 88, 92, 95, 117</p><p><b>app/controllers/wage_informations_controller.rb</b>: Lines 12, 17, 28</p><p><b>app/controllers/wallets_controller.rb</b>: Lines 5, 8, 16, 17</p><p><b>app/controllers/weekly_menus_controller.rb</b>: Lines 26, 30, 37, 45, 60, 66, 72</p><p><b>app/controllers/work_hours_controller.rb</b>: Lines 12, 18, 23, 24, 32, 37, 44, 60, 61, 65, 66, 70, 84, 89, 90, 92, 96</p><p><b>app/controllers/work_schedules_controller.rb</b>: Lines 88, 149</p><p><b>app/helpers/analytics_helper.rb</b>: Lines 70, 86, 100, 116, 130, 144, 161</p><p><b>app/helpers/application_helper.rb</b>: Lines 38, 66, 68, 187, 560, 886, 897, 917, 926, 1044</p><p><b>app/helpers/products_helper.rb</b>: Lines 41</p><p><b>app/helpers/thank_you_helper.rb</b>: Lines 13, 20</p><p><b>app/mailers/automation_mailer.rb</b>: Lines 6, 7, 8</p><p><b>app/mailers/notification_mailer.rb</b>: Lines 14</p><p><b>app/mailers/purchased_notification_mailer.rb</b>: Lines 8</p><p><b>app/mailers/referral_mailer.rb</b>: Lines 10, 21</p><p><b>app/views/admin_gift_cards/index.html.erb</b>: Lines 33</p><p><b>app/views/automation_mailer/send_email.html.erb</b>: Lines 1</p><p><b>app/views/devise/sessions/new.html.erb</b>: Lines 36</p><p><b>app/views/driver_deliveries/driver_index.html.erb</b>: Lines 24, 96, 209</p><p><b>app/views/emails/index.html.erb</b>: Lines 36</p><p><b>app/views/emails/show.html.erb</b>: Lines 1</p><p><b>app/views/gift_card_mailer/gift_card_email.html.erb</b>: Lines 1091, 1109, 1127</p><p><b>app/views/gift_cards/new.html.erb</b>: Lines 34, 34</p><p><b>app/views/gift_cards/show.html.erb</b>: Lines 72, 72, 73, 77, 87, 113, 113</p><p><b>app/views/layouts/_checkout_progress.html.erb</b>: Lines 4, 5, 5, 6, 6, 7, 9, 10, 10, 11, 12, 14, 15, 16, 17, 19, 20, 21, 22, 24, 25, 26, 27, 29, 30, 31, 32, 34, 35, 36, 37</p><p><b>app/views/layouts/_header.html.erb</b>: Lines 7</p><p><b>app/views/layouts/application.html.erb</b>: Lines 18, 18</p><p><b>app/views/layouts/index_layout.html.erb</b>: Lines 35, 35</p><p><b>app/views/layouts/inventory_layout.html.erb</b>: Lines 31, 31</p><p><b>app/views/layouts/send_menu_recommendation_template.html.erb</b>: Lines 911</p><p><b>app/views/layouts/weekly_menu_section/_item.html.erb</b>: Lines 28</p><p><b>app/views/layouts/weekly_menu_section/_meals_table.html.erb</b>: Lines 42</p><p><b>app/views/member_weekly_menus/_checkout_summary.html.erb</b>: Lines 163, 163, 164, 169, 186</p><p><b>app/views/member_weekly_menus/_with_weekly_menu.html.erb</b>: Lines 80</p><p><b>app/views/notices/show.html.erb</b>: Lines 18</p><p><b>app/views/notification_mailer/weekly_food_review_notification.html.erb</b>: Lines 871, 878, 914</p><p><b>app/views/orders/_orders_table.html.erb</b>: Lines 22</p><p><b>app/views/plating_guides/_plating_ingredient_fields.html.erb</b>: Lines 8</p><p><b>app/views/prep_handlers/_employee_task_table_row.html.erb</b>: Lines 112</p><p><b>app/views/prep_handlers/_ready_task_table_row.html.erb</b>: Lines 1</p><p><b>app/views/prep_handlers/_veggie_table_row.html.erb</b>: Lines 5, 6, 21</p><p><b>app/views/prep_tasks/_edit_form_partial.html.erb</b>: Lines 4</p><p><b>app/views/prep_tasks/index.html.erb</b>: Lines 29, 48</p><p><b>app/views/products/_checkout_summary.html.erb</b>: Lines 57, 57, 58, 63, 73</p><p><b>app/views/products/checkout.html.erb</b>: Lines 37, 68</p><p><b>app/views/products/delivery.html.erb</b>: Lines 334</p><p><b>app/views/products/review_checkout.html.erb</b>: Lines 31</p><p><b>app/views/referral_mailer/_meals.html.erb</b>: Lines 23</p><p><b>app/views/referrals/new_referral.html.erb</b>: Lines 114, 114, 115, 120</p><p><b>app/views/settings/billing_edit.html.erb</b>: Lines 38, 38, 43</p><p><b>app/views/temp_orders/_bec_menu.html.erb</b>: Lines 57</p><p><b>app/views/tv_prep_status_dashboards/_veggie_row.html.erb</b>: Lines 1, 2</p><p><b>app/views/users/_form.html.erb</b>: Lines 214</p><p><b>app/views/vendors/_form.html.erb</b>: Lines 85</p><p><b>app/views/work_schedules/index.html.erb</b>: Lines 68</p><p><b>config/environments/development.rb</b>: Lines 13</p><p><b>config/environments/test.rb</b>: Lines 22</p><h3>lang (Severity: WARNING)</h3><p><b>app/controllers/bag_trackers_controller.rb</b>: Lines 6</p><p><b>app/controllers/orders_controller.rb</b>: Lines 102</p><p><b>coverage/assets/0.12.2/application.js</b>: Lines 1, 1, 1, 3, 4, 4, 4, 5, 5</p><p><b>coverage/assets/0.12.3/application.js</b>: Lines 1, 1, 1, 3, 4, 4, 4, 5, 5</p><p><b>pentesting6.py</b>: Lines 18</p><h3>browser (Severity: ERROR)</h3><p><b>coverage/assets/0.12.2/application.js</b>: Lines 3, 4</p><p><b>coverage/assets/0.12.3/application.js</b>: Lines 3, 4</p>
+        <h2>Semgrep Security Findings</h2><h3>rails (Severity: WARNING)</h3><p><b>app/controllers/admin_bag_trackers_controller.rb</b>: Lines 10, 14</p><p><b>app/controllers/admin_gift_cards_controller.rb</b>: Lines 24, 28, 38, 43</p><p><b>app/controllers/admin_orders_controller.rb</b>: Lines 15, 32, 33, 37, 41, 48, 54</p><p><b>app/controllers/admin_referrals_controller.rb</b>: Lines 22, 35, 39</p><p><b>app/controllers/allergies_controller.rb</b>: Lines 18, 34, 36</p><p><b>app/controllers/bag_trackers_controller.rb</b>: Lines 20, 25, 35, 44</p><p><b>app/controllers/coupons_controller.rb</b>: Lines 27, 31, 41</p><p><b>app/controllers/customer_orders_controller.rb</b>: Lines 10</p><p><b>app/controllers/customers_controller.rb</b>: Lines 11, 18, 21, 30, 33, 39, 40, 44, 47</p><p><b>app/controllers/driver_deliveries_controller.rb</b>: Lines 34, 42, 50, 54, 67, 71, 84, 98, 112, 114, 126, 144, 155</p><p><b>app/controllers/eating_instructions_controller.rb</b>: Lines 23, 27, 36</p><p><b>app/controllers/emails_controller.rb</b>: Lines 9, 13, 16, 23, 28, 43</p><p><b>app/controllers/employee_prep_tasks_controller.rb</b>: Lines 24, 45, 52, 57, 63</p><p><b>app/controllers/fair_offers_controller.rb</b>: Lines 12</p><p><b>app/controllers/food_categories_controller.rb</b>: Lines 23, 27, 37</p><p><b>app/controllers/food_items_controller.rb</b>: Lines 5, 14, 21, 22, 29</p><p><b>app/controllers/food_reviews_controller.rb</b>: Lines 9, 14, 15, 22, 30, 31, 35, 36, 51</p><p><b>app/controllers/foods_controller.rb</b>: Lines 23, 28, 31, 40, 44</p><p><b>app/controllers/gift_cards_controller.rb</b>: Lines 13, 20, 24, 27, 34, 41</p><p><b>app/controllers/ingredient_categories_controller.rb</b>: Lines 46</p><p><b>app/controllers/ingredient_groups_controller.rb</b>: Lines 46</p><p><b>app/controllers/ingredient_informations_controller.rb</b>: Lines 5, 9, 11, 16, 19, 21</p><p><b>app/controllers/ingredients_controller.rb</b>: Lines 10, 11, 73, 82, 91, 99, 117</p><p><b>app/controllers/labour_targets_controller.rb</b>: Lines 29, 33, 43</p><p><b>app/controllers/member_weekly_menus_controller.rb</b>: Lines 37, 45, 50, 53, 61, 93, 109, 124, 134, 141, 160, 162, 169, 172, 180, 182</p><p><b>app/controllers/monthly_reports_controller.rb</b>: Lines 45</p><p><b>app/controllers/notices_controller.rb</b>: Lines 29, 63</p><p><b>app/controllers/one_time_purchases_controller.rb</b>: Lines 50, 57, 62, 65</p><p><b>app/controllers/orders_controller.rb</b>: Lines 113, 118, 122, 124, 129, 154</p><p><b>app/controllers/pdfs_controller.rb</b>: Lines 11, 30</p><p><b>app/controllers/plans_controller.rb</b>: Lines 12, 19, 23, 26</p><p><b>app/controllers/plating_guides_controller.rb</b>: Lines 25, 29, 39, 53, 57</p><p><b>app/controllers/plating_stats_controller.rb</b>: Lines 7, 10, 17, 24, 31, 37</p><p><b>app/controllers/prep_handlers_controller.rb</b>: Lines 33, 70, 85, 117, 144, 151</p><p><b>app/controllers/prep_tasks_controller.rb</b>: Lines 41, 52, 56, 59, 66, 70, 73</p><p><b>app/controllers/products_controller.rb</b>: Lines 10, 14, 23, 24, 28, 29, 46, 48</p><p><b>app/controllers/recipe_ingredients_controller.rb</b>: Lines 7, 15, 18, 22, 23, 26, 47</p><p><b>app/controllers/recipe_instructions_controller.rb</b>: Lines 5, 9, 13, 14, 18, 19, 22, 26, 27, 30</p><p><b>app/controllers/recipes_controller.rb</b>: Lines 7, 12, 18, 22, 29, 35, 38</p><p><b>app/controllers/referrals_controller.rb</b>: Lines 29, 42</p><p><b>app/controllers/stripes_controller.rb</b>: Lines 37, 164</p><p><b>app/controllers/temp_orders_controller.rb</b>: Lines 6, 13, 25, 35, 47, 64, 69, 77, 84, 88, 92, 101</p><p><b>app/controllers/thank_you_controller.rb</b>: Lines 6</p><p><b>app/controllers/users_controller.rb</b>: Lines 10, 16, 30, 33, 40, 48, 56</p><p><b>app/controllers/vendor_dashboards_controller.rb</b>: Lines 34, 43, 46, 50</p><p><b>app/controllers/vendor_deliveries_controller.rb</b>: Lines 8, 12</p><p><b>app/controllers/vendor_ingredient_orders_controller.rb</b>: Lines 6, 10, 12</p><p><b>app/controllers/vendors_controller.rb</b>: Lines 88, 92, 95, 117</p><p><b>app/controllers/wage_informations_controller.rb</b>: Lines 12, 17, 28</p><p><b>app/controllers/wallets_controller.rb</b>: Lines 5, 8, 16, 17</p><p><b>app/controllers/weekly_menus_controller.rb</b>: Lines 26, 30, 37, 45, 60, 66, 72</p><p><b>app/controllers/work_hours_controller.rb</b>: Lines 12, 18, 23, 24, 32, 37, 44, 60, 61, 65, 66, 70, 84, 89, 90, 92, 96</p><p><b>app/controllers/work_schedules_controller.rb</b>: Lines 88, 149</p><p><b>app/helpers/analytics_helper.rb</b>: Lines 70, 86, 100, 116, 130, 144, 161</p><p><b>app/helpers/application_helper.rb</b>: Lines 38, 66, 68, 187, 560, 886, 897, 917, 926, 1044</p><p><b>app/helpers/products_helper.rb</b>: Lines 41</p><p><b>app/helpers/thank_you_helper.rb</b>: Lines 13, 20</p><p><b>app/mailers/automation_mailer.rb</b>: Lines 6, 7, 8</p><p><b>app/mailers/notification_mailer.rb</b>: Lines 14</p><p><b>app/mailers/purchased_notification_mailer.rb</b>: Lines 8</p><p><b>app/mailers/referral_mailer.rb</b>: Lines 10, 21</p><p><b>app/views/admin_gift_cards/index.html.erb</b>: Lines 33</p><p><b>app/views/automation_mailer/send_email.html.erb</b>: Lines 1</p><p><b>app/views/devise/sessions/new.html.erb</b>: Lines 36</p><p><b>app/views/driver_deliveries/driver_index.html.erb</b>: Lines 24, 96, 209</p><p><b>app/views/emails/index.html.erb</b>: Lines 36</p><p><b>app/views/emails/show.html.erb</b>: Lines 1</p><p><b>app/views/gift_card_mailer/gift_card_email.html.erb</b>: Lines 1091, 1109, 1127</p><p><b>app/views/gift_cards/new.html.erb</b>: Lines 34, 34</p><p><b>app/views/gift_cards/show.html.erb</b>: Lines 72, 72, 73, 77, 87, 113, 113</p><p><b>app/views/layouts/_checkout_progress.html.erb</b>: Lines 4, 5, 5, 6, 6, 7, 9, 10, 10, 11, 12, 14, 15, 16, 17, 19, 20, 21, 22, 24, 25, 26, 27, 29, 30, 31, 32, 34, 35, 36, 37</p><p><b>app/views/layouts/_header.html.erb</b>: Lines 7</p><p><b>app/views/layouts/application.html.erb</b>: Lines 18, 18</p><p><b>app/views/layouts/index_layout.html.erb</b>: Lines 35, 35</p><p><b>app/views/layouts/inventory_layout.html.erb</b>: Lines 31, 31</p><p><b>app/views/layouts/send_menu_recommendation_template.html.erb</b>: Lines 911</p><p><b>app/views/layouts/weekly_menu_section/_item.html.erb</b>: Lines 28</p><p><b>app/views/layouts/weekly_menu_section/_meals_table.html.erb</b>: Lines 42</p><p><b>app/views/member_weekly_menus/_checkout_summary.html.erb</b>: Lines 163, 163, 164, 169, 186</p><p><b>app/views/member_weekly_menus/_with_weekly_menu.html.erb</b>: Lines 80</p><p><b>app/views/notices/show.html.erb</b>: Lines 18</p><p><b>app/views/notification_mailer/weekly_food_review_notification.html.erb</b>: Lines 871, 878, 914</p><p><b>app/views/orders/_orders_table.html.erb</b>: Lines 22</p><p><b>app/views/plating_guides/_plating_ingredient_fields.html.erb</b>: Lines 8</p><p><b>app/views/prep_handlers/_employee_task_table_row.html.erb</b>: Lines 112</p><p><b>app/views/prep_handlers/_ready_task_table_row.html.erb</b>: Lines 1</p><p><b>app/views/prep_handlers/_veggie_table_row.html.erb</b>: Lines 5, 6, 21</p><p><b>app/views/prep_tasks/_edit_form_partial.html.erb</b>: Lines 4</p><p><b>app/views/prep_tasks/index.html.erb</b>: Lines 29, 48</p><p><b>app/views/products/_checkout_summary.html.erb</b>: Lines 57, 57, 58, 63, 73</p><p><b>app/views/products/checkout.html.erb</b>: Lines 37, 68</p><p><b>app/views/products/delivery.html.erb</b>: Lines 334</p><p><b>app/views/products/review_checkout.html.erb</b>: Lines 31</p><p><b>app/views/referral_mailer/_meals.html.erb</b>: Lines 23</p><p><b>app/views/referrals/new_referral.html.erb</b>: Lines 114, 114, 115, 120</p><p><b>app/views/settings/billing_edit.html.erb</b>: Lines 38, 38, 43</p><p><b>app/views/temp_orders/_bec_menu.html.erb</b>: Lines 57</p><p><b>app/views/tv_prep_status_dashboards/_veggie_row.html.erb</b>: Lines 1, 2</p><p><b>app/views/users/_form.html.erb</b>: Lines 214</p><p><b>app/views/vendors/_form.html.erb</b>: Lines 85</p><p><b>app/views/work_schedules/index.html.erb</b>: Lines 68</p><p><b>config/environments/development.rb</b>: Lines 13</p><p><b>config/environments/test.rb</b>: Lines 22</p><h3>lang (Severity: WARNING)</h3><p><b>app/controllers/bag_trackers_controller.rb</b>: Lines 6</p><p><b>app/controllers/orders_controller.rb</b>: Lines 102</p><p><b>coverage/assets/0.10.2/application.js</b>: Lines 17, 18, 18, 18, 18, 20, 1184, 1188, 1188, 1214, 1215</p><p><b>coverage/assets/0.12.2/application.js</b>: Lines 1, 1, 1, 3, 4, 4, 4, 5, 5</p><p><b>pentesting7.py</b>: Lines 17</p><h3>browser (Severity: ERROR)</h3><p><b>coverage/assets/0.10.2/application.js</b>: Lines 17, 19, 20, 20, 20, 1136, 1137, 1137, 1137, 1140, 1156, 1157, 1160, 1161, 1161, 1166, 1183, 1188, 1191, 1202, 1203, 1209, 1216, 1218, 1225, 1228, 1229</p><p><b>coverage/assets/0.12.2/application.js</b>: Lines 3, 4</p><h3>audit (Severity: INFO)</h3><p><b>coverage/assets/0.10.2/application.js</b>: Lines 1184</p>
         </div>
     </body>
     </html>
