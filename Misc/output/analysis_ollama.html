@@ -1,0 +1,50 @@
+
+    <html>
+    <head><title>Remediation Report</title></head>
+    <body>
+        <h1>Remediation Report</h1>
+        <pre>Based on the scan results, several vulnerabilities were identified:
+
+1. **Apache Struts2 RCE**:
+	* Severity: High
+	* Remediation Steps:
+		+ Check if the system is running an affected version of Apache Struts (version 2.x). If yes, upgrade to a supported version.
+		+ Disable or remove any unnecessary plugins and components that are not being used.
+		+ Ensure that the system is patched with the latest security patches.
+	* Final Summary: This vulnerability can allow remote code execution as the user running the web server. It is essential to patch this vulnerability as soon as possible.
+
+2. **Drupal SQL Injection**:
+	* Severity: High
+	* Remediation Steps:
+		+ Check if the system is running an affected version of Drupal (version 7.x or earlier). If yes, upgrade to a supported version.
+		+ Ensure that all modules and themes are up-to-date with the latest security patches.
+		+ Disable or remove any unnecessary modules and themes that are not being used.
+	* Final Summary: This vulnerability can allow an attacker to inject arbitrary SQL code, leading to data breaches or other serious issues.
+
+3. **Samba Remote Root Vulnerability**:
+	* Severity: Critical
+	* Remediation Steps:
+		+ Ensure that the system is running a supported version of Samba (version 4.x or later).
+		+ Patch the system with the latest security patches.
+		+ Disable or remove any unnecessary services and configurations that are not being used.
+	* Final Summary: This vulnerability can allow an attacker to gain remote root access, leading to complete compromise of the system.
+
+4. **Vulnerabilities in SMB (445/tcp) and RDP (3389/tcp)**:
+	* Severity: Medium
+	* Remediation Steps:
+		+ Ensure that the system is running a supported version of Windows or other operating system.
+		+ Patch the system with the latest security patches.
+		+ Disable or remove any unnecessary services and configurations that are not being used.
+	* Final Summary: These vulnerabilities can allow an attacker to gain unauthorized access to the system, leading to data breaches or other issues.
+
+5. **Cloudflare configuration vulnerability**:
+	* Severity: Low
+	* Remediation Steps:
+		+ Review Cloudflare settings and ensure that they are properly configured to prevent potential attacks.
+		+ Monitor Cloudflare logs for suspicious activity.
+	* Final Summary: This vulnerability can allow an attacker to bypass Cloudflare's security features, leading to unauthorized access to the system.
+
+In summary, the scan results indicate several high-severity vulnerabilities that need to be addressed immediately. It is essential to patch these vulnerabilities and ensure that all systems are running supported versions with the latest security patches. Additionally, it is recommended to review and update configurations for Cloudflare and other services to prevent potential attacks.</pre>
+    </body>
+    </html>
+    
