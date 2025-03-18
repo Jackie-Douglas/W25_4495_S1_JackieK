@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Security Scanner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        .block {
+            padding: 20px;
+            border-radius: 10px;
+            background-color: lightgray;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .completed {
+            background-color: lightgreen !important;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Automated Security Scanner</h1>
+
+    <div class="container">
+        <div id="install-block" class="block" onclick="startInstallation()">
+            Installation
+        </div>
+        <div id="network-scan-block" class="block" onclick="location.href='/network_scan'">
+            Network Security Scan
+        </div>
+        <div id="web-scan-block" class="block" onclick="location.href='/web_scan'">
+            Web Application Security Scan
+        </div>
+        <div id="results-block" class="block" onclick="location.href='/results'">
+            Analysis Results
+        </div>
+    </div>
+
+    <script>
+        function startInstallation() {
+            fetch('/install', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    checkInstallationStatus();
+                });
+        }
+
+        function checkInstallationStatus() {
+            fetch('/install/status')
+                .then(response => response.json())
+                .then(data => {
+                    let block = document.getElementById("install-block");
+                    if (data.completed) {
+                        block.classList.add("completed");
+                        block.innerText = "Installation Complete";
+                    } else if (data.progress > 0) {
+                        block.innerText = "Installing... " + data.progress + "%";
+                    }
+                });
+        }
+
+        // Poll installation status every 3 seconds
+        setInterval(checkInstallationStatus, 3000);
+    </script>
+
+</body>
+</html>
+

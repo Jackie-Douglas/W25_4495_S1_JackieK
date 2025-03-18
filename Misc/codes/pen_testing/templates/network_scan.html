@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Security Scan</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Network Security Scan</h1>
+    
+    <label>
+        <input type="checkbox" id="select_all"> Select All
+    </label>
+
+    <form id="network_scan_form">
+        <div id="scan_categories">
+            <label><input type="checkbox" name="categories" value="Full Scan"> Full Scan - Performs a full network scan</label><br>
+            <label><input type="checkbox" name="categories" value="MS17-010"> MS17-010 - Detects EternalBlue vulnerability</label><br>
+            <label><input type="checkbox" name="categories" value="MS08-067"> MS08-067 - Detects remote code execution flaw</label><br>
+            <label><input type="checkbox" name="categories" value="RDP Vulnerability"> RDP Vulnerability - Checks for MS12-020</label><br>
+        </div>
+
+        <button type="submit">Start Scan</button>
+    </form>
+
+    <div id="scan_status">
+        <h2>Scan Status</h2>
+        <p id="start_time"></p>
+        <p id="end_time"></p>
+        <p id="progress"></p>
+    </div>
+
+    <button id="complete_btn" style="display:none;" onclick="window.location.href='/'">Complete</button>
+
+    <script>
+        $("#select_all").click(function() {
+            $("input[name='categories']").prop('checked', this.checked);
+        });
+
+        $("#network_scan_form").submit(function(event) {
+            event.preventDefault();
+            let selectedCategories = [];
+            $("input[name='categories']:checked").each(function() {
+                selectedCategories.push($(this).val());
+            });
+
+            if (selectedCategories.length === 0) {
+                alert("Please select at least one scan.");
+                return;
+            }
+
+            $("#start_time").text("Start Time: " + new Date().toLocaleTimeString());
+            $("#progress").text("Scanning...");
+
+            $.ajax({
+                url: "/network_scan",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ categories: selectedCategories }),
+                success: function(response) {
+                    $("#progress").text("Scanning in progress...");
+                    checkScanStatus();
+                }
+            });
+        });
+
+        function checkScanStatus() {
+            $.get("/scan_status", function(data) {
+                if (data.completed) {
+                    $("#progress").text("Scan Complete");
+                    $("#end_time").text("End Time: " + new Date().toLocaleTimeString());
+                    $("#complete_btn").show();
+                } else {
+                    setTimeout(checkScanStatus, 2000);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
