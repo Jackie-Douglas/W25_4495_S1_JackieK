@@ -2,22 +2,37 @@
 
 {% block content %}
 <h2>Scan Results</h2>
-{% if results.network %}
-    <h3>Network Scan Results</h3>
-    {% for scan, data in results.network.items() %}
-        <h4>{{ scan }}</h4>
-        <p><strong>Description:</strong> {{ data.description }}</p>
-        <pre>{{ data.output }}</pre>
-    {% endfor %}
+
+{% if results.network or results.web %}
+    {% if results.network %}
+        <h3>Network Scan Results</h3>
+        {% for scan, data in results.network.items() %}
+            <h4>{{ scan }}</h4>
+            <p><strong>Description:</strong> {{ data.description }}</p>
+            <pre>{{ data.output | safe }}</pre>
+            {% if data.analysis %}
+                <h5>Remediation Suggestions:</h5>
+                <pre>{{ data.analysis }}</pre>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if results.web %}
+        <h3>Web Scan Results</h3>
+        {% for scan, data in results.web.items() %}
+            <h4>{{ scan }}</h4>
+            <p><strong>Description:</strong> {{ data.description }}</p>
+            <pre>{{ data.output | safe }}</pre>
+            {% if data.analysis %}
+                <h5>Remediation Suggestions:</h5>
+                <pre>{{ data.analysis }}</pre>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% else %}
+    <p>No scan results available. Please run a scan first.</p>
 {% endif %}
-{% if results.web %}
-    <h3>Web Scan Results</h3>
-    {% for scan, data in results.web.items() %}
-        <h4>{{ scan }}</h4>
-        <p><strong>Description:</strong> {{ data.description }}</p>
-        <pre>{{ data.output }}</pre>
-    {% endfor %}
-{% endif %}
+
 <a href="/">Back</a>
 {% endblock %}
 

@@ -1,82 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Application Security Scan</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    <h1>Web Application Security Scan</h1>
-    
-    <label>
-        <input type="checkbox" id="select_all"> Select All
-    </label>
+<h2>Web Application Security Scan</h2>
+<p>Target: <span id="targetDisplay"></span></p>
 
-    <form id="web_scan_form">
-        <div id="scan_categories">
-            <label><input type="checkbox" name="categories" value="Basic Scan"> Basic Scan - Detects basic security flaws</label><br>
-            <label><input type="checkbox" name="categories" value="SSL Scan"> SSL Scan - Checks SSL/TLS configuration</label><br>
-            <label><input type="checkbox" name="categories" value="SQL Injection"> SQL Injection - Checks for SQLi vulnerabilities</label><br>
-            <label><input type="checkbox" name="categories" value="XSS Scan"> XSS Scan - Detects Cross-Site Scripting (XSS)</label><br>
-        </div>
+<select id="scanOptions" multiple>
+    <option value="Basic Scan">Basic Scan</option>
+    <option value="SSL Scan">SSL Security Scan</option>
+    <option value="Headers Scan">HTTP Headers Security Scan</option>
+    <option value="CGI Scan">CGI Vulnerability Scan</option>
+</select>
 
-        <button type="submit">Start Scan</button>
-    </form>
+<button onclick="startWebScan()">Start Scan</button>
 
-    <div id="scan_status">
-        <h2>Scan Status</h2>
-        <p id="start_time"></p>
-        <p id="end_time"></p>
-        <p id="progress"></p>
-    </div>
+<script>
+document.getElementById("targetDisplay").innerText = "{{ target }}";
 
-    <button id="complete_btn" style="display:none;" onclick="window.location.href='/'">Complete</button>
+function startWebScan() {
+    let selectedOptions = Array.from(document.getElementById("scanOptions").selectedOptions).map(o => o.value);
 
-    <script>
-        $("#select_all").click(function() {
-            $("input[name='categories']").prop('checked', this.checked);
-        });
-
-        $("#web_scan_form").submit(function(event) {
-            event.preventDefault();
-            let selectedCategories = [];
-            $("input[name='categories']:checked").each(function() {
-                selectedCategories.push($(this).val());
-            });
-
-            if (selectedCategories.length === 0) {
-                alert("Please select at least one scan.");
-                return;
-            }
-
-            $("#start_time").text("Start Time: " + new Date().toLocaleTimeString());
-            $("#progress").text("Scanning...");
-
-            $.ajax({
-                url: "/web_scan",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({ categories: selectedCategories }),
-                success: function(response) {
-                    $("#progress").text("Scanning in progress...");
-                    checkScanStatus();
-                }
-            });
-        });
-
-        function checkScanStatus() {
-            $.get("/scan_status", function(data) {
-                if (data.completed) {
-                    $("#progress").text("Scan Complete");
-                    $("#end_time").text("End Time: " + new Date().toLocaleTimeString());
-                    $("#complete_btn").show();
-                } else {
-                    setTimeout(checkScanStatus, 2000);
-                }
-            });
-        }
-    </script>
-</body>
-</html>
+    fetch("/web_scan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ categories: selectedOptions })
+    })
+    .then(response => response.json())
+    .then(data => alert(data.status));
+}
+</script>
 

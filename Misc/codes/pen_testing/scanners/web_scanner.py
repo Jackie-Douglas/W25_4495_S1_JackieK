@@ -1,45 +1,49 @@
 import subprocess
+import json
+from ollama import generate_analysis
 
-NIKTO_COMMANDS = {
-    "basic_scan": {
+WEB_SCANS = {
+    "Basic Scan": {
         "command": "nikto -h {target}",
-        "description": "Performs a basic web server scan."
+        "description": "Performs a basic scan for common vulnerabilities in web applications."
     },
-    "ssl_scan": {
-        "command": "nikto -h {target} -ssl",
-        "description": "Checks for SSL/TLS misconfigurations."
+    "SSL Scan": {
+        "command": "nikto -h https://{target}",
+        "description": "Checks for SSL/TLS misconfigurations and vulnerabilities."
     },
-    "headers_check": {
-        "command": "nikto -h {target} -Display V",
-        "description": "Analyzes HTTP headers for security issues."
-    },
-    "dir_traversal": {
-        "command": "nikto -h {target} -Tuning 1 -Display V",
-        "description": "Tests for directory traversal vulnerabilities."
-    },
-    "sql_injection": {
+    "SQL Injection": {
         "command": "nikto -h {target} -Tuning 6",
-        "description": "Attempts SQL injection attacks to identify vulnerabilities."
+        "description": "Scans for SQL Injection vulnerabilities in web applications."
     },
-    "file_uploads": {
-        "command": "nikto -h {target} -Tuning 2",
-        "description": "Searches for unrestricted file upload vulnerabilities."
-    },
-    "xss_scan": {
+    "XSS Scan": {
         "command": "nikto -h {target} -Tuning 4",
-        "description": "Tests for cross-site scripting (XSS) vulnerabilities."
+        "description": "Checks for Cross-Site Scripting (XSS) vulnerabilities."
+    },
+    "Headers Scan": {
+        "command": "nikto -h {target} -Tuning 9",
+        "description": "Analyzes HTTP headers for security misconfigurations."
     }
 }
 
-def run_web_scan(target, selected_scans):
+def run_scan(target, selected_scans):
     results = {}
     for scan in selected_scans:
-        command = NIKTO_COMMANDS.get(scan, {}).get("command", "").format(target=target)
-        if command:
-            result = subprocess.run(command, shell=True, capture_output=True, text=True)
+        if scan in WEB_SCANS:
+            cmd = WEB_SCANS[scan]["command"].format(target=target)
+            try:
+                output = subprocess.check_output(cmd, shell=True, text=True, stderr=subprocess.STDOUT)
+            except subprocess.CalledProcessError as e:
+                output = e.output
+            
+            analysis = generate_analysis(f"Analyze the results of {scan} and suggest remediations:", output)
             results[scan] = {
-                "description": NIKTO_COMMANDS[scan]["description"],
-                "output": result.stdout
+                "description": WEB_SCANS[scan]["description"],
+                "output": output,
+                "analysis": analysis
             }
+
+    with open("web_results.json", "w") as f:
+        json.dump(results, f, indent=4)
+
     return results
 
