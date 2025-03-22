@@ -1,35 +1,45 @@
-<input type="text" id="target" placeholder="Enter target IP or domain">
-<button onclick="saveTarget()">Save Target</button>
-<p>Current Target: <span id="currentTarget"></span></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Security Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/script.css') }}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("/scan_status")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.network_scan_completed) {
+                        document.getElementById("network-block").classList.add("completed");
+                    }
+                    if (data.web_scan_completed) {
+                        document.getElementById("web-block").classList.add("completed");
+                    }
+                    if (data.network_scan_completed && data.web_scan_completed) {
+                        document.getElementById("scan-complete-btn").style.display = "block";
+                    }
+                });
+        });
 
-<script>
-function saveTarget() {
-    let target = document.getElementById("target").value;
-    if (!target) {
-        alert("Please enter a target.");
-        return;
-    }
-    
-    fetch("/save_target", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ target: target })
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert(data.message);
-        document.getElementById("currentTarget").innerText = target;
-    });
-}
-
-// Fetch stored target on page load
-fetch("/")
-    .then(response => response.text())
-    .then(html => {
-        let parser = new DOMParser();
-        let doc = parser.parseFromString(html, "text/html");
-        let target = doc.querySelector("input#target").value;
-        document.getElementById("currentTarget").innerText = target || "No target set";
-    });
-</script>
-
+        function resetScanStatus() {
+            fetch("/reset_scan_status", { method: "POST" })
+                .then(() => {
+                    window.location.href = "{{ url_for('index') }}";
+                });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Automated Security Scanner</h1>
+        <div class="grid">
+            <a href="{{ url_for('install') }}" class="block">Installation</a>
+            <a href="{{ url_for('network') }}" class="block" id="network-block">Network Security Scan</a>
+            <a href="{{ url_for('web') }}" class="block" id="web-block">Web Application Security Scan</a>
+            <a href="{{ url_for('results') }}" class="block">Results / Analysis</a>
+        </div>
+        <button id="scan-complete-btn" class="scan-complete" onclick="resetScanStatus()">Scanning Completed - Return to Home</button>
+    </div>
+</body>
+</html>

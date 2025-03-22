@@ -1,12 +1,33 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/script.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Installation</h1>
+        <button onclick="startInstallation()">Start Installation</button>
+        <div id="progress"></div>
+        <a href="/" class="back-button">Back to Home</a>
+    </div>
 
-{% block content %}
-<h2>Installing Ollama...</h2>
-<p>This process may take a few minutes.</p>
-<script>
-    setTimeout(() => {
-        window.location.href = "/";
-    }, 10000);
-</script>
-{% endblock %}
+    <script>
+        function startInstallation() {
+            let progress = document.getElementById("progress");
+            progress.innerHTML = "Installing dependencies...<br>";
 
+            fetch('/run_installation')
+                .then(response => response.text())
+                .then(data => {
+                    progress.innerHTML += data;
+                })
+                .catch(error => {
+                    progress.innerHTML += "Error: " + error;
+                });
+        }
+    </script>
+</body>
+</html>

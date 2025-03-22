@@ -1,0 +1,3 @@
+Full Port Scan: Scan Completed.
+SMB Vulnerability (MS17-010): Scan Completed.
+SMB Vulnerability (MS08-067): Scan Completed.

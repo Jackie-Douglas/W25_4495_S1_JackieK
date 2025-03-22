@@ -1,0 +1,111 @@
+<h2>Basic Scan</h2>**Web Vulnerability Scan Report**
+
+**Command:** Nikto v2.5.0
+
+**Target IP:** 199.34.228.73
+**Target Hostname:** plantedmeals.ca
+**Target Port:** 80
+
+**Summary:**
+The scan detected several vulnerabilities and issues on the target website, including private IP address disclosures, missing security headers, and potential system information leakage.
+
+**Risks Detected:**
+
+1. **Private IP Address Disclosures:** The scan found IP addresses (1.0.1.1) in the 'set-cookie' header and the '__cf_bm' cookie, which could be used to identify specific devices or users.
+2. **Missing Security Headers:**
+	* **X-Frame-Options:** Not present, making it vulnerable to clickjacking attacks.
+	* **X-Content-Type-Options:** Not set, allowing user agents to render content in a different manner than the MIME type.
+3. **System Information Leakage:** The scan detected uncommon headers and cookies that could potentially leak system information.
+
+**Analysis of Output:**
+
+The output shows that Nikto scanned the target website and detected several issues related to security and vulnerability. The scan revealed private IP addresses, missing security headers, and potential system information leakage. These findings indicate a moderate level of risk for the target website.
+
+**Remediation Steps:**
+
+1. **Set X-Frame-Options header:** Implement this header to prevent clickjacking attacks.
+2. **Set X-Content-Type-Options header:** Set this header to specify the MIME type and prevent user agents from rendering content in an unexpected manner.
+3. **Secure private IP addresses:** Ensure that private IP addresses are not disclosed through cookies or headers.
+4. **Review system information leakage:** Investigate the uncommon headers and cookies detected by Nikto to determine if they pose a risk.
+
+**Severity:**
+The detected issues are considered moderate in severity, as they could potentially be exploited by attackers. However, it is essential to prioritize remediation steps to mitigate these risks and ensure the target website remains secure.
+
+**Recommendation:**
+
+Based on the scan results, we recommend that the target website administrator:
+
+1. Review and update security headers (X-Frame-Options, X-Content-Type-Options) to ensure they are properly set.
+2. Investigate private IP address disclosures and take steps to secure them.
+3. Review system information leakage and determine if it poses a risk.
+
+By addressing these issues, the target website can reduce its vulnerability profile and improve overall security.<hr><h2>SSL Scan</h2>**Web Vulnerability Scan Report**
+
+**Command:** Nikto v2.5.0
+
+**Target Information:**
+
+* Target IP: 199.34.228.73
+* Target Hostname: plantedmeals.ca
+* Target Port: 443
+
+**Risks Detected:**
+
+1. **Private IP address disclosure**: An IP address ("1.0.1.1") was found in the 'set-cookie' header, which could reveal private information.
+2. **Missing X-Frame-Options header**: The anti-clickjacking header is not present, making it possible for an attacker to frame the site and perform clickjacking attacks.
+3. **Missing Strict-Transport-Security (HSTS) header**: TLS is used, but the HSTS header is not defined, which could allow an attacker to downgrade the protocol from HTTPS to HTTP.
+4. **Missing X-Content-Type-Options header**: This could allow user agents to render content in a different manner than intended by the MIME type.
+5. **Uncommon 'surrogate-control' header found**: The max-age=60 value may not be secure.
+
+**Analysis of Output:**
+
+The Nikto scan detected several issues on the target website, including private IP address disclosure, missing security headers, and an uncommon 'surrogate-control' header. These findings indicate potential vulnerabilities that could be exploited by attackers.
+
+**Remediation Steps:**
+
+1. **Configure Cloudflare to hide private IP addresses**: Follow Cloudflare's documentation to ensure private IP addresses are not disclosed.
+2. **Implement X-Frame-Options header**: Add the X-Frame-Options header to prevent clickjacking attacks.
+3. **Define Strict-Transport-Security (HSTS) header**: Set the HSTS header to enforce HTTPS protocol and prevent downgrade attacks.
+4. **Set X-Content-Type-Options header**: Define the X-Content-Type-Options header to ensure content is rendered correctly by user agents.
+5. **Review 'surrogate-control' header settings**: Adjust the max-age value or remove this header if it's not necessary.
+
+**Severity:**
+
+The detected issues are considered moderate in severity, as they could potentially be exploited to perform attacks such as clickjacking, protocol downgrade, and private IP address disclosure.<hr><h2>Server Vulnerability Scan</h2>**Web Vulnerability Scan Report**
+
+**Command:** Nikto v2.5.0
+
+**Target IP:** 199.34.228.73
+**Target Hostname:** plantedmeals.ca
+**Target Port:** 80
+
+**Scan Results:**
+
+The scan detects several potential issues with the web server's configuration and security:
+
+1. **Private IP address disclosure**: The IP address "1.0.1.1" is found in the 'set-cookie' header, which may disclose private IP addresses to unauthorized parties.
+2. **Missing anti-clickjacking headers**: The X-Frame-Options header is not present, making it vulnerable to clickjacking attacks.
+3. **Missing Content-Type Options header**: The X-Content-Type-Options header is not set, allowing the user agent to render content in a different manner than intended.
+4. **Uncommon surrogate-control header**: An uncommon 'surrogate-control' header with contents: max-age=60 is found.
+
+**Analysis of Output:**
+
+The scan results indicate potential security risks related to the web server's configuration and security headers. The private IP address disclosure and missing anti-clickjacking headers can be exploited by attackers, while the missing Content-Type Options header may allow malicious rendering of content. The uncommon surrogate-control header may not pose a direct threat but could potentially be used for caching or other purposes.
+
+**Remediation Steps:**
+
+1. **Set X-Frame-Options header**: Add the X-Frame-Options header to prevent clickjacking attacks.
+2. **Set Content-Type Options header**: Set the X-Content-Type-Options header to restrict content rendering.
+3. **Review and secure private IP addresses**: Verify that only authorized parties have access to private IP addresses.
+4. **Investigate surrogate-control header**: Research the purpose of the 'surrogate-control' header and consider disabling it if unnecessary.
+
+**Severity:**
+
+The detected issues are moderate in severity, as they can be exploited by attackers or used for malicious purposes. However, without further exploitation, these issues may not directly cause significant damage. Implementing remediation steps will help reduce the risk of attacks and improve overall security posture.
+
+**Recommendations:**
+
+1. Prioritize setting the X-Frame-Options and Content-Type Options headers.
+2. Investigate and secure private IP addresses.
+3. Review the purpose and functionality of the 'surrogate-control' header.
+4. Continuously monitor web server configurations for potential vulnerabilities.<hr>

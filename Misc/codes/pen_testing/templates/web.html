@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Application Security Scan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/script.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Web Application Security Scan</h1>
+        <form action="{{ url_for('web') }}" method="post">
+            <label for="target">Enter Target URL:</label>
+            <input type="text" id="target" name="target" required>
+
+            <h3>Select Scan Options:</h3>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="scan_options" value="Basic Scan"> Basic Scan</label>
+                <label><input type="checkbox" name="scan_options" value="SSL Scan"> SSL Scan</label>
+                <label><input type="checkbox" name="scan_options" value="Verbose Scan"> Verbose Scan</label>
+                <label><input type="checkbox" name="scan_options" value="SSL Specific Scan"> SSL Specific Scan</label>
+                <label><input type="checkbox" name="scan_options" value="XSS Scan"> XSS Scan</label>
+                <label><input type="checkbox" name="scan_options" value="SQL Injection Scan"> SQL Injection Scan</label>
+                <label><input type="checkbox" name="scan_options" value="File Inclusion Scan"> File Inclusion Scan</label>
+                <label><input type="checkbox" name="scan_options" value="Server Vulnerability Scan"> Server Vulnerability Scan</label>
+                <label><input type="checkbox" name="scan_options" value="Remote Code Execution Scan"> Remote Code Execution Scan</label>
+            </div>
+
+            <button type="submit">Start Scanning</button>
+        </form>
+
+        {% if web_results %}
+            <h2>Scan Results</h2>
+            <pre>{{ web_results }}</pre>
+        {% endif %}
+
+        {% if analysis %}
+            <h2>Analysis Report</h2>
+            <pre>{{ analysis }}</pre>
+        {% endif %}
+
+        {% if show_complete %}
+            <button onclick="window.location.href='/'">Done Network Security Scanning</button>
+        {% endif %}
+    </div>
+</body>
+</html>
