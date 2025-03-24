@@ -35,8 +35,6 @@ def run_nikto_scan(target, selected_scans):
         "Remote Code Execution Scan": f"nikto -h {target} -Tuning 6"
     }
     
-    results = ""
-    analysis_report = ""
     output_file = "static/web_output.txt"
     
     with open(output_file, "w") as raw_output_file, open("static/web_analysis.html", "w") as analysis_file:
@@ -44,16 +42,18 @@ def run_nikto_scan(target, selected_scans):
             if scan_name in selected_scans:
                 result = subprocess.run(command, shell=True, capture_output=True, text=True)
 
+                # Write full output to file
                 raw_output_file.write(f"### {scan_name} ###\n{result.stdout}\n\n")
-                results += f"{scan_name}: Scan Completed.\n"
-                
+
+                # Display full output instead of "Scan Completed"
+                print(f"### {scan_name} ###\n{result.stdout}\n")
+
                 analysis = analyze_with_ollama(result.stdout)
                 analysis_file.write(f"<h2>{scan_name}</h2>{analysis}<hr>")
 
-    return results, analysis_report
+    return "Web scan completed. Check web_output.txt for details."
 
 if __name__ == "__main__":
-    # For manual testing (not needed in Flask)
     target_ip = input("Enter target IP or domain: ")
-    selected_scans = []  # Now it's empty unless user provides input
+    selected_scans = list(input("Enter selected scan categories (comma-separated): ").split(", "))
     run_nikto_scan(target_ip, selected_scans)

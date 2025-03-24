@@ -4,38 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scan Results</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background-color: #121212; color: #fff; }
-        .container { max-width: 800px; margin: auto; padding: 20px; background: #1e1e1e; border-radius: 8px; }
-        pre { white-space: pre-wrap; word-wrap: break-word; background: #333; padding: 10px; border-radius: 5px; }
-        .btn { display: block; width: 100%; padding: 10px; margin-top: 10px; text-align: center; background: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
-        .btn:hover { background: #45a049; }
-        .hidden { display: none; }
-    </style>
+    <link rel="stylesheet" href="/static/css/script.css">
 </head>
 <body>
     <div class="container">
-        <h2>Scan Results</h2>
+        <h1>Scan Results</h1>
 
-        {% if net_results %}
-            <h3>Network Security Scan Results</h3>
-            <pre>{{ net_results }}</pre>
-        {% endif %}
-
-        {% if web_results %}
-            <h3>Web Application Security Scan Results</h3>
-            <pre>{{ web_results }}</pre>
-        {% endif %}
-
-        {% if show_complete %}
-            <button id="completeBtn" class="btn">Done Network Security Scanning</button>
-        {% endif %}
+        <div class="grid">
+            <a href="/static/net_output.txt" class="block">Network Security Scan Result Output</a>
+            <a href="/static/web_output.txt" class="block">Web Security Scan Result Output</a>
+            <a href="/static/net_analysis.html" class="block">Network Security Scan Analysis</a>
+            <a href="/static/web_analysis.html" class="block">Web Security Scan Analysis</a>
+        </div>
     </div>
-
-    <script>
-        document.getElementById('completeBtn').addEventListener('click', function() {
-            window.location.href = "/";
-        });
-    </script>
 </body>
 </html>

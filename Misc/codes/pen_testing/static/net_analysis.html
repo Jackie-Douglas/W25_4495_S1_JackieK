@@ -1,90 +1,110 @@
 <h2>Full Port Scan</h2>**Network Scan Report**
 
-**Command:** Nmap scan (version 7.95) was executed to perform a network discovery and vulnerability assessment on IP address `199.34.228.73`.
+**Command:**
+The command used for this network scan is `nmap`, which is a widely-used open-source tool for network discovery and security auditing.
 
 **Risks Detected:**
-
-* The scan detected multiple open ports (80, 443, 2052-2053, 2082-2087, 2095, 8080, and 8443) that are likely related to Cloudflare's HTTP proxy services.
-* The presence of these open ports may indicate potential vulnerabilities or weaknesses in the network.
+This scan detects potential risks related to the presence of Cloudflare proxies on multiple ports (80, 443, 2052-2096, 8080, 8443, and 8880). This could indicate that the host is using a content delivery network (CDN) or a load balancer.
 
 **Analysis:**
-
-The output suggests that the target IP address (`199.34.228.73`) is hosting multiple services, including HTTP proxies (Cloudflare), which are likely related to content delivery networks (CDNs). The presence of multiple HTTP proxy services may indicate a complex network architecture with potential security implications.
+The output shows that the scan was able to reach the target IP address (199.34.228.73) and gathered information about the open ports and services running on them. The presence of Cloudflare proxies suggests that the host is using a CDN or load balancer, which can help improve performance, security, and scalability.
 
 **Remediation Steps:**
+To mitigate potential risks associated with this setup:
 
-1. **Conduct a thorough network audit**: Review the network configuration and identify any unnecessary or open ports.
-2. **Implement proper firewall rules**: Configure the firewalls to restrict access to only necessary services and protocols.
-3. **Update SSL/TLS certificates**: Verify that all SSL/TLS certificates are up-to-date, valid, and properly configured for secure communication.
-4. **Monitor network traffic**: Implement monitoring tools to detect suspicious or unusual network activity.
+1. Ensure that all Cloudflare configurations are properly set up to allow authorized traffic only.
+2. Monitor logs for suspicious activity related to the CDNs or load balancers.
+3. Regularly update and patch any vulnerable software components involved in the setup.
+4. Implement additional security measures, such as firewalls or intrusion detection systems (IDS), to detect and prevent potential attacks.
 
 **Severity:**
-
-The detected issue is considered moderate in severity, as it may indicate potential vulnerabilities or weaknesses in the network. However, the specific risks depend on the services and protocols being used. A more detailed analysis of the network configuration and usage is required to determine the actual risk level.
+The detected issue is considered moderate-severity, as it may increase the attack surface of the host but does not necessarily indicate a critical vulnerability. However, proper configuration and monitoring are crucial to minimize risks.
 
 **Recommendations:**
 
-1. Perform a comprehensive network audit and security assessment.
-2. Implement proper firewall rules and access controls.
-3. Verify and update SSL/TLS certificates as needed.
-4. Monitor network traffic for suspicious or unusual activity.
+1. Conduct further analysis to determine the specific Cloudflare configurations in use.
+2. Review system logs for any suspicious activity related to the CDNs or load balancers.
+3. Implement additional security measures to detect and prevent potential attacks.
+4. Consider conducting a vulnerability scan to identify any potential weaknesses in the setup.
 
 **Conclusion:**
+This network scan detects potential risks associated with the presence of Cloudflare proxies on multiple ports. While this does not necessarily indicate a critical vulnerability, proper configuration, monitoring, and implementation of additional security measures are crucial to minimize risks.<hr><h2>SMB Vulnerability (MS08-067)</h2>**Network Scan Report**
 
-The Nmap scan revealed multiple open ports related to Cloudflare's HTTP proxy services, which may indicate potential vulnerabilities or weaknesses in the network. A thorough analysis of the network configuration and usage is required to determine the actual risk level. Remediation steps should be taken to ensure the security and integrity of the network.<hr><h2>SMB Vulnerability (MS17-010)</h2>**Network Scan Report**
-
-**Command Analysis:**
-The command executed is an Nmap scan, which is a popular network scanning tool used to discover hosts and services on a computer network. The specific command used in this case is likely `nmap -p 445 plantedmeals.ca`.
+**Command:** The command used in this scan is `nmap`, which is a network scanning tool that provides information about hosts and services on a network.
 
 **Risks Detected:**
-The Nmap scan detects a potential risk related to the Microsoft-DS (445/tcp) service being filtered, but not open or closed.
+
+* **Port 445 (microsoft-ds) filtered**: This port is typically associated with the Server Message Block (SMB) protocol, which is often used for file sharing and remote access. The fact that this port is "filtered" suggests that there may be a firewall or other security measure blocking incoming traffic on this port.
 
 **Analysis of Output:**
 
-* The host is up and responsive with a latency of 0.0093 seconds.
-* The reverse DNS (rDNS) record for the IP address indicates that it resolves to `pages-custom-25.weebly.com`.
-* The Microsoft-DS service on port 445/tcp is filtered, meaning that it is not responding to Nmap's probe requests.
+* The host at IP address 199.34.228.73 is up and responding to requests.
+* The reverse DNS (rDNS) record for the IP address points to `pages-custom-25.weebly.com`, which suggests that this IP address may be associated with a website or other online presence.
+* Port 445 is filtered, indicating that there may be a security measure blocking incoming traffic on this port.
 
 **Remediation Steps:**
 
-1. **Verify Service Status:** Check the status of the Microsoft-DS service on the target host to determine if it is intentionally filtered or if there is an issue with the service.
-2. **Configure Firewall Rules:** If the service is intended to be filtered, ensure that firewall rules are properly configured to allow only necessary traffic to access the service.
-3. **Investigate Network Connectivity Issues:** If the service is not responding, investigate network connectivity issues and potential outages.
+1. **Check SMB configuration**: Verify that the SMB service is properly configured and secured. Ensure that only necessary services are listening on port 445.
+2. **Review firewall rules**: Review the firewall rules to ensure that they are allowing incoming traffic on port 445 as needed, while still blocking unauthorized access.
 
-**Severity Assessment:**
-The detected issue has a moderate severity rating. A filtered Microsoft-DS service can indicate either intentional configuration or an issue with the service itself. Without further analysis, it is difficult to determine the exact cause of the filtering. However, if the service is not responding, it may impact network communication and authentication for users relying on this service.
+**Severity of Detected Issue:**
+
+The detected issue with port 445 being filtered is considered a moderate risk. If an attacker can exploit this vulnerability, they may be able to gain access to the SMB service and potentially compromise the system or steal sensitive data. However, if the firewall rules are properly configured and only necessary services are listening on port 445, the risk is significantly reduced.
 
 **Recommendations:**
-1. Conduct a more in-depth analysis of the Microsoft-DS service using tools like `nmap -A` or `enum4linux`.
-2. Investigate network connectivity issues to determine if there are any underlying problems.
-3. Consult with system administrators and security experts to determine the best course of action based on the specific findings and organizational policies.
 
-**Conclusion:**
-The Nmap scan detected a filtered Microsoft-DS service on port 445/tcp, indicating potential risks or issues related to network connectivity and authentication. Further analysis is recommended to determine the root cause of the filtering and any necessary remediation steps.<hr><h2>SMB Vulnerability (MS08-067)</h2>**Network Scan Report**
+* Conduct a thorough review of SMB configuration and firewall rules to ensure they are secure and aligned with organizational security policies.
+* Implement additional security measures as needed to prevent unauthorized access to the SMB service.
+* Monitor network traffic and system logs for suspicious activity related to port 445.<hr><h2>SMTP Vulnerability (CVE-2011-1720)</h2>**Network Scan Result Analysis**
 
-**Command Analysis:**
-The command used is `nmap` with no specific options provided, which suggests a basic scan of the target IP address (199.34.228.73). The `nmap` tool performs a TCP SYN scan to determine if hosts are up and what services are running on specific ports.
+**Command:** The command used is `nmap` (version 7.95) to scan the IP address `199.34.228.73`, which corresponds to the domain `plantedmeals.ca`.
 
 **Risks Detected:**
-The report detects one potential risk:
+No specific risks are detected by this network scan. However, the scan reveals some potential issues related to port usage and network connectivity.
 
-* **Microsoft-DS port 445/tcp filtered**: This indicates that the Windows file share service (SMB) is not actively listening on port 445, which could be a sign of a misconfigured or disabled service. However, it's also possible that the service is intentionally disabled for security reasons.
+**Analysis of Output:**
 
-**Output Analysis:**
-The output shows:
-
-* The target host (199.34.228.73) is up and responding to queries.
-* The reverse DNS record (rDNS) for this IP address points to `pages-custom-25.weebly.com`, which may indicate a shared hosting or cloud-based service.
-* Port 445 (microsoft-ds) is filtered, meaning the service is not actively listening.
+* The host is up and responding to queries (0.0098s latency).
+* The reverse DNS (rDNS) record for the IP address `199.34.228.73` points to `pages-custom-25.weebly.com`, which may indicate that the domain name does not resolve correctly.
+* Port 25 (`smtp`) is filtered, indicating that it is either blocked or not actively listening.
 
 **Remediation Steps:**
-To address the potential risk, consider the following steps:
 
-1. **Verify Windows file share service configuration**: Check if the Microsoft-DS service is intentionally disabled for security reasons or if there's a misconfiguration that needs to be corrected.
-2. **Implement additional security measures**: Consider implementing additional security controls, such as firewall rules or access control lists (ACLs), to restrict access to sensitive resources.
+1. **Verify DNS configuration:** Ensure that the DNS records for `plantedmeals.ca` are correct and properly configured to point to the IP address `199.34.228.73`. This may involve updating the domain's DNS settings.
+2. **Check email server configuration:** Since port 25 (`smtp`) is filtered, it is possible that the email server is not actively listening or is blocked by a firewall or network device. Review email server configuration and ensure that it is properly configured.
 
 **Severity:**
-The detected issue has a moderate severity. While the lack of an actively listening Microsoft-DS service may not pose an immediate threat, it could indicate a potential vulnerability if exploited by an attacker. It's essential to investigate and address this finding to ensure the security posture of the target host.
+The detected issues are considered low-to-moderate severity. The fact that port 25 (`smtp`) is filtered does not necessarily indicate a security risk, but rather suggests that the email server may not be functioning correctly. The DNS issue may cause minor inconvenience for users trying to access the domain, but it is not a critical security concern.
 
 **Conclusion:**
-This report highlights a potential risk related to the Microsoft-DS service on port 445. To mitigate this risk, verify the configuration and consider implementing additional security measures. The severity is moderate, emphasizing the importance of addressing this issue promptly.<hr>
+The network scan result indicates potential issues related to DNS configuration and email server functionality. Remediation steps involve verifying DNS settings and checking email server configuration to ensure proper operation.<hr><h2>DNS Zone Transfer</h2>**Network Scan Report**
+
+**Command Analysis:**
+The command used is `nmap`, which is a network scanning tool that performs discovery, vulnerability assessment, and security auditing.
+
+**Risks Detected:**
+No specific risks are detected in this scan result. However, the output suggests that the network may have some open ports or services that could potentially be exploited by an attacker.
+
+**Output Analysis:**
+
+* The host is up (0.012s latency), indicating that the target device is reachable and responding to network requests.
+* The rDNS record for 199.34.228.73 resolves to pages-custom-25.weebly.com, which may indicate a web hosting service or a dynamic DNS (DDNS) setup.
+* PORT 53/tcp is filtered, meaning that it is not open or listening. Domain name system (DNS) services typically run on port 53, but in this case, it appears to be blocked or filtered.
+
+**Remediation Steps:**
+Based on the output, no immediate remediation steps are necessary. However, further investigation into the DNS filtering and potential open ports/services may be warranted.
+
+* Investigate the reason for the DNS filtering (e.g., firewall rule, security software).
+* Check for any other open ports or services that could be exploited by an attacker.
+* Consider configuring a more robust firewall or intrusion detection system to block suspicious traffic.
+
+**Severity:**
+The detected issue is considered low-severity. The DNS filtering and potential open ports/services may not pose a significant risk on their own, but it's essential to investigate and remediate them to ensure the overall security posture of the network.
+
+**Recommendations:**
+
+* Conduct further network scanning and vulnerability assessments to identify any potential security weaknesses.
+* Implement appropriate firewalls or intrusion detection systems to block suspicious traffic.
+* Consider configuring DNS services to run on a non-standard port (e.g., 5353) if necessary.
+
+Overall, this scan result suggests that the target device is reachable and responding to network requests. While some potential issues are detected, they do not pose an immediate risk. Further investigation and remediation steps can help improve the overall security posture of the network.<hr>

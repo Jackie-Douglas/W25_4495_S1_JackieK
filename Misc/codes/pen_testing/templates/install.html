@@ -9,23 +9,36 @@
 <body>
     <div class="container">
         <h1>Installation</h1>
-        <button onclick="startInstallation()">Start Installation</button>
-        <div id="progress"></div>
-        <a href="/" class="back-button">Back to Home</a>
+        <button id="install-btn" onclick="startInstallation()">Start Installation</button>
+        <div id="progress-bar" class="progress-bar"></div>
+        <p id="status-text">Click the button to start installation</p>
+        <button id="complete-btn" class="hidden" onclick="window.location.href='/'">Installation Completed - Return Home</button>
     </div>
 
     <script>
         function startInstallation() {
-            let progress = document.getElementById("progress");
-            progress.innerHTML = "Installing dependencies...<br>";
+            let installBtn = document.getElementById("install-btn");
+            let progressBar = document.getElementById("progress-bar");
+            let statusText = document.getElementById("status-text");
+            let completeBtn = document.getElementById("complete-btn");
+
+            installBtn.disabled = true;
+            statusText.textContent = "Installing... Please wait.";
 
             fetch('/run_installation')
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(data => {
-                    progress.innerHTML += data;
+                    console.log("API Response:", data); // Debugging step
+                    if (data.status === "success") {  // ✅ Check "status" instead of "completed"
+                        progressBar.style.width = "100%";
+                        statusText.textContent = "Installation Completed!";
+                        completeBtn.classList.remove("hidden");
+                    } else {
+                        statusText.textContent = "Installation failed: " + (data.message || "Unknown error.");
+                    }
                 })
                 .catch(error => {
-                    progress.innerHTML += "Error: " + error;
+                    statusText.textContent = "Error: " + error;
                 });
         }
     </script>
