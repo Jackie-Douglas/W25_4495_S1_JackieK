@@ -1,110 +1,267 @@
-<h2>Full Port Scan</h2>**Network Scan Report**
+<h2>Full Port Scan</h2>**Structured Report Format**
 
-**Command:**
-The command used for this network scan is `nmap`, which is a widely-used open-source tool for network discovery and security auditing.
+**Report Title:** Network Scan Result for juice-shop.herokuapp.com (54.73.53.134)
+
+**Command:** The command used was `nmap` to perform a network scan on `juice-shop.herokuapp.com` (54.73.53.134).
 
 **Risks Detected:**
-This scan detects potential risks related to the presence of Cloudflare proxies on multiple ports (80, 443, 2052-2096, 8080, 8443, and 8880). This could indicate that the host is using a content delivery network (CDN) or a load balancer.
 
-**Analysis:**
-The output shows that the scan was able to reach the target IP address (199.34.228.73) and gathered information about the open ports and services running on them. The presence of Cloudflare proxies suggests that the host is using a CDN or load balancer, which can help improve performance, security, and scalability.
+* No open and closed ports found, which may indicate incomplete results.
+* OS fingerprint not ideal due to missing a closed TCP port.
+
+**Analysis of the Output:**
+
+The output shows that Nmap performed a network scan on `juice-shop.herokuapp.com` (54.73.53.134) and detected the following:
+
+* The host is up and running, with no open or closed ports found.
+* The OS fingerprint is not ideal due to missing a closed TCP port, which may affect the accuracy of OS detection.
+* Traceroute results show 11 hops from the source IP address.
 
 **Remediation Steps:**
-To mitigate potential risks associated with this setup:
 
-1. Ensure that all Cloudflare configurations are properly set up to allow authorized traffic only.
-2. Monitor logs for suspicious activity related to the CDNs or load balancers.
-3. Regularly update and patch any vulnerable software components involved in the setup.
-4. Implement additional security measures, such as firewalls or intrusion detection systems (IDS), to detect and prevent potential attacks.
+1. **Verify Port Status:** Check if there are any open or closed ports on the host. If none are found, it may indicate that the scan was incomplete.
+2. **Improve OS Fingerprinting:** Run Nmap with additional options to improve OS fingerprinting accuracy.
+3. **Review Traceroute Results:** Verify the integrity of the traceroute results by checking for any inconsistencies or errors.
 
 **Severity:**
-The detected issue is considered moderate-severity, as it may increase the attack surface of the host but does not necessarily indicate a critical vulnerability. However, proper configuration and monitoring are crucial to minimize risks.
 
-**Recommendations:**
-
-1. Conduct further analysis to determine the specific Cloudflare configurations in use.
-2. Review system logs for any suspicious activity related to the CDNs or load balancers.
-3. Implement additional security measures to detect and prevent potential attacks.
-4. Consider conducting a vulnerability scan to identify any potential weaknesses in the setup.
+The detected issue is considered LOW-SEVERITY, as it only affects the accuracy of OS detection and does not indicate any specific security risks. However, verifying port status and improving OS fingerprinting are recommended to ensure a more comprehensive scan result.
 
 **Conclusion:**
-This network scan detects potential risks associated with the presence of Cloudflare proxies on multiple ports. While this does not necessarily indicate a critical vulnerability, proper configuration, monitoring, and implementation of additional security measures are crucial to minimize risks.<hr><h2>SMB Vulnerability (MS08-067)</h2>**Network Scan Report**
 
-**Command:** The command used in this scan is `nmap`, which is a network scanning tool that provides information about hosts and services on a network.
+The network scan result indicates that `juice-shop.herokuapp.com` (54.73.53.134) is running, but with incomplete results due to missing open and closed ports. To improve the accuracy of the scan, it is recommended to verify port status and improve OS fingerprinting.<hr><h2>SMB Vulnerability (MS17-010)</h2>**Network Scan Report**
+
+**Command:** `nmap juice-shop.herokuapp.com`
 
 **Risks Detected:**
 
-* **Port 445 (microsoft-ds) filtered**: This port is typically associated with the Server Message Block (SMB) protocol, which is often used for file sharing and remote access. The fact that this port is "filtered" suggests that there may be a firewall or other security measure blocking incoming traffic on this port.
+* **Port 445/TCP filtered - Microsoft-DS (SMB)**:
+	+ Risk Level: Medium
+	+ Description: The Nmap scan detected the SMB service on port 445, which is a known vulnerability.
+	+ Impact: An attacker could potentially exploit this vulnerability to gain unauthorized access to the system or steal sensitive data.
 
 **Analysis of Output:**
 
-* The host at IP address 199.34.228.73 is up and responding to requests.
-* The reverse DNS (rDNS) record for the IP address points to `pages-custom-25.weebly.com`, which suggests that this IP address may be associated with a website or other online presence.
-* Port 445 is filtered, indicating that there may be a security measure blocking incoming traffic on this port.
+* The Nmap scan was successful and detected one up host (juice-shop.herokuapp.com).
+* The scan revealed that the IP address 46.137.15.86 is linked to the domain juice-shop.herokuapp.com.
+* Two other IP addresses were not scanned, likely due to DNS resolution issues or network constraints.
 
 **Remediation Steps:**
 
-1. **Check SMB configuration**: Verify that the SMB service is properly configured and secured. Ensure that only necessary services are listening on port 445.
-2. **Review firewall rules**: Review the firewall rules to ensure that they are allowing incoming traffic on port 445 as needed, while still blocking unauthorized access.
+1. **Verify SMB Service Configuration**: Ensure that the SMB service is properly configured and patched with the latest security updates.
+2. **Disable SMBv1**: Consider disabling SMBv1 to reduce the attack surface, as this version has known vulnerabilities.
+3. **Implement Firewall Rules**: Configure firewall rules to restrict access to port 445 (SMB) from untrusted networks or hosts.
+4. **Regularly Update and Patch**: Regularly update and patch the system to ensure that any known vulnerabilities are addressed.
 
 **Severity of Detected Issue:**
 
-The detected issue with port 445 being filtered is considered a moderate risk. If an attacker can exploit this vulnerability, they may be able to gain access to the SMB service and potentially compromise the system or steal sensitive data. However, if the firewall rules are properly configured and only necessary services are listening on port 445, the risk is significantly reduced.
+* The detected issue is considered medium-severity due to the potential for unauthorized access and data theft.
+* However, if not properly addressed, this vulnerability could lead to more severe consequences, such as system compromise or data breaches.
+
+By taking prompt remediation steps, the risk of exploitation can be significantly reduced, ensuring a more secure network environment.<hr><h2>SMB Vulnerability (MS08-067)</h2>**Network Scan Report**
+
+**Command Analysis:**
+The command used is `nmap`, which is a network scanning tool that provides information about hosts and services on a network. In this case, the command was used to scan a specific IP address (`54.220.192.176`) and its associated domain name (`juice-shop.herokuapp.com`).
+
+**Risks Detected:**
+The nmap scan detected one potential risk:
+
+* **Port 445/tcp filtered microsoft-ds:** This indicates that the Microsoft-DS service is running on port 445, which is typically used for SMB (Server Message Block) file sharing. However, it's filtered, meaning that incoming connections are being blocked or rejected.
+
+**Output Analysis:**
+The output provides information about the scanned IP address and its associated domain name:
+
+* **Host is up (0.16s latency):** The host responded to the scan in 0.16 seconds, indicating that it's reachable.
+* **Other addresses for juice-shop.herokuapp.com:** The domain name has multiple IP addresses associated with it, but only one was scanned.
+* **rDNS record:** The reverse DNS (rDNS) record for the IP address provides information about the host and its location.
+
+**Remediation Steps:**
+To mitigate this risk:
+
+1. **Verify SMB service configuration:** Check if the Microsoft-DS service is necessary and configure it to only allow authorized access.
+2. **Block incoming connections:** Implement firewall rules or network security policies to block incoming connections on port 445/tcp.
+3. **Monitor for suspicious activity:** Regularly monitor system logs and network traffic for any unusual SMB-related activity.
+
+**Severity:**
+The detected issue is considered **medium-severity**, as it may indicate a potential vulnerability if not properly configured or monitored. However, without further information about the specific service and its usage, it's difficult to determine the exact severity of the issue.
 
 **Recommendations:**
 
-* Conduct a thorough review of SMB configuration and firewall rules to ensure they are secure and aligned with organizational security policies.
-* Implement additional security measures as needed to prevent unauthorized access to the SMB service.
-* Monitor network traffic and system logs for suspicious activity related to port 445.<hr><h2>SMTP Vulnerability (CVE-2011-1720)</h2>**Network Scan Result Analysis**
+1. Conduct a more detailed analysis of the Microsoft-DS service configuration.
+2. Implement additional security measures to restrict access to the SMB service.
+3. Regularly monitor system logs and network traffic for any suspicious activity related to SMB.<hr><h2>RDP Vulnerability (MS12-020)</h2>**Network Scan Report**
 
-**Command:** The command used is `nmap` (version 7.95) to scan the IP address `199.34.228.73`, which corresponds to the domain `plantedmeals.ca`.
+**Command Analysis:**
+The command used is `nmap <IP address>`, which performs a network scan on the specified IP address to gather information about the target host's ports, services, and operating system.
 
 **Risks Detected:**
-No specific risks are detected by this network scan. However, the scan reveals some potential issues related to port usage and network connectivity.
+The scan detects one potential risk:
+
+* **Filtered port 3389/tcp:** This indicates that the Microsoft Remote Desktop Protocol (ms-wbt-server) is filtered, which means it may not be accessible or may have restrictions on access. This could be a security concern if this service is intended to be used for remote access.
+
+**Output Analysis:**
+The scan output reveals:
+
+* The target IP address (`juice-shop.herokuapp.com`) has an uptime of 0.16 seconds.
+* There are two additional IP addresses associated with the same domain name (not scanned).
+* The reverse DNS record points to an Amazon Web Services (AWS) EC2 instance in the eu-west-1 region.
+* Port 3389 is filtered, indicating potential restrictions on remote access.
+
+**Remediation Steps:**
+To mitigate the detected risk:
+
+1. **Verify the necessity of port 3389:** Confirm whether this port is required for legitimate business purposes or can be blocked to reduce attack surfaces.
+2. **Configure firewall rules:** Implement firewall rules to restrict access to port 3389, if not necessary, to prevent unauthorized remote access.
+
+**Severity Analysis:**
+The detected issue has a moderate severity level (3 out of 5). While it does not reveal any critical vulnerabilities, it may indicate potential security concerns related to remote access.<hr><h2>HTTP Vulnerability (CVE-2017-5638)</h2>**Network Scan Report**
+
+**Command:** `nmap juice-shop.herokuapp.com`
+
+** Risks Detected: **
+
+* Port 80 (http) and port 443 (https) are open, indicating that the web server is responding to requests.
 
 **Analysis of Output:**
 
-* The host is up and responding to queries (0.0098s latency).
-* The reverse DNS (rDNS) record for the IP address `199.34.228.73` points to `pages-custom-25.weebly.com`, which may indicate that the domain name does not resolve correctly.
-* Port 25 (`smtp`) is filtered, indicating that it is either blocked or not actively listening.
+The output indicates a successful scan of the target host "juice-shop.herokuapp.com" (IP address 54.73.53.134). The scan detected two open ports:
 
-**Remediation Steps:**
+* Port 80/tcp: Open HTTP port
+* Port 443/tcp: Open HTTPS port
 
-1. **Verify DNS configuration:** Ensure that the DNS records for `plantedmeals.ca` are correct and properly configured to point to the IP address `199.34.228.73`. This may involve updating the domain's DNS settings.
-2. **Check email server configuration:** Since port 25 (`smtp`) is filtered, it is possible that the email server is not actively listening or is blocked by a firewall or network device. Review email server configuration and ensure that it is properly configured.
+Other IP addresses associated with the domain were not scanned.
 
-**Severity:**
-The detected issues are considered low-to-moderate severity. The fact that port 25 (`smtp`) is filtered does not necessarily indicate a security risk, but rather suggests that the email server may not be functioning correctly. The DNS issue may cause minor inconvenience for users trying to access the domain, but it is not a critical security concern.
+**Risks and Recommendations:**
 
-**Conclusion:**
-The network scan result indicates potential issues related to DNS configuration and email server functionality. Remediation steps involve verifying DNS settings and checking email server configuration to ensure proper operation.<hr><h2>DNS Zone Transfer</h2>**Network Scan Report**
+1. **Web Server Exposure:** Leaving ports 80 and 443 open may expose the web server to potential attacks, such as:
+	* HTTP and HTTPS injection attacks (e.g., SQL injection, cross-site scripting)
+	* Data breaches through unpatched vulnerabilities
+2. **Security Best Practices:**
+	* Implement strong authentication and authorization mechanisms for both HTTP and HTTPS protocols.
+	* Regularly update the web server software and plugins to ensure you have the latest security patches.
+	* Consider enabling Web Application Firewalls (WAFs) or intrusion detection systems to monitor and block suspicious traffic.
+
+**Severity:** Medium to High
+
+The detected risks pose a medium to high severity threat, as an attacker could potentially exploit open ports 80 and 443 to launch attacks against the web server. However, the severity can be mitigated by implementing recommended security best practices.
+
+**Recommendations for Remediation:**
+
+1. Update the web server software and plugins to ensure you have the latest security patches.
+2. Implement strong authentication and authorization mechanisms for both HTTP and HTTPS protocols.
+3. Consider enabling Web Application Firewalls (WAFs) or intrusion detection systems to monitor and block suspicious traffic.
+4. Regularly review and update access controls, ensuring that only authorized personnel can access the web server.
+
+By implementing these recommendations, you can reduce the risk of attacks against your web server and protect sensitive data.<hr><h2>FTP Vulnerability (CVE-2010-4221)</h2>**Network Scan Report**
 
 **Command Analysis:**
-The command used is `nmap`, which is a network scanning tool that performs discovery, vulnerability assessment, and security auditing.
+The command used is `nmap` version 7.95, which is a popular open-source tool for network discovery and security auditing. The command scans the specified IP address or hostname (`juice-shop.herokuapp.com`) to gather information about its ports, services, and potential vulnerabilities.
 
-**Risks Detected:**
-No specific risks are detected in this scan result. However, the output suggests that the network may have some open ports or services that could potentially be exploited by an attacker.
+**Risk Detection:**
+The scan does not detect any significant risks or vulnerabilities on the target system. However, it does reveal some information that could be used to inform future security assessments or monitoring:
+
+* The host is up and responding to pings.
+* The IP address has multiple DNS records, indicating potentially multiple instances of the service running.
+* Port 21 (FTP) is filtered, meaning it is not open or responsive.
 
 **Output Analysis:**
+The scan output provides a concise summary of the target system's network characteristics. Key takeaways include:
 
-* The host is up (0.012s latency), indicating that the target device is reachable and responding to network requests.
-* The rDNS record for 199.34.228.73 resolves to pages-custom-25.weebly.com, which may indicate a web hosting service or a dynamic DNS (DDNS) setup.
-* PORT 53/tcp is filtered, meaning that it is not open or listening. Domain name system (DNS) services typically run on port 53, but in this case, it appears to be blocked or filtered.
+* The host is up and responding to pings with a latency of 0.16 seconds.
+* No significant risks or vulnerabilities are detected.
+* The system has multiple DNS records, which could indicate additional instances or subdomains.
 
 **Remediation Steps:**
-Based on the output, no immediate remediation steps are necessary. However, further investigation into the DNS filtering and potential open ports/services may be warranted.
+Based on the output, no immediate remediation steps are necessary. However, it is recommended to:
 
-* Investigate the reason for the DNS filtering (e.g., firewall rule, security software).
-* Check for any other open ports or services that could be exploited by an attacker.
-* Consider configuring a more robust firewall or intrusion detection system to block suspicious traffic.
+* Perform regular security audits and vulnerability scans to ensure the system remains secure.
+* Review and update firewall rules to ensure only necessary ports and services are open.
+* Monitor system logs for suspicious activity.
 
-**Severity:**
-The detected issue is considered low-severity. The DNS filtering and potential open ports/services may not pose a significant risk on their own, but it's essential to investigate and remediate them to ensure the overall security posture of the network.
+**Severity Analysis:**
+The detected issues are relatively minor and do not pose a significant risk to the target system. The filtered FTP port (21) suggests that the system is not currently using this service, which reduces the potential attack surface. Overall, the severity of the detected issue is low.
 
 **Recommendations:**
 
-* Conduct further network scanning and vulnerability assessments to identify any potential security weaknesses.
-* Implement appropriate firewalls or intrusion detection systems to block suspicious traffic.
-* Consider configuring DNS services to run on a non-standard port (e.g., 5353) if necessary.
+1. Perform regular security audits and vulnerability scans.
+2. Review and update firewall rules.
+3. Monitor system logs for suspicious activity.
+4. Consider implementing additional security measures, such as intrusion detection systems or web application firewalls.
 
-Overall, this scan result suggests that the target device is reachable and responding to network requests. While some potential issues are detected, they do not pose an immediate risk. Further investigation and remediation steps can help improve the overall security posture of the network.<hr>
+**Conclusion:**
+The network scan reveals a relatively secure target system with no significant risks or vulnerabilities detected. However, it is essential to perform regular security audits and monitoring to ensure the system remains protected from potential threats.<hr><h2>SMTP Vulnerability (CVE-2011-1720)</h2>**Network Scan Report**
+
+**Command Analysis:**
+The command used is Nmap, which is a network scanning tool that provides information about hosts and services running on a network. It sends specially crafted packets to the target host or range of hosts and analyzes the responses to determine what services are available.
+
+**Risks Detected:**
+No significant risks were detected in this scan result. The only service detected was SMTP (Simple Mail Transfer Protocol) on port 25, which is filtered. This means that the SMTP service is not actively listening for incoming connections.
+
+**Analysis of Output:**
+
+* The target host, juice-shop.herokuapp.com, is up and responding to Nmap's probes.
+* The IP address associated with this domain is 54.73.53.134.
+* Two other addresses are listed as not scanned, which may be due to the scanning tool's configuration or limitations.
+* The reverse DNS (rDNS) record for 54.73.53.134 indicates that it is an Amazon Web Services (AWS) EC2 instance in the EU-West-1 region.
+
+**Remediation Steps:**
+No remediation steps are necessary, as no significant risks were detected. However, if you're concerned about security or want to improve your network's defenses, consider implementing additional security measures such as:
+
+* Enabling firewall rules to restrict access to unnecessary ports and services.
+* Implementing intrusion detection systems (IDS) or intrusion prevention systems (IPS) to detect and block suspicious traffic.
+
+**Severity of Detected Issue:**
+The detected issue is considered low-severity. The filtered SMTP service on port 25 does not pose a significant risk, as it is not actively listening for incoming connections. Therefore, no immediate action is required.
+
+**Conclusion:**
+This network scan result indicates that the target host, juice-shop.herokuapp.com, is up and responding to Nmap's probes. No significant risks were detected, but some basic security measures can be implemented to improve your network's defenses. The severity of the detected issue is low.<hr><h2>General Vulnerability Scan</h2>**Structured Report Format**
+
+**Command and Purpose**
+The command used is Nmap, a network scanning tool. The purpose of this scan is to detect open ports and services on a remote host, in this case, `juice-shop.herokuapp.com` (46.137.15.86).
+
+**Risks Detected**
+This scan does not detect any specific risks or vulnerabilities. Instead, it provides information about the services running on the target host.
+
+**Analysis of Output**
+
+The output shows that the target host is up and responding to TCP packets. The scan detected open ports 80 (HTTP) and 443 (HTTPS), which are serving the Heroku router. The response from these ports is a 400 Bad Request error with a text/html content type. This suggests that the server is configured to return an error page for any unexpected requests.
+
+The fingerprinting strings indicate that the server is running on an x86_64-pc-linux-gnu platform, and the responses are consistent across different request types (GetRequest, HTTPOptions, FourOhFourRequest).
+
+**Remediation Steps**
+
+1. **Review server configuration**: Review the server's configuration to ensure it is properly handling unexpected requests.
+2. **Implement proper error handling**: Implement proper error handling mechanisms to return more informative and helpful error messages.
+
+**Severity of Detected Issue**
+The detected issue is not severe, as it only indicates a lack of proper error handling on the target host. This does not pose a significant security risk, but rather suggests that the server may be returning incorrect or confusing responses to users.
+
+**Conclusion**
+
+This Nmap scan provides information about the services running on `juice-shop.herokuapp.com`. While it does not detect any specific vulnerabilities, it highlights the need for proper error handling and configuration review.<hr><h2>DNS Zone Transfer</h2>**Network Scan Report**
+
+**Command Analysis:**
+The command used is `nmap` (version 7.95), which performs a network scan on the target host `juice-shop.herokuapp.com`. This scan reports information about the target's open ports, services running, and any potential vulnerabilities.
+
+**Risks Detected:**
+None explicitly detected in this report. The output suggests that the command is focused on scanning the target host for basic network connectivity and port openness rather than detecting specific risks or vulnerabilities.
+
+**Analysis of Output:**
+
+* The scan reports that the host `juice-shop.herokuapp.com` is up (0.16s latency) and shows no significant issues.
+* The output lists only one open port, which is filtered (`53/tcp filtered domain`). This suggests that the Domain Name System (DNS) service is not actively listening on this port.
+* There are two other IP addresses associated with the same host name (`46.137.15.86` and `54.73.53.134`), but they were not scanned.
+
+**Remediation Steps:**
+Based on the output, no remediation steps are necessary, as there are no significant risks or vulnerabilities detected. However, it is recommended to run more in-depth scans (e.g., TCP SYN scan) to detect potential issues and ensure the host's security posture.
+
+**Severity of Detected Issue:**
+The severity of this issue is low, as no significant risks or vulnerabilities were detected. The command primarily provides basic network connectivity information and port openness, which does not indicate any severe security concerns.
+
+**Recommendations:**
+
+1. Run more in-depth scans (e.g., TCP SYN scan) to detect potential issues.
+2. Review the host's security configuration to ensure it is up-to-date and secure.
+3. Consider running vulnerability scans or penetration tests to identify potential weaknesses.
+
+Overall, this network scan report provides basic information about the target host's connectivity and port openness, but does not reveal any significant risks or vulnerabilities.<hr>

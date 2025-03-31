@@ -36,22 +36,25 @@ def run_nikto_scan(target, selected_scans):
     }
     
     output_file = "static/web_output.txt"
-    
+    full_output = ""
+
     with open(output_file, "w") as raw_output_file, open("static/web_analysis.html", "w") as analysis_file:
         for scan_name, command in nikto_commands.items():
             if scan_name in selected_scans:
                 result = subprocess.run(command, shell=True, capture_output=True, text=True)
-
+                scan_output = f"### {scan_name} ###\n{result.stdout}\n\n"
+                
                 # Write full output to file
-                raw_output_file.write(f"### {scan_name} ###\n{result.stdout}\n\n")
+                raw_output_file.write(scan_output)
+                full_output += scan_output  # Append to return output
 
                 # Display full output instead of "Scan Completed"
-                print(f"### {scan_name} ###\n{result.stdout}\n")
+                print(scan_output)
 
                 analysis = analyze_with_ollama(result.stdout)
                 analysis_file.write(f"<h2>{scan_name}</h2>{analysis}<hr>")
 
-    return "Web scan completed. Check web_output.txt for details."
+    return full_output
 
 if __name__ == "__main__":
     target_ip = input("Enter target IP or domain: ")
