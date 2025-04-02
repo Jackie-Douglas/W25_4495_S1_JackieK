@@ -193,3 +193,30 @@ pre {
 #complete-btn:hover {
     background-color: #00cc00;
 }
+
+/* Logo Container */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 20px auto;
+}
+
+/* Main Logo */
+.logo {
+    display: block;
+    max-width: 500px;
+    height: auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Blurred Outer Logo */
+.logo-blur {
+    position: absolute;
+    filter: blur(10px);
+    opacity: 0.5;
+    transform: scale(1.2);
+    z-index: 0;
+}

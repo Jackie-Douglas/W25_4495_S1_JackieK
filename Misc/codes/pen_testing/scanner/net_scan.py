@@ -24,16 +24,35 @@ def analyze_with_ollama(command_output):
 def run_nmap_scan(target, selected_scans):
     """Runs selected Nmap scans on the target and saves the output."""
     nmap_commands = {
-        "Full Port Scan": f"nmap -p- -sV -O -A {target}",
-        "SMB Vulnerability (MS17-010)": f"nmap --script smb-vuln-ms17-010 -p 445 {target}",
-        "SMB Vulnerability (MS08-067)": f"nmap --script smb-vuln-ms08-067 -p 445 {target}",
-        "RDP Vulnerability (MS12-020)": f"nmap --script rdp-vuln-ms12-020 -p 3389 {target}",
-        "HTTP Vulnerability (CVE-2017-5638)": f"nmap --script http-vuln-cve2017-5638 -p 80,443 {target}",
-        "FTP Vulnerability (CVE-2010-4221)": f"nmap --script ftp-vuln-cve2010-4221 -p 21 {target}",
-        "SMTP Vulnerability (CVE-2011-1720)": f"nmap --script smtp-vuln-cve2011-1720 -p 25 {target}",
-        "General Vulnerability Scan": f"nmap --script vulners -sV {target}",
-        "DNS Zone Transfer": f"nmap --script dns-zone-transfer -p 53 {target}"
-    }
+    # Full scan covering all ports, OS detection, and aggressive scanning
+    "Full Port Scan": f"nmap -p- -sV -O -A --script=default {target}",
+
+    # Improved SMB scanning for better vulnerability detection
+    "SMB Vulnerability (MS17-010 & Others)": f"nmap -p 139,445 --script=smb-vuln* {target}",
+    
+    # Added SMB enumeration to find additional misconfigurations
+    "SMB Enumeration": f"nmap --script smb-enum-shares,smb-enum-users,smb-os-discovery -p 445 {target}",
+
+    # Improved RDP scanning to include encryption enumeration
+    "RDP Vulnerability (MS12-020)": f"nmap --script rdp-vuln-ms12-020,rdp-enum-encryption -p 3389 {target}",
+
+    # CVE-specific HTTP and FTP vulnerability scanning
+    "HTTP Vulnerability (CVE-2017-5638)": f"nmap --script http-vuln-cve2017-5638 -p 80,443 {target}",
+    "FTP Vulnerability (CVE-2010-4221)": f"nmap --script ftp-vuln-cve2010-4221 -p 21 {target}",
+
+    # SMTP vulnerability scanning (same as before)
+    "SMTP Vulnerability (CVE-2011-1720)": f"nmap --script smtp-vuln-cve2011-1720 -p 25 {target}",
+
+    # Improved general vulnerability scan with a minimum CVSS filter
+    "General Vulnerability Scan": f"nmap --script vulners --script-args mincvss=5.0 -sV {target}",
+
+    # Comprehensive scan for all possible vulnerabilities
+    "Comprehensive Security Scan": f"nmap -sV --script=vuln,auth,default,exploit -p- {target}",
+
+    # DNS zone transfer check (same as before)
+    "DNS Zone Transfer": f"nmap --script dns-zone-transfer -p 53 {target}"
+}
+
 
     output_file = "static/net_output.txt"
     full_output = ""

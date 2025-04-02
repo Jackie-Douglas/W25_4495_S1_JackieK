@@ -79,17 +79,14 @@ def network():
         if not selected_scans:
             return render_template('net.html', error="No scan options selected!")
 
-        results = run_nmap_scan(target, selected_scans)
+        run_nmap_scan(target, selected_scans)
 
         with open("static/net_output.txt", "w") as f:
             f.write(results)
 
-        return render_template('net.html', 
-                               net_results=results, 
-                               analysis=analysis_report, 
-                               show_complete=True)
+        return render_template('net.html', show_complete=True)
 
-    return render_template('net.html', results=results, analysis_report=analysis_report)
+    return render_template('net.html', show_complete=False)
 
 # Web Application Security Scan Page
 @app.route('/web', methods=['GET', 'POST'])
@@ -104,18 +101,15 @@ def web():
         if not selected_scans:
             return render_template('web.html', error="No scan options selected!")
 
-        results = run_nikto_scan(target, selected_scans)
+        run_nikto_scan(target, selected_scans)
 
         with open("static/web_output.txt", "w") as f:
             f.write(results)
 
-        return render_template('web.html', 
-                               web_results=results, 
-                               analysis=analysis_report, 
+        return render_template('web.html',                   
                                show_complete=True)
 
-    return render_template('web.html', results=results, analysis_report=analysis_report)
-
+    return render_template('web.html', show_complete=False)
 # Results Page
 @app.route('/results')
 def results():

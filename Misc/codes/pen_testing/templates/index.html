@@ -32,7 +32,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>Automated Security Scanner</h1>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='img/logo_NShield.png') }}" alt="NShield Logo" class="logo">
+            <img src="{{ url_for('static', filename='img/logo_NShield.png') }}" alt="NShield Logo Blur" class="logo logo-blur">
+        </div>
         <div class="grid">
             <a href="{{ url_for('install') }}" class="block">Installation</a>
             <a href="{{ url_for('network') }}" class="block" id="network-block">Network Security Scan</a>
