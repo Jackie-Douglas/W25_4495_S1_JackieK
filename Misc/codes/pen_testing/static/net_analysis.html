@@ -1,246 +1,67 @@
-<h2>Full Port Scan</h2>**Network Scan Result Analysis**
+<h2>Full Port Scan</h2>**Structured Report Format**
 
-**Command:** `nmap` command with default settings, used to perform a network scan.
+**Command Analysis:**
+The command used in this scan is Nmap, a network scanning tool that provides information about hosts and services on a network. This specific scan uses various options to perform a comprehensive analysis of the target host, including OS detection, service detection, and port scanning.
 
-**What does this command do?**
-This command performs a network scan on a single IP address (not specified in the output) using Nmap version 7.95. The scan checks for hosts that are up and responding to ping probes, as well as other network-related information.
+**Risks Detected:**
+This scan detects several risks:
+
+1. **Unsecured HTTP Ports:** The scan reveals multiple unsecured HTTP ports (80/tcp, 2052/tcp, etc.) that can be exploited by attackers.
+2. **Cloudflare Proxies:** The presence of Cloudflare proxies on multiple ports (80/tcp, 443/tcp, etc.) suggests potential security risks, as these proxies can be used to manipulate traffic and hide malicious activities.
+
+**Analysis:**
+The output indicates that the target host is up and responding to requests. The scan detects several open ports, including HTTP ports with Cloudflare proxies. This suggests that the host may be vulnerable to attacks exploiting unsecured HTTP ports or manipulated by Cloudflare proxies.
+
+1. **OS Detection:** The scan attempts to detect the operating system running on the host but does not provide a conclusive result due to the lack of open and closed ports.
+2. **Service Detection:** The scan detects multiple services, including HTTP and HTTPS, on various ports, indicating that the host is likely hosting web applications.
+
+**Remediation Steps:**
+To address these risks, consider the following steps:
+
+1. **Secure HTTP Ports:** Implement SSL/TLS encryption on all open HTTP ports to prevent eavesdropping and tampering.
+2. **Configure Cloudflare Proxies:** Ensure that Cloudflare proxies are properly configured to filter out malicious traffic and block unauthorized access.
+3. **Monitor Network Traffic:** Regularly monitor network traffic to detect any suspicious or unusual activity.
+
+**Severity:**
+The detected risks have a medium to high severity, as they can be exploited by attackers to compromise the host's security. Prompt remediation steps are necessary to mitigate these risks and ensure the host's security.
+
+**Additional Recommendations:**
+
+1. **Conduct Regular Security Audits:** Perform regular security audits to identify vulnerabilities and address them promptly.
+2. **Implement Firewalls:** Configure firewalls to block unauthorized access and restrict incoming traffic to only necessary ports.
+3. **Keep Software Up-to-Date:** Ensure that all software, including the operating system and applications, is up-to-date with the latest security patches.
+
+By taking these remediation steps and implementing additional recommendations, you can significantly reduce the risks detected by this scan and improve the host's overall security posture.<hr><h2>SMB & RDP Vulnerability Scan</h2>**Network Scan Report**
+
+**Command:** `nmap 199.34.228.73`
+
+**What it does:** The command runs a network scan using Nmap to identify open ports and services on the specified IP address (199.34.228.73) and domain name (plantedmeals.ca).
 
 **Risks detected:**
-None. The output indicates that all hosts were found to be down or not responding to ping probes.
 
-**Analysis of the output:**
+* **NetBIOS Service (139/tcp)**: This port is filtered, indicating that it may be hiding or not responding.
+* **Microsoft-DS (445/tcp)**: This port is also filtered, suggesting potential issues with file sharing or Active Directory services.
+* **MS-WBT Server (3389/tcp)**: This port is filtered, which could indicate problems with remote desktop connections.
 
-* The command was executed successfully.
-* The output reports that no hosts were found to be up and responsive.
-* The note suggests trying the `-Pn` option if the host is really up but blocking ping probes, which implies that the host may be intentionally not responding to ping requests.
+**Analysis of output:**
+
+The scan results suggest that the targeted IP address and domain name are up and responsive. However, three ports are filtered, indicating potential issues with network services. The filtered ports may be hiding or not responding to incoming traffic, making it difficult to determine their actual status.
 
 **Remediation steps:**
-1. If the host is intentionally blocking ping probes, try using the `-Pn` option with Nmap to force the scan to proceed.
-2. Check network logs and system logs for any signs of suspicious activity or malicious traffic that might indicate a security issue.
-3. Verify the connectivity and response times of other hosts on the same network.
 
-**Severity:**
-The detected issue is low-severity, as it only indicates that the host(s) are not responding to ping probes. However, if the host is intentionally blocking probes, this could be an indication of potential security issues or misconfiguration.
+1. **Investigate filtered ports:** Review the system logs and network configuration to determine why these ports are filtered.
+2. **Secure NetBIOS and Microsoft-DS services:** Ensure that these services are properly configured and secured to prevent unauthorized access.
+3. **Configure MS-WBT Server:** Verify that the remote desktop service is properly configured and secure.
 
-**Structured Report Format:**
+**Severity of detected issue:**
 
-**Network Scan Result Analysis**
+The severity of this issue depends on the specific circumstances and potential vulnerabilities associated with each filtered port. However, as a general rule, filtered ports can indicate potential security risks, such as:
 
-* **Command:** `nmap` command with default settings
-* **What does this command do?:** Performs a network scan on a single IP address (not specified)
-* **Risks detected:** None
-* **Analysis of the output:**
-	+ Command executed successfully
-	+ No hosts found to be up and responsive
-	+ Note suggests trying `-Pn` option if host is intentionally blocking ping probes
-* **Remediation steps:**
-	1. Try using `-Pn` option with Nmap if host is intentionally blocking ping probes
-	2. Check network logs and system logs for suspicious activity or malicious traffic
-	3. Verify connectivity and response times of other hosts on the same network
-* **Severity:** Low-severity issue indicating host(s) not responding to ping probes
+* Unauthorized access to file shares or Active Directory services
+* Inadequate configuration or security of remote desktop connections
 
-**Recommendations:**
+To determine the actual severity, further investigation is necessary.
 
-1. Run a more comprehensive scan using Nmap's advanced features (e.g., `-A` option for OS detection, service scanning, and version detection).
-2. Conduct further investigation into the potential security implications of hosts intentionally blocking ping probes.
+**Recommendation:**
 
-Note: This report assumes that the network scan was executed on a single IP address not specified in the output. If you intended to scan multiple IP addresses or a range of IP addresses, please provide additional context for more accurate analysis and recommendations.<hr><h2>RDP Vulnerability (MS12-020)</h2>**Network Scan Report**
-
-**Command Analysis:**
-The command used in this network scan is `nmap`, a popular open-source tool for network exploration and security auditing. The specific command used appears to be a simple IP address scan, which sends a probe packet to the target host and checks if it responds.
-
-**Detected Risks:**
-Based on the output, no risks are detected. The report indicates that all hosts scanned were found to be "down", meaning they did not respond to the ping probes sent by Nmap.
-
-**Output Analysis:**
-The output suggests that the target host or hosts did not respond to the scan, indicating a lack of connectivity or active network services. This could be due to various reasons such as:
-
-* The host is actually down (e.g., power outage, hardware failure)
-* The host is behind a firewall or intrusion detection system that blocks ping probes
-* The host is not configured to respond to ICMP echo requests
-
-**Remediation Steps:**
-
-1. Verify the host's status: If the host is truly down, no further action is required. However, if it is simply blocking ping probes, consider using Nmap's `-Pn` option to force a full scan.
-2. Check network connectivity: Ensure that the scanning device has proper network connectivity and can reach other hosts on the same network.
-3. Investigate firewall or IDS configurations: If the host is behind a firewall or IDS, investigate its configuration to determine why it is blocking ping probes.
-
-**Severity Analysis:**
-The detected issue is considered LOW severity, as there are no active services or potential vulnerabilities identified. However, if the host is intentionally blocking ping probes for security reasons, this may indicate a more serious security posture and warrant further investigation.
-
-**Conclusion:**
-This network scan report indicates that the target host(s) did not respond to the ping probe, suggesting a lack of connectivity or active network services. The severity of the issue is considered LOW, but further investigation into the host's status and potential firewall or IDS configurations may be warranted to ensure proper network security.<hr><h2>HTTP Vulnerability (CVE-2017-5638)</h2>**Network Scan Result Analysis**
-
-**Command Explanation:**
-The command used is `nmap`, a network scanning tool, version 7.95. The `-P` option is used to perform an ICMP echo request (ping) scan to detect hosts that are up or responding to ping requests.
-
-**Risks Detected:**
-This command does not detect any specific risks or vulnerabilities. Instead, it reports that the host seems down, indicating that no responses were received from the target IP address.
-
-**Analysis of Output:**
-
-* The output indicates that only 1 IP address was scanned.
-* No hosts were found to be up (responding to ping requests), suggesting that the target IP address may not be responding or is experiencing connectivity issues.
-* The scan took approximately 3.21 seconds to complete.
-
-**Remediation Steps:**
-To resolve the issue, the following steps can be taken:
-
-1. Verify network connectivity and ensure that there are no issues with the network infrastructure.
-2. Check for any firewall rules or access control lists (ACLs) blocking ICMP echo requests.
-3. Attempt to ping the target IP address using a different protocol, such as TCP SYN scan (-sT option).
-4. If the issue persists, investigate potential DNS resolution issues or problems with the host's network stack.
-
-**Severity:**
-The detected issue is considered low-severity, as it does not indicate any specific vulnerabilities or compromised systems. However, it may still be important to resolve the issue to ensure proper connectivity and troubleshooting capabilities.
-
-**Structured Report Format:**
-
-* **Command:** nmap -P
-* **Target IP Address:** [insert target IP address]
-* **Risks Detected:** None (host seems down)
-* **Analysis of Output:**
-	+ Number of IP addresses scanned: 1
-	+ Hosts found to be up: 0
-	+ Scan duration: 3.21 seconds
-* **Remediation Steps:**
-	1. Verify network connectivity and infrastructure.
-	2. Check firewall rules and ACLs for ICMP echo requests.
-	3. Attempt TCP SYN scan or alternative protocols.
-	4. Investigate DNS resolution issues or host network stack problems.
-* **Severity:** Low<hr><h2>FTP Vulnerability (CVE-2010-4221)</h2>**Network Scan Report**
-
-**Command Analysis:**
-The command used is `nmap`, which is a network scanning tool that helps identify hosts on a network, as well as potential issues with them. In this case, it appears to be a basic scan that sends ICMP echo requests (pings) to the target host.
-
-**Risks Detected:**
-This command does not detect any specific risks or vulnerabilities. Instead, it provides information about the host's responsiveness to ping probes.
-
-**Output Analysis:**
-The output indicates that the target host is "down," meaning it did not respond to the ping requests. This could be due to various reasons such as:
-
-* The host is actually down (e.g., powered off or experiencing a network outage).
-* The host is blocking ICMP echo requests.
-* The scan was unable to reach the host due to network connectivity issues.
-
-**Remediation Steps:**
-To further investigate, you can try the following remediation steps:
-
-1. Run the command with the `-Pn` option (as suggested by the note) to bypass the ping probes and see if the host responds to other types of scans.
-2. Try pinging the host from a different network or device to determine if the issue is specific to your scanning tool or network configuration.
-
-**Severity:**
-The severity of this detected issue is low, as it only indicates that the host did not respond to ping probes and does not reveal any potential security vulnerabilities. However, if the host is actually down due to a hardware or software failure, it may indicate a potential problem that requires attention from network administrators.<hr><h2>SMTP Vulnerability (CVE-2011-1720)</h2>**Network Scan Result Analysis**
-
-**Command:** `nmap`
-
-**Purpose:** The command conducts a network scan to detect hosts and services on a network.
-
-**Risks Detected:** None, as no hosts were found to be up or responding.
-
-**Analysis of Output:**
-
-The output indicates that the host(s) being scanned are not responding to ping probes. This could be due to several reasons:
-
-* The host(s) are actually down (not functioning).
-* The host(s) are blocking ping probes.
-* Network issues prevent the scanner from reaching the hosts.
-
-**Remediation Steps:**
-
-1. **Verify Host Status:** Attempt to connect to the host(s) using other methods, such as SSH or HTTP, to determine their actual status.
-2. **Check Firewall Rules:** Review firewall rules and configuration to ensure that ping probes are not being blocked.
-3. **Network Troubleshooting:** Perform basic network troubleshooting to identify any issues that may be preventing communication with the hosts.
-
-**Severity of Detected Issue:**
-
-The severity of this issue is **LOW**, as no actual vulnerabilities or security risks have been detected. However, it is essential to investigate further to determine the root cause of the issue and take remediation steps to ensure network availability and functionality.
-
-**Structured Report Format:**
-
-**Network Scan Result Analysis**
-
-* **Command:** `nmap`
-* **Purpose:** Network scan to detect hosts and services
-* **Risks Detected:** None
-* **Analysis of Output:**
-	+ Host(s) not responding to ping probes
-	+ Possible reasons: host(s) down, blocking ping probes, or network issues
-* **Remediation Steps:**
-	1. Verify Host Status
-	2. Check Firewall Rules
-	3. Network Troubleshooting
-* **Severity of Detected Issue:** LOW
-
-**Recommendations:**
-
-* Continue to investigate the issue to determine the root cause
-* Take remediation steps to ensure network availability and functionality<hr><h2>General Vulnerability Scan</h2>**Network Scan Result Analysis Report**
-
-**Command:** `nmap`
-
-**Purpose:** The command performs a network scan to detect hosts and services on a given IP address or range.
-
-**Risks Detected:** None (since no hosts were found to be up)
-
-**Analysis of the Output:**
-
-The output indicates that the network scan was run, but it did not find any hosts responding. This could mean that:
-
-* The target host(s) are actually down and not reachable.
-* The host(s) are configured to block ping probes (ICMP packets).
-* There is a problem with the network or the scanning tool itself.
-
-**Remediation Steps:**
-
-1. Verify if the target host(s) are actually down by attempting to connect to them using a different method (e.g., SSH, HTTP).
-2. If the issue persists, investigate possible network issues, such as router configuration problems or faulty network cables.
-3. Try running the scan with the `-Pn` option to disable ping probing and see if any hosts are detected.
-
-**Severity:**
-
-The severity of this issue is **LOW**, as it does not indicate any specific security risks or vulnerabilities. However, it may be indicative of a larger problem that needs to be addressed to ensure network connectivity and availability.
-
-**Recommendations:**
-
-* Perform additional scans with different options (e.g., `-sV` for version detection) to gather more information about the target hosts.
-* Verify network configuration and routing tables to ensure that the scanning tool can reach the target hosts.
-* Consider running a full scan with the `-A` option to detect open ports, services, and operating systems.<hr><h2>DNS Zone Transfer</h2>**Network Scan Result Analysis**
-
-**Command Analysis:**
-The command used is `nmap`, a network scanning tool, with version 7.95. The command appears to be a simple scan of a single IP address.
-
-**Risks Detected:**
-This scan does not detect any specific risks or vulnerabilities. Instead, it reports that the host seems down, indicating that the network connection or the host itself is not responding to ping probes.
-
-**Analysis of Output:**
-The output indicates that the scan was unable to connect to the target IP address (1 IP address scanned) and did not detect any hosts that were up and responding. The scan took approximately 3.13 seconds to complete.
-
-**Remediation Steps:**
-
-1. **Check network connectivity:** Verify that there are no issues with your network connection or the host's network configuration.
-2. **Host status check:** Try pinging the host manually using a ping command (e.g., `ping <IP address>`). If it still appears down, investigate further to determine the cause of the issue.
-
-**Severity:**
-The detected issue is **LOW-SEVERITY**, as it only indicates that the host or network connection is not responding. It does not indicate any specific vulnerabilities or risks to the system.
-
-**Structured Report Format:**
-
-**Network Scan Result Analysis Report**
-
-* **Command:** `nmap 7.95`
-* **Target IP Address:** [Insert IP address scanned]
-* **Risks Detected:** None (host seems down)
-* **Analysis of Output:**
-	+ Scan took approximately 3.13 seconds to complete
-	+ Unable to connect to target IP address
-	+ No hosts detected as up and responding
-* **Remediation Steps:**
-	1. Check network connectivity
-	2. Host status check (ping manually)
-* **Severity:** Low-severity
-
-**Recommendations:**
-
-* Further investigation into the host's or network connection's status is recommended to determine the cause of the issue.
-* If the issue persists, consider performing a more in-depth network scan using `nmap` with additional options or tools to gather more information.<hr>
+Perform additional analysis and remediation steps to address the filtered ports and ensure the overall security posture of the network.<hr>

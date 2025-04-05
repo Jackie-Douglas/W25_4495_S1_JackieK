@@ -24,33 +24,15 @@ def analyze_with_ollama(command_output):
 def run_nmap_scan(target, selected_scans):
     """Runs selected Nmap scans on the target and saves the output."""
     nmap_commands = {
-    # Full scan covering all ports, OS detection, and aggressive scanning
-    "Full Port Scan": f"nmap -p- -sV -O -A --script=default {target}",
+    "Full Port Scan": f"nmap -p- -T4 -sV -O -A --script=default {target}",
 
-    # Improved SMB scanning for better vulnerability detection
-    "SMB Vulnerability (MS17-010 & Others)": f"nmap -p 139,445 --script=smb-vuln* {target}",
-    
-    # Added SMB enumeration to find additional misconfigurations
-    "SMB Enumeration": f"nmap --script smb-enum-shares,smb-enum-users,smb-os-discovery -p 445 {target}",
+    "SMB & RDP Vulnerability Scan": f"nmap -p 139,445,3389 --script=smb-vuln*,rdp-vuln-ms12-020,rdp-enum-encryption {target}",
 
-    # Improved RDP scanning to include encryption enumeration
-    "RDP Vulnerability (MS12-020)": f"nmap --script rdp-vuln-ms12-020,rdp-enum-encryption -p 3389 {target}",
+    "Web & FTP Vulnerability Scan": f"nmap -p 21,80,443 --script=http-vuln*,ftp-vuln-cve2010-4221 {target}",
 
-    # CVE-specific HTTP and FTP vulnerability scanning
-    "HTTP Vulnerability (CVE-2017-5638)": f"nmap --script http-vuln-cve2017-5638 -p 80,443 {target}",
-    "FTP Vulnerability (CVE-2010-4221)": f"nmap --script ftp-vuln-cve2010-4221 -p 21 {target}",
+    "SMTP & DNS Security Scan": f"nmap -p 25,53 --script=smtp-vuln-cve2011-1720,dns-zone-transfer {target}",
 
-    # SMTP vulnerability scanning (same as before)
-    "SMTP Vulnerability (CVE-2011-1720)": f"nmap --script smtp-vuln-cve2011-1720 -p 25 {target}",
-
-    # Improved general vulnerability scan with a minimum CVSS filter
-    "General Vulnerability Scan": f"nmap --script vulners --script-args mincvss=5.0 -sV {target}",
-
-    # Comprehensive scan for all possible vulnerabilities
-    "Comprehensive Security Scan": f"nmap -sV --script=vuln,auth,default,exploit -p- {target}",
-
-    # DNS zone transfer check (same as before)
-    "DNS Zone Transfer": f"nmap --script dns-zone-transfer -p 53 {target}"
+    "Comprehensive Vulnerability Scan": f"nmap -sV -T4 --script=vulners --script-args mincvss=5.0 {target}"
 }
 
 

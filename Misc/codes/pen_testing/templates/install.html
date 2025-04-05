@@ -17,19 +17,36 @@
 
     <script>
         function startInstallation() {
-            let installBtn = document.getElementById("install-btn");
-            let progressBar = document.getElementById("progress-bar");
-            let statusText = document.getElementById("status-text");
-            let completeBtn = document.getElementById("complete-btn");
+    let installBtn = document.getElementById("install-btn");
+    let progressBar = document.getElementById("progress-bar");
+    let statusText = document.getElementById("status-text");
+    let completeBtn = document.getElementById("complete-btn");
 
-            installBtn.disabled = true;
+    installBtn.disabled = true;
+    statusText.textContent = "Checking Ollama version...";
+
+    fetch('/check_ollama_version')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch Ollama version');
+            }
+            return response.json();  // Parse the response as JSON
+        })
+        .then(data => {
+            if (data.status === "already_installed") {
+                statusText.textContent = "Ollama is already installed (version " + data.version + ").";
+                installBtn.disabled = true;
+                completeBtn.classList.remove("hidden");
+                return;
+            }
+
             statusText.textContent = "Installing... Please wait.";
+            progressBar.style.width = "25%";
 
             fetch('/run_installation')
                 .then(response => response.json())
                 .then(data => {
-                    console.log("API Response:", data); // Debugging step
-                    if (data.status === "success") {  // ✅ Check "status" instead of "completed"
+                    if (data.status === "success") {
                         progressBar.style.width = "100%";
                         statusText.textContent = "Installation Completed!";
                         completeBtn.classList.remove("hidden");
@@ -38,9 +55,13 @@
                     }
                 })
                 .catch(error => {
-                    statusText.textContent = "Error: " + error;
+                    statusText.textContent = "Error during installation: " + error;
                 });
-        }
+        })
+        .catch(error => {
+            statusText.textContent = "Error checking Ollama version: " + error;
+        });
+}
     </script>
 </body>
 </html>

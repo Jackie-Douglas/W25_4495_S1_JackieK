@@ -24,16 +24,13 @@ def analyze_with_ollama(command_output):
 def run_nikto_scan(target, selected_scans):
     """Runs Nikto web application vulnerability scans and saves the output."""
     nikto_commands = {
-        "Basic Scan": f"nikto -h {target}",
-        "SSL Scan": f"nikto -h https://{target}",
-        "Verbose Scan": f"nikto -h {target} -Display V",
-        "SSL Specific Scan": f"nikto -h {target} -ssl",
-        "XSS Scan": f"nikto -h {target} -Tuning 1",
-        "SQL Injection Scan": f"nikto -h {target} -Tuning 3",
-        "File Inclusion Scan": f"nikto -h {target} -Tuning 4",
-        "Server Vulnerability Scan": f"nikto -h {target} -Tuning 5",
-        "Remote Code Execution Scan": f"nikto -h {target} -Tuning 6"
-    }
+    "Basic Scan": f"nikto -h {target}",
+    "SSL Scan": f"nikto -h {target} -ssl",
+    "Verbose Scan": f"nikto -h {target} -Display V",
+    "XSS & SQL Injection Scan": f"nikto -h {target} -Tuning 1,6",
+    "File Inclusion & RCE Scan": f"nikto -h {target} -Tuning 4,5",
+    "Server Vulnerability Scan": f"nikto -h {target} -Tuning 3"
+}
     
     output_file = "static/web_output.txt"
     full_output = ""

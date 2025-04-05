@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
 import subprocess
+import requests
 
 # Importing scanner scripts
 from scanner.web_scan import run_nikto_scan
@@ -25,20 +26,29 @@ def index():
 def install():
     return render_template('install.html')
 
-# Run installation commands
 @app.route('/run_installation')
 def run_installation():
     commands = [
         "python3 -m venv ollama_env",
-        "source ollama_env/bin/activate && pip install ollama",
+        "source ollama_env/bin/activate && sudo rm -rf /usr/local/bin/ollama ~/.ollama",
+        "source ollama_env/bin/activate && curl -fsSL https://ollama.ai/install.sh | sh",
+        "source ollama_env/bin/activate && ollama --version",  # Version check
         "source ollama_env/bin/activate && ollama pull llama3"
     ]
 
     output = []
-    for cmd in commands:
+    progress = 0
+
+    for idx, cmd in enumerate(commands):
         result = subprocess.run(
             cmd, shell=True, capture_output=True, text=True, executable="/bin/bash"
         )
+
+        # Log the raw output
+        print(f"Running: {cmd}")
+        print(f"STDOUT: {result.stdout}")
+        print(f"STDERR: {result.stderr}")
+        print(f"Return Code: {result.returncode}")
 
         output.append({
             "command": cmd,
@@ -47,11 +57,6 @@ def run_installation():
             "returncode": result.returncode
         })
 
-        print(f"Running: {cmd}")
-        print(f"STDOUT: {result.stdout}")
-        print(f"STDERR: {result.stderr}")
-        print(f"Return Code: {result.returncode}")
-
         if result.returncode != 0:
             return jsonify({
                 "status": "error",
@@ -59,11 +64,36 @@ def run_installation():
                 "output": output
             })
 
+        # Update progress based on the command
+        progress = (idx + 1) * 20  # Each command is 20% of the total
+
+        if cmd == "source ollama_env/bin/activate && ollama --version":
+            version_output = result.stdout.strip()
+            print(f"Version Output: {version_output}")  # Log the version output for debugging
+
+            # Directly check for version format
+            if not version_output.startswith("ollama version"):
+                error_message = f"Unexpected output from 'ollama --version'. Output was: {version_output}"
+                print(f"Error: {error_message}")
+                return jsonify({
+                    "status": "error",
+                    "message": error_message,
+                    "output": output
+                })
+            else:
+                # Successfully retrieved version
+                version_number = version_output.split("ollama version")[-1].strip()
+                print(f"Ollama version: {version_number}")
+        
+        # Update the frontend with the current progress
+        # You can send this progress to the frontend to update the progress bar
+
     return jsonify({
         "status": "success",
         "message": "Installation completed successfully!",
         "output": output
     })
+
 
 
 # Network Security Scan Page
@@ -87,6 +117,28 @@ def network():
         return render_template('net.html', show_complete=True)
 
     return render_template('net.html', show_complete=False)
+
+@app.route('/check_ollama_version')
+def check_ollama_version():
+    try:
+        result = subprocess.run(
+            "ollama --version", shell=True, capture_output=True, text=True
+        )
+
+        # Check if the command was successful
+        if result.returncode == 0:
+            version_output = result.stdout.strip()
+            if version_output.startswith("ollama version"):
+                version_number = version_output.split("ollama version")[-1].strip()
+                return jsonify({"status": "already_installed", "version": version_number})
+            else:
+                return jsonify({"status": "error", "message": "Unexpected version output"})
+        else:
+            return jsonify({"status": "error", "message": result.stderr.strip()})
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+
 
 # Web Application Security Scan Page
 @app.route('/web', methods=['GET', 'POST'])
@@ -125,6 +177,8 @@ def results():
             web_results = f.read()
 
     return render_template('results.html', net_results=net_results, web_results=web_results)
+
+
 
 # Update Blocks
 @app.route("/complete/<scan_type>")
