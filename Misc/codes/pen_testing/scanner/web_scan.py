@@ -1,59 +1,94 @@
 import subprocess
-import os
 import ollama
-
-def analyze_with_ollama(command_output):
-    """Analyzes web scan result using Ollama AI."""
-    prompt = f"""
-    Analyze the following web vulnerability scan result:
-
-    {command_output}
-
-    Questions to answer:
-    1. What does this command do?
-    2. What risks does it detect?
-    3. What is the analysis of the output?
-    4. What remediation steps should be taken?
-    5. How severe is the detected issue?
-
-    Provide a structured report format.
-    """
-    response = ollama.chat(model="llama3", messages=[{"role": "user", "content": prompt}])
-    return response['message']['content']
+import os
 
 def run_nikto_scan(target, selected_scans):
-    """Runs Nikto web application vulnerability scans and saves the output."""
     nikto_commands = {
-    "Basic Scan": f"nikto -h {target}",
-    "SSL Scan": f"nikto -h {target} -ssl",
-    "Verbose Scan": f"nikto -h {target} -Display V",
-    "XSS & SQL Injection Scan": f"nikto -h {target} -Tuning 1,6",
-    "File Inclusion & RCE Scan": f"nikto -h {target} -Tuning 4,5",
-    "Server Vulnerability Scan": f"nikto -h {target} -Tuning 3"
-}
-    
+        "Basic Scan": f"nikto -h {target}",
+        "SSL Scan": f"nikto -h {target} -ssl",
+        "Verbose Scan": f"nikto -h {target} -Display V",
+        "XSS & SQL Injection Scan": f"nikto -h {target} -Tuning 1,6",
+        "File Inclusion & RCE Scan": f"nikto -h {target} -Tuning 4,5",
+        "Server Vulnerability Scan": f"nikto -h {target} -Tuning 3"
+    }
+
+    os.makedirs("static", exist_ok=True)
+    raw_output = ""
+    analysis_report = ""
     output_file = "static/web_output.txt"
-    full_output = ""
+    analysis_file = "static/web_analysis.html"
 
-    with open(output_file, "w") as raw_output_file, open("static/web_analysis.html", "w") as analysis_file:
-        for scan_name, command in nikto_commands.items():
-            if scan_name in selected_scans:
-                result = subprocess.run(command, shell=True, capture_output=True, text=True)
-                scan_output = f"### {scan_name} ###\n{result.stdout}\n\n"
-                
-                # Write full output to file
-                raw_output_file.write(scan_output)
-                full_output += scan_output  # Append to return output
+    # Ensure the scan options received from the frontend are handled
+    if not selected_scans:
+        raise ValueError("No scan options selected.")
+    
+    for scan in selected_scans:
+        command = nikto_commands.get(scan)
+        if not command:
+            continue
 
-                # Display full output instead of "Scan Completed"
-                print(scan_output)
+        try:
+            result = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, timeout=300).decode()
+        except subprocess.CalledProcessError as e:
+            result = e.output.decode()
+        except subprocess.TimeoutExpired:
+            result = f"Scan timed out for: {scan}"
 
-                analysis = analyze_with_ollama(result.stdout)
-                analysis_file.write(f"<h2>{scan_name}</h2>{analysis}<hr>")
+        raw_output += f"\n====================\n{scan}\n====================\n"
+        raw_output += f"Command: {command}\n"
+        raw_output += result + "\n"
 
-    return full_output
+        # Ask Ollama to analyze the result
+        prompt = f'''
+Generate a detailed, structured, and beginner-friendly HTML report with the following layout:
 
-if __name__ == "__main__":
-    target_ip = input("Enter target IP or domain: ")
-    selected_scans = list(input("Enter selected scan categories (comma-separated): ").split(", "))
-    run_nikto_scan(target_ip, selected_scans)
+===========================
+🟢 <h2>{scan}</h2>
+===========================
+
+1. <h3>📝 Executive Summary</h3>
+- A clear and concise overview in simple language.
+- Help non-technical users understand the scan findings.
+- Use icons like ✅, ⚠️, or 🔴 where appropriate.
+
+2. <h3>📋 Detailed Analysis Table</h3>
+Create an HTML table with these rows:
+| Section | Description |
+|--------|-------------|
+| Command Used | {command} |
+| Purpose | What does this command try to achieve? |
+| Risks Detected | Summarize possible vulnerabilities. |
+| Output Analysis | Analyze this output: \n{result} |
+| Recommended Remediation | What should be done to fix the issue? |
+| Severity Level | Use 🔴 High, 🟠 Medium, 🟡 Low. Include why it’s that level. |
+
+3. <h3>📌 Visual Severity Block</h3>
+Display severity level as a large colored banner:
+- Red (`background-color:#ffcccc`) for High
+- Orange (`background-color:#ffe5cc`) for Medium
+- Yellow (`background-color:#ffffcc`) for Low
+
+4. <h3>📖 Additional Tips & Insights</h3>
+- Add expert tips or common pitfalls.
+- Mention if any findings may be false positives.
+- Suggest any manual investigation steps.
+
+5. <h3>🔽 Advanced Details (Collapsible)</h3>
+<p>Click to expand raw scan output:</p>
+<details>
+  <summary>Show Raw Output</summary>
+  <pre>{result}</pre>
+</details>
+'''
+
+        response = ollama.chat(model="llama3", messages=[{"role": "user", "content": prompt}])
+
+        analysis_report += response['message']['content'] + "\n"
+
+    with open(output_file, "w") as raw:
+        raw.write(raw_output)
+
+    with open(analysis_file, "w") as report:
+        report.write(analysis_report)
+
+    return raw_output, analysis_report

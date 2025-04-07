@@ -2,14 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Application Security Scan</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/script.css') }}">
+    <link rel="stylesheet" href="/static/css/script.css">
 </head>
 <body>
     <div class="container">
         <h1>Web Application Security Scan</h1>
-        <form action="{{ url_for('web') }}" method="post">
+
+        {% if error %}
+            <div class="error-block">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
             <label for="target">Enter Target URL:</label>
             <input type="text" id="target" name="target" required>
 
@@ -22,22 +26,21 @@
                 <label><input type="checkbox" name="scan_options" value="File Inclusion & RCE Scan"> File Inclusion & RCE Scan</label><br>
                 <label><input type="checkbox" name="scan_options" value="Server Vulnerability Scan"> Server Vulnerability Scan</label><br>
             </div>
-            <br>
+
             <button type="submit">Start Scanning</button>
         </form>
 
-        {% if web_results %}
-            <h2>Scan Results</h2>
-            <pre>{{ web_results }}</pre>
-        {% endif %}
-
-        {% if analysis %}
-            <h2>Analysis Report</h2>
-            <pre>{{ analysis }}</pre>
+        {% if scanning %}
+            <div id="loading" style="margin-top: 20px;">
+                🔄 Running scans... Please wait. This may take a while.
+            </div>
         {% endif %}
 
         {% if show_complete %}
-            <button onclick="window.location.href='/'">Done Web Security Scanning</button>
+            <div id="complete-message" style="margin-top: 20px;" class="success-block">
+                ✅ Web Application Scanning Complete!
+                <form method="get" action="/"><button type="submit">Done Web Security Scanning</button></form>
+            </div>
         {% endif %}
     </div>
 </body>

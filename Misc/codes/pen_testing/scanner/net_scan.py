@@ -1,63 +1,110 @@
 import subprocess
-import os
 import ollama
+import os
+from flask import Flask, request, render_template
 
-def analyze_with_ollama(command_output):
-    """Analyzes command output using Ollama AI."""
-    prompt = f"""
-    Analyze the following network scan result:
-    
-    {command_output}
-
-    Questions to answer:
-    1. What does this command do?
-    2. What risks does it detect?
-    3. What is the analysis of the output?
-    4. What remediation steps should be taken?
-    5. How severe is the detected issue?
-
-    Provide a structured report format.
-    """
-    response = ollama.chat(model="llama3", messages=[{"role": "user", "content": prompt}])
-    return response['message']['content']
+app = Flask(__name__)
 
 def run_nmap_scan(target, selected_scans):
-    """Runs selected Nmap scans on the target and saves the output."""
+    # Dictionary with scan names as keys and Nmap commands as values
     nmap_commands = {
-    "Full Port Scan": f"nmap -p- -T4 -sV -O -A --script=default {target}",
+        "Full Port Scan": f"nmap -p- -sV -O -A {target}",
+        "SMB & RDP Vulnerability Scan": f"nmap --script smb-vuln-ms17-010,smb-vuln-ms08-067,smb-enum-shares,smb-enum-users,smb-os-discovery -p 445 {target}",
+        "Web & FTP Vulnerability Scan": f"nmap --script http-vuln-cve2017-5638,http-vuln-cve2014-3704,http-vuln-misfortune-cookie -p 80,443 {target}",
+        "SMTP & DNS Security Scan": f"nmap --script smtp-vuln-cve2011-1720,ftp-anon,samba-vuln-cve-2012-1182,dns-zone-transfer -p 21,25,53,139,445 {target}",
+        "Comprehensive Vulnerability Scan": f"nmap --script vulners -sV {target}"
+    }
 
-    "SMB & RDP Vulnerability Scan": f"nmap -p 139,445,3389 --script=smb-vuln*,rdp-vuln-ms12-020,rdp-enum-encryption {target}",
-
-    "Web & FTP Vulnerability Scan": f"nmap -p 21,80,443 --script=http-vuln*,ftp-vuln-cve2010-4221 {target}",
-
-    "SMTP & DNS Security Scan": f"nmap -p 25,53 --script=smtp-vuln-cve2011-1720,dns-zone-transfer {target}",
-
-    "Comprehensive Vulnerability Scan": f"nmap -sV -T4 --script=vulners --script-args mincvss=5.0 {target}"
-}
-
-
+    os.makedirs("static", exist_ok=True)
+    raw_output = ""
+    analysis_report = ""
     output_file = "static/net_output.txt"
-    full_output = ""
+    analysis_file = "static/net_analysis.html"
 
-    with open(output_file, "w") as raw_output_file, open("static/net_analysis.html", "w") as analysis_file:
-        for scan_name, command in nmap_commands.items():
-            if scan_name in selected_scans:
-                result = subprocess.run(command, shell=True, capture_output=True, text=True)
-                scan_output = f"### {scan_name} ###\n{result.stdout}\n\n"
-                
-                # Write full output to file
-                raw_output_file.write(scan_output)
-                full_output += scan_output  # Append to return output
+    for scan in selected_scans:
+        command = nmap_commands.get(scan)
+        if not command:
+            continue
 
-                # Display full output instead of "Scan Completed"
-                print(scan_output)
+        try:
+            result = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, timeout=300).decode()
+        except subprocess.CalledProcessError as e:
+            result = e.output.decode()
+        except subprocess.TimeoutExpired:
+            result = f"Scan timed out for: {scan}"
 
-                analysis = analyze_with_ollama(result.stdout)
-                analysis_file.write(f"<h2>{scan_name}</h2>{analysis}<hr>")
+        raw_output += f"\n====================\n{scan}\n====================\n"
+        raw_output += f"Command: {command}\n"
+        raw_output += result + "\n"
 
-    return full_output 
+        prompt = f'''
+Generate a detailed, structured, and beginner-friendly HTML report with the following layout:
+
+===========================
+🟢 <h2>{scan}</h2>
+===========================
+
+1. <h3>📝 Executive Summary</h3>
+- A clear and concise overview in simple language.
+- Help non-technical users understand the scan findings.
+- Use icons like ✅, ⚠️, or 🔴 where appropriate.
+
+2. <h3>📋 Detailed Analysis Table</h3>
+Create an HTML table with these rows:
+| Section | Description |
+|--------|-------------|
+| Command Used | {command} |
+| Purpose | What does this command try to achieve? |
+| Risks Detected | Summarize possible vulnerabilities. |
+| Output Analysis | Analyze this output: \n{result} |
+| Recommended Remediation | What should be done to fix the issue? |
+| Severity Level | Use 🔴 High, 🟠 Medium, 🟡 Low. Include why it’s that level. |
+
+3. <h3>📌 Visual Severity Block</h3>
+Display severity level as a large colored banner:
+- Red (`background-color:#ffcccc`) for High
+- Orange (`background-color:#ffe5cc`) for Medium
+- Yellow (`background-color:#ffffcc`) for Low
+
+4. <h3>📖 Additional Tips & Insights</h3>
+- Add expert tips or common pitfalls.
+- Mention if any findings may be false positives.
+- Suggest any manual investigation steps.
+
+5. <h3>🔽 Advanced Details (Collapsible)</h3>
+<p>Click to expand raw scan output:</p>
+<details>
+  <summary>Show Raw Output</summary>
+  <pre>{result}</pre>
+</details>
+'''
+
+        response = ollama.chat(model="llama3", messages=[{"role": "user", "content": prompt}])
+
+        analysis_report += response['message']['content'] + "\n"
+
+    with open(output_file, "w") as raw:
+        raw.write(raw_output)
+
+    with open(analysis_file, "w") as report:
+        report.write(analysis_report)
+
+    return raw_output, analysis_report
+
+@app.route("/", methods=["GET", "POST"])
+def home():
+    if request.method == "POST":
+        target = request.form.get("target")
+        selected_scans = request.form.getlist("scan_options")
+        
+        if not target or not selected_scans:
+            return render_template("net.html", error="Please provide a target and select at least one scan option.")
+        
+        raw_output, analysis_report = run_nmap_scan(target, selected_scans)
+        
+        return render_template("net.html", scanning=True, show_complete=True)
+
+    return render_template("net.html")
 
 if __name__ == "__main__":
-    target_ip = input("Enter target IP or domain: ")
-    selected_scans = list(input("Enter selected scan categories (comma-separated): ").split(", "))
-    run_nmap_scan(target_ip, selected_scans)
+    app.run(debug=True)

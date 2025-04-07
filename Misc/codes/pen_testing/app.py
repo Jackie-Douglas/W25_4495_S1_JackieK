@@ -1,14 +1,14 @@
-from flask import Flask, render_template, request, jsonify
-import os
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import subprocess
-import requests
-
-# Importing scanner scripts
-from scanner.web_scan import run_nikto_scan
+import os
+import logging
 from scanner.net_scan import run_nmap_scan
+from scanner.web_scan import run_nikto_scan
 
+# Initialize Flask app
 app = Flask(__name__)
 
+# Store scan status
 scan_status = {
     "network_scan_completed": False,
     "web_scan_completed": False
@@ -94,38 +94,22 @@ def run_installation():
         "output": output
     })
 
-
-
-# Network Security Scan Page
-@app.route('/network', methods=['GET', 'POST'])
-def network():
-    results = ""
-    analysis_report = ""
-
-    if request.method == 'POST':
-        target = request.form['target']
-        selected_scans = request.form.getlist('scan_options')
-        
-        if not selected_scans:
-            return render_template('net.html', error="No scan options selected!")
-
-        run_nmap_scan(target, selected_scans)
-
-        with open("static/net_output.txt", "w") as f:
-            f.write(results)
-
-        return render_template('net.html', show_complete=True)
-
-    return render_template('net.html', show_complete=False)
-
 @app.route('/check_ollama_version')
 def check_ollama_version():
     try:
+        # Activate the virtual environment explicitly
+        venv_path = "/path/to/your/ollama_env/bin/activate_this.py"  # Adjust the path
+        exec(open(venv_path).read(), {'__file__': venv_path})
+
+        # Run the ollama version command
         result = subprocess.run(
             "ollama --version", shell=True, capture_output=True, text=True
         )
 
-        # Check if the command was successful
+        print(f"STDOUT: {result.stdout}")
+        print(f"STDERR: {result.stderr}")
+        print(f"Return code: {result.returncode}")
+
         if result.returncode == 0:
             version_output = result.stdout.strip()
             if version_output.startswith("ollama version"):
@@ -134,34 +118,52 @@ def check_ollama_version():
             else:
                 return jsonify({"status": "error", "message": "Unexpected version output"})
         else:
-            return jsonify({"status": "error", "message": result.stderr.strip()})
+            return jsonify({"status": "error", "message": f"Failed to fetch version. Output: {result.stderr.strip()}"})
 
     except Exception as e:
-        return jsonify({"status": "error", "message": str(e)})
+        return jsonify({"status": "error", "message": f"An error occurred: {str(e)}"})
 
+
+# Network Security Scan Page
+@app.route('/network', methods=['GET', 'POST'])
+def network():
+    if request.method == 'POST':
+        target = request.form.get('target')
+        selected_scans = request.form.getlist('scan_options')
+
+        if not selected_scans:
+            return render_template('net.html', error="No scan options selected!", scanning=False, show_complete=False)
+
+        # Call the function to start the network scan
+        raw_output, analysis_report = run_nmap_scan(target, selected_scans)
+
+        # Update scan status
+        scan_status["network_scan_completed"] = True
+
+        return render_template('net.html', scanning=False, show_complete=True, raw_output=raw_output, analysis_report=analysis_report)
+
+    return render_template('net.html', scanning=False, show_complete=False)
 
 # Web Application Security Scan Page
 @app.route('/web', methods=['GET', 'POST'])
 def web():
-    results = ""
-    analysis_report = ""
-    
     if request.method == 'POST':
-        target = request.form['target']
+        target = request.form.get('target')
         selected_scans = request.form.getlist('scan_options')
-        
+
         if not selected_scans:
-            return render_template('web.html', error="No scan options selected!")
+            return render_template('web.html', error="No scan options selected!", scanning=False, show_complete=False)
 
-        run_nikto_scan(target, selected_scans)
+        # Call the function to start the web scan
+        raw_output, analysis_report = run_nikto_scan(target, selected_scans)
 
-        with open("static/web_output.txt", "w") as f:
-            f.write(results)
+        # Update scan status
+        scan_status["web_scan_completed"] = True
 
-        return render_template('web.html',                   
-                               show_complete=True)
+        return render_template('web.html', scanning=False, show_complete=True, raw_output=raw_output, analysis_report=analysis_report)
 
-    return render_template('web.html', show_complete=False)
+    return render_template('web.html', scanning=False, show_complete=False)
+
 # Results Page
 @app.route('/results')
 def results():
@@ -177,8 +179,6 @@ def results():
             web_results = f.read()
 
     return render_template('results.html', net_results=net_results, web_results=web_results)
-
-
 
 # Update Blocks
 @app.route("/complete/<scan_type>")
@@ -200,6 +200,22 @@ def reset_scan_status():
     global scan_status
     scan_status = {"network_scan_completed": False, "web_scan_completed": False}
     return jsonify({"message": "Scan status reset"}), 200
+
+# Logging setup
+logging.basicConfig(level=logging.DEBUG)
+
+@app.route('/run_scan', methods=['POST'])
+def run_scan():
+    try:
+        target = request.form['target']
+        output, error = run_nmap(target)
+        if error:
+            logging.error(f"Nmap error: {error}")
+        return render_template('results.html', output=output)
+    except Exception as e:
+        logging.error(f"Error running Nmap: {e}")
+        return "Error running scan"
+
 
 if __name__ == '__main__':
     app.run(debug=True)
