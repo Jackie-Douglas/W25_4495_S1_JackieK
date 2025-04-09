@@ -97,19 +97,11 @@ def run_installation():
 @app.route('/check_ollama_version')
 def check_ollama_version():
     try:
-        # Activate the virtual environment explicitly
-        venv_path = "/path/to/your/ollama_env/bin/activate_this.py"  # Adjust the path
-        exec(open(venv_path).read(), {'__file__': venv_path})
-
-        # Run the ollama version command
         result = subprocess.run(
             "ollama --version", shell=True, capture_output=True, text=True
         )
 
-        print(f"STDOUT: {result.stdout}")
-        print(f"STDERR: {result.stderr}")
-        print(f"Return code: {result.returncode}")
-
+        # Check if the command was successful
         if result.returncode == 0:
             version_output = result.stdout.strip()
             if version_output.startswith("ollama version"):
@@ -118,11 +110,10 @@ def check_ollama_version():
             else:
                 return jsonify({"status": "error", "message": "Unexpected version output"})
         else:
-            return jsonify({"status": "error", "message": f"Failed to fetch version. Output: {result.stderr.strip()}"})
+            return jsonify({"status": "error", "message": result.stderr.strip()})
 
     except Exception as e:
-        return jsonify({"status": "error", "message": f"An error occurred: {str(e)}"})
-
+        return jsonify({"status": "error", "message": str(e)})
 
 # Network Security Scan Page
 @app.route('/network', methods=['GET', 'POST'])

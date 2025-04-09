@@ -302,3 +302,20 @@ pre {
 }
 
 
+.progress-bar {
+    width: 0%;
+    height: 30px;
+    background-color: green;
+    text-align: center;
+    color: white;
+    line-height: 30px;
+}
+#install-btn, #complete-btn {
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+#complete-btn.hidden {
+    display: none;
+}

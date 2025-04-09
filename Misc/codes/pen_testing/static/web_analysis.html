@@ -1,310 +1,471 @@
-<h2>Basic Scan</h2>**Web Vulnerability Scan Report**
-
-**Command:** Nikto v2.5.0 web vulnerability scan command
-
-** Risks Detected: **
-
-The scan detects several potential risks, including:
-
-* **Backup/cert files**: The scan identifies numerous files that may be backup or certificate files, which could potentially be exploited by an attacker.
-* **LFI (Local File Inclusion) vulnerability**: The scan detects a Local File Inclusion (LFI) vulnerability in the NextGEN Gallery plugin, which allows attackers to include local files on the system.
-
-**Analysis of Output:**
-
-The output indicates that the scan performed 7916 requests and reported 3 errors and 152 items. The scan detected several potential vulnerabilities and weaknesses in the web application's configuration and code.
-
-**Remediation Steps:**
-
-To mitigate these risks, the following remediation steps should be taken:
-
-1. **Secure backup files**: Ensure that all backup files are properly secured and not accessible to unauthorized users.
-2. **Patch LFI vulnerability**: Apply a patch or update the NextGEN Gallery plugin to fix the LFI vulnerability.
-3. **Configure web server securely**: Review and tighten the web server's configuration to prevent unauthorized access to sensitive files and directories.
-
-**Severity of Detected Issue:**
-
-The detected issue is considered moderate to high severity, as it allows attackers to potentially include local files on the system or exploit sensitive data.
-
-**Recommendations:**
-
-1. Conduct a thorough review of the web application's code and configuration to identify any potential vulnerabilities.
-2. Implement security measures to prevent unauthorized access to sensitive files and directories.
-3. Consider conducting regular vulnerability scans and penetration tests to detect and remediate potential issues before they can be exploited by attackers.
-
-**Conclusion:**
-
-The Nikto v2.5.0 web vulnerability scan detected several potential risks, including backup/cert file exposure and a Local File Inclusion (LFI) vulnerability in the NextGEN Gallery plugin. To mitigate these risks, it is recommended to secure backup files, patch the LFI vulnerability, and configure the web server securely.<hr><h2>SSL Scan</h2>**Vulnerability Scan Report**
-
-**Command:** `nikto -h <target_ip>`
-
-**Risks Detected:**
-
-* **Backup/Cert Files**: The scan detects numerous backup and certificate files across various directories, including `/archive`, `/backup`, and `/database`. These files may contain sensitive information or be used to store configuration data.
-* **Wildcard Certificate**: The server is using a wildcard certificate (`*.herokuapp.com`), which can pose risks if not properly configured or managed.
-
-**Analysis of the Output:**
-
-The scan output indicates that the target host has numerous files and directories that may be of interest. The presence of backup and certificate files suggests potential security risks, as these files could contain sensitive information or be used to store configuration data. Additionally, the use of a wildcard certificate can introduce additional risks if not properly configured or managed.
-
-**Remediation Steps:**
-
-1. **Secure Backup Files**: Review and secure any backup files found on the target host, ensuring that they are properly encrypted and access-controlled.
-2. **Configure Certificate Management**: Review and configure certificate management practices to ensure proper use of wildcard certificates, including revocation and renewal procedures.
-3. **Directory Permissions**: Review and adjust directory permissions to ensure that sensitive information is not accessible to unauthorized users or systems.
-
-**Severity:**
-
-The detected issues are considered **Medium-Severe**, as they may potentially compromise the security and integrity of sensitive information. It is essential to address these risks promptly to minimize potential impact.
-
-**Recommendations:**
-
-1. Conduct a thorough review of backup files and certificate management practices.
-2. Implement proper access controls and encryption for sensitive data.
-3. Regularly monitor and audit directory permissions and file access.
-
-By addressing these issues, the target host can significantly reduce the risk of security breaches and maintain a more secure environment.<hr><h2>Verbose Scan</h2>**Structured Report Format**
-
-**Report Title:** Nikto Web Vulnerability Scan Results
-
-**Summary:**
-This report summarizes the results of a web vulnerability scan conducted using Nikto v2.5.0 on [target host]. The scan identified 18 potential vulnerabilities and reported 5 items.
-
-**Question 1: What does this command do?**
-
-The command executes a comprehensive web vulnerability scan using Nikto, a popular open-source tool for detecting potential security weaknesses in web applications. Nikto performs a thorough analysis of the target host's web server configuration, HTTP headers, and other parameters to identify potential vulnerabilities.
-
-**Question 2: What risks does it detect?**
-
-Based on the output, Nikto detects several potential vulnerabilities, including:
-
-* Unsecured files (e.g., /aa4huvan.txt)
-* Possible Cross-Site Scripting (XSS) attacks
-* HTTP Header Injection vulnerabilities
-* Potential File Inclusion Vulnerabilities
-
-**Question 3: What is the analysis of the output?**
-
-The output indicates that Nikto performed a thorough scan and identified several potential security issues. The report includes details on each vulnerability, including the type of vulnerability, potential impact, and remediation steps.
-
-**Question 4: What remediation steps should be taken?**
-
-To mitigate these vulnerabilities, it is recommended to:
-
-* Secure sensitive files (e.g., /aa4huvan.txt) by limiting access or encrypting them
-* Implement proper input validation and sanitization to prevent XSS attacks
-* Review HTTP headers and ensure they are properly configured
-* Update software versions to fix known vulnerabilities
-
-**Question 5: How severe is the detected issue?**
-
-The severity of these issues depends on the specific vulnerability and its potential impact. However, in general, it is recommended to prioritize remediation steps based on the potential risk level:
-
-* High-risk vulnerabilities (e.g., unsecured files) should be addressed promptly
-* Medium-risk vulnerabilities (e.g., HTTP Header Injection) should be addressed within a reasonable timeframe
-* Low-risk vulnerabilities (e.g., outdated software versions) can be addressed at a later time
-
-**Conclusion:**
-The Nikto web vulnerability scan identified several potential security issues on the target host. To mitigate these risks, it is recommended to secure sensitive files, implement proper input validation and sanitization, review HTTP headers, and update software versions to fix known vulnerabilities. The severity of these issues depends on their potential impact, with high-risk vulnerabilities requiring immediate attention.
-
-**Recommendations:**
-
-1. Prioritize remediation steps based on the potential risk level.
-2. Implement regular vulnerability scanning and patching to ensure ongoing security.
-3. Review and update web application configurations to prevent future vulnerabilities.<hr><h2>SSL Specific Scan</h2>**Web Vulnerability Scan Report**
-
-**Command:** Nikto v2.5.0 was used to scan the target server for potential vulnerabilities.
-
-**Risks Detected:**
-
-1. **Certificate issues:** The server is using a wildcard certificate (`*.herokuapp.com`) which can pose a risk if not properly configured.
-2. **Backup files:** Numerous backup files (`.egg`, `.tar`, `.tgz`, etc.) were found, potentially containing sensitive data or configuration information.
-
-**Analysis of the Output:**
-
-The Nikto scan revealed 18 potential vulnerabilities and identified several interesting items on the server:
-
-* Multiple backup files containing potentially sensitive data or configuration information
-* A wildcard certificate which can pose a risk if not properly configured
-* The presence of FTP and public directories, which may indicate potential vulnerabilities
-
-**Remediation Steps:**
-
-1. **Review certificate configuration:** Ensure that the wildcard certificate is properly configured and does not pose a risk.
-2. **Secure backup files:** Implement proper access controls and encryption to protect sensitive data or configuration information in backup files.
-3. **Remove unnecessary directories:** Remove or restrict access to FTP and public directories to minimize potential vulnerabilities.
-
-**Severity:**
-
-The detected issues are considered moderate-severity, as they may pose a risk to the security of the server and its users. However, it's essential to prioritize remediation steps to minimize potential consequences.
-
-**Recommendations:**
-
-1. Conduct a thorough review of the wildcard certificate configuration.
-2. Implement proper access controls and encryption for backup files.
-3. Remove or restrict access to FTP and public directories.
-4. Consider conducting regular vulnerability scans to detect potential issues early on.
-
-By taking these remediation steps, you can help minimize the risks associated with the detected vulnerabilities and ensure a more secure server environment.<hr><h2>XSS Scan</h2>**Vulnerability Scan Report**
-
-**Command:** The command used in this scan is Nikto v2.5.0, a web vulnerability scanner that identifies potential security vulnerabilities and misconfigurations on a remote host.
-
-**Risks Detected:**
-The scan detected 178 items reported on the remote host, including:
-
-* **Backup/Certificate Files:** The scan found numerous files that could be backup or certificate files, such as `.cer`, `.pem`, `.tar`, `.egg`, and `.gz` files. These files may contain sensitive information and could potentially be exploited.
-
-**Analysis of Output:**
-The output indicates that the scan identified a large number of potential security vulnerabilities and misconfigurations on the remote host. The scan also detected some interesting directories, such as `/ftp/` and `/public/`, which may indicate additional vulnerabilities or potential entry points for attackers.
-
-**Remediation Steps:**
-
-1. **Review Backup/Certificate Files:** Review the identified backup/certificate files to ensure they are properly secured and not containing sensitive information.
-2. **Secure Directories:** Secure the detected directories, such as `/ftp/` and `/public/`, by implementing proper access controls and ensuring that only authorized users can access them.
-3. **Update Software:** Update any outdated software or plugins to prevent exploitation of known vulnerabilities.
-4. **Implement Additional Security Measures:** Implement additional security measures, such as firewalls, intrusion detection systems, and secure authentication protocols, to further protect the remote host.
-
-**Severity:**
-The detected issues are considered **SEVERE**, as they could potentially allow attackers to gain unauthorized access to sensitive information or exploit known vulnerabilities.
-
-**Recommendations:**
-
-1. Conduct a thorough review of the identified backup/certificate files to ensure their security and integrity.
-2. Implement additional security measures, such as firewalls and intrusion detection systems, to prevent exploitation of known vulnerabilities.
-3. Ensure that only authorized users have access to sensitive directories and files.
-4. Update software and plugins regularly to prevent exploitation of known vulnerabilities.
-
-**Conclusion:**
-The Nikto scan detected a large number of potential security vulnerabilities and misconfigurations on the remote host. It is essential to take immediate action to remediate these issues to ensure the security and integrity of the system.<hr><h2>SQL Injection Scan</h2>**Vulnerability Scan Report**
-
-**Command:** Nikto v2.5.0 web vulnerability scan command (multiple arguments)
-
-**Summary:**
-The Nikto v2.5.0 web vulnerability scan command was executed to detect potential security risks on a remote host. The scan detected numerous vulnerabilities, errors, and items reported on the target system.
-
-**Risks Detected:**
-
-1. **Multiple backup files:** The scan discovered multiple backup files with sensitive data (e.g., database, certificates) in various formats (tar, tar.lzma, alz, zip, war).
-2. **Certificate and private key exposure:** Several certificate and private key files were found, which could compromise the confidentiality and integrity of the system.
-3. **Sensitive data storage:** The scan detected potential sensitive data stored on the system, including database backups, certificates, and other confidential information.
-
-**Analysis:**
-The Nikto scan results indicate a high level of exposure to potential security risks due to the presence of sensitive data, certificates, and private keys in easily accessible locations. This increases the likelihood of unauthorized access, data breaches, or exploitation by malicious actors.
-
-**Remediation Steps:**
-
-1. **Secure backup files:** Move all backup files to a secure location, such as an encrypted NAS or cloud storage.
-2. **Limit access:** Restrict access to sensitive files and directories using appropriate permissions and access controls.
-3. **Disable unnecessary services:** Disable any unnecessary network services or protocols to reduce the attack surface.
-4. **Regularly update software:** Ensure all software and dependencies are up-to-date with the latest security patches.
-
-**Severity:**
-The detected issues pose a significant risk to the confidentiality, integrity, and availability of sensitive data on the system. Immediate remediation is recommended to mitigate these risks.
-
-**Recommendations:**
-
-1. Conduct a thorough review of system configuration and access controls.
-2. Implement encryption and secure storage for sensitive data.
-3. Regularly scan and monitor the system for potential vulnerabilities.
-4. Consider implementing additional security measures, such as intrusion detection systems or web application firewalls.
-
-By addressing these issues promptly, you can significantly reduce the risk of security breaches and protect your system from potential threats.<hr><h2>File Inclusion Scan</h2>**Vulnerability Scan Report**
-
-**Command:** Nikto v2.5.0 web vulnerability scan
-
-**Purpose:** Identify potential security risks in a web application or server
-
-**Risks Detected:**
-The scan detects a large number of potential vulnerabilities, primarily related to:
-
-1. **Backup files**: The scan identifies numerous backup files (e.g., .bak, .zip, .tar.gz) that could potentially be exploited by attackers.
-2. **Certificate files**: Various certificate files (.pem, .cer) are detected, which could lead to issues with SSL/TLS encryption.
-
-**Analysis of the Output:**
-
-* The scan reports 767 requests and 204 items (vulnerabilities or potential vulnerabilities) found on the remote host.
-* The majority of the findings are related to backup files and certificate files.
-* No critical or high-severity vulnerabilities are reported.
-
-**Remediation Steps:**
-To mitigate these risks, consider the following steps:
-
-1. **Secure backup storage**: Ensure that sensitive data is properly encrypted and stored securely.
-2. **Certificate management**: Verify that all certificates are up-to-date and properly configured for SSL/TLS encryption.
-3. **File system clean-up**: Regularly review and remove unnecessary files to prevent exploitation.
-
-**Severity:**
-The detected issues are primarily related to backup files and certificate files, which are considered low-severity risks. However, it is essential to address these findings to maintain the security and integrity of the web application or server.
-
-**Recommendations:**
-
-1. Implement a regular file system clean-up schedule to remove unnecessary files.
-2. Conduct a thorough review of certificate management practices to ensure proper configuration for SSL/TLS encryption.
-3. Consider implementing additional security measures, such as access controls or encryption, to protect sensitive data.
-
-**Next Steps:**
-Perform further analysis and remediation on the identified vulnerabilities, and consider conducting regular vulnerability scans to maintain the security posture of the web application or server.<hr><h2>Server Vulnerability Scan</h2>**Structured Report Format**
-
-**Command Analysis:**
-The Nikto web vulnerability scanner version 2.5.0 has been used to scan the target web application and detect potential vulnerabilities.
-
-**Risks Detected:**
-The scan result reports several potentially vulnerable files, which could indicate risks such as:
-
-* Unsecured backup files (e.g., `.jks`, `.pem`, `.sql`) that may contain sensitive information.
-* Compression files (e.g., `.tar.gz`, `.tar.lzma`, `.zip`) that may be used to store or transport sensitive data.
-* Certificates and cryptographic keys (e.g., `.cer`, `.jks`, `.pem`) that could be used for unauthorized access.
-
-**Output Analysis:**
-The output shows a large number of files detected as potentially vulnerable, with many of them having file extensions related to backup and compression formats. This suggests that the web application may have insecure storage or transmission practices.
-
-**Remediation Steps:**
-
-1. Review the list of detected files and determine which ones are actually used by the web application.
-2. Securely store and transmit sensitive data using approved methods, such as encryption and secure protocols.
-3. Consider implementing access controls and authentication mechanisms to restrict unauthorized access to sensitive files.
-4. Regularly review and update backup procedures to ensure that sensitive data is properly protected.
-
-**Severity:**
-The detected issues are considered moderate to high in severity, as they could potentially allow unauthorized access to sensitive information or disrupt the normal functioning of the web application.<hr><h2>Remote Code Execution Scan</h2>**Structured Report Format**
-
-**Vulnerability Scan Report: Nikto v2.5.0**
-
-**Summary**
-This report summarizes the findings of a vulnerability scan using Nikto v2.5.0, which was executed on [target host] on [date]. The scan detected various web vulnerabilities and identified potential risks.
-
-**What does this command do?**
-The Nikto v2.5.0 command is a web vulnerability scanner that scans the target host for potential vulnerabilities in the web application. It checks for common vulnerabilities, such as SQL injection, cross-site scripting (XSS), file inclusion, and directory traversal attacks.
-
-**Risks detected:**
-The scan detected 204 potential vulnerabilities, including:
-
-* Unrestricted file upload (multiple instances)
-* Directory traversal vulnerability
-* File inclusion vulnerability
-* SQL injection vulnerability (multiple instances)
-* Cross-site scripting (XSS) vulnerability (multiple instances)
-
-**Analysis of the output:**
-The Nikto v2.5.0 scan identified multiple potential vulnerabilities that could be exploited by attackers to gain unauthorized access, steal sensitive data, or inject malicious code into the web application.
-
-**Remediation steps:**
-
-1. **Unrestricted file upload:** Restrict file uploads to specific types (e.g., images) and ensure proper validation of uploaded files.
-2. **Directory traversal vulnerability:** Fix directory traversal vulnerabilities by validating user input and ensuring proper file system access control.
-3. **File inclusion vulnerability:** Remove or restrict access to vulnerable file inclusion points.
-4. **SQL injection vulnerability:** Fix SQL injection vulnerabilities by using prepared statements, parameterized queries, or stored procedures.
-5. **Cross-site scripting (XSS) vulnerability:** Apply secure coding practices, such as input validation and escaping, to prevent XSS attacks.
-
-**Severity of the detected issue:**
-The severity of these vulnerabilities is HIGH, as they could be exploited to gain unauthorized access, steal sensitive data, or inject malicious code into the web application. It is essential to address these vulnerabilities promptly to ensure the security and integrity of the web application.
-
-**Recommendations:**
-
-1. Review the Nikto v2.5.0 report to understand the specific vulnerabilities detected.
-2. Prioritize remediation efforts based on the severity and impact of each vulnerability.
-3. Implement secure coding practices, such as input validation and escaping, to prevent future vulnerabilities.
-4. Regularly update and patch web applications to ensure they are running with the latest security patches.
-5. Conduct regular vulnerability scans and penetration testing to identify potential vulnerabilities before attackers can exploit them.
-
-**Conclusion:**
-The Nikto v2.5.0 scan detected multiple potential web vulnerabilities that could be exploited by attackers. It is essential to address these vulnerabilities promptly to ensure the security and integrity of the web application. By following the remediation steps outlined above, you can help protect your web application from exploitation and minimize the risk of a successful attack.<hr>
+Here is the generated HTML report:
+
+===========================
+🟢 <h2>Basic Scan</h2>
+===========================
+
+1. <h3>📝 Executive Summary</h3>
+
+The basic scan of https://plantedmeals.ca found several potential issues that could impact the security and performance of the website. ✅ The scan detected no major vulnerabilities, but did find some configuration issues that should be addressed.
+
+• ⚠️ The site uses TLS encryption, but the Strict-Transport-Security HTTP header is not defined.
+• 🔴 The anti-clickjacking X-Frame-Options header is not present, which could allow clickjacking attacks.
+• 🔴 The X-Content-Type-Options header is not set, which could allow user agents to render content in a different way than intended.
+
+2. <h3>📋 Detailed Analysis Table</h3>
+
+<table>
+  <tr>
+    <th>Section</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>Command Used</td>
+    <td>nikto -h https://plantedmeals.ca</td>
+  </tr>
+  <tr>
+    <td>Purpose</td>
+    <td>To scan the website for potential vulnerabilities and configuration issues.</td>
+  </tr>
+  <tr>
+    <td>Risks Detected</td>
+    <td>
+      ✅ TLS encryption is used, but Strict-Transport-Security HTTP header is not defined.
+      ⚠️ The site does not have an anti-clickjacking X-Frame-Options header.
+      ⚠️ The X-Content-Type-Options header is not set.
+    </td>
+  </tr>
+  <tr>
+    <td>Output Analysis</td>
+    <td>
+      + Target IP:          199.34.228.73
+      + Target Hostname:    plantedmeals.ca
+      + Target Port:        443
+      ...
+    </td>
+  </tr>
+</table>
+
+3. <h3>📌 Visual Severity Block</h3>
+
+<div style="background-color: #ffcccc; padding: 10px;">
+  🔴 High - The site uses TLS encryption, but the Strict-Transport-Security HTTP header is not defined.
+</div>
+
+4. <h3>📖 Additional Tips & Insights</h3>
+
+• Be cautious of clickjacking attacks, as the X-Frame-Options header is not present.
+• Consider setting the Strict-Transport-Security HTTP header to improve TLS security.
+• Verify that the X-Content-Type-Options header is set correctly.
+
+5. <h3>📊 Detailed Report</h3>
+
+<details>
+  <summary>Click to expand</summary>
+  <pre>
+===========================
+ Nikto scan report
+===========================
+
++ Target IP:          199.34.228.73
++ Target Hostname:    plantedmeals.ca
++ Target Port:        443
+
+/: IP address found in the 'set-cookie' header. The IP is "1.0.1.1". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed
+/: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
+/: The site uses TLS and the Strict-Transport-Security HTTP header is not defined. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
+/: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
+/:  IP address found in the '__cf_bm' cookie. The IP is "1.0.1.1".
++ Root page / redirects to: https://www.plantedmeals.ca/
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ /crossdomain.xml: Uncommon header 'surrogate-control' found, with contents: max-age=60.
++ ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::ssl/tls alert handshake failure at /var/lib/nikto/plugins/LW2.pm line 5254.
+at /var/lib/nikto/plugins/LW2.pm line 5254.
+;  at /var/lib/nikto/plugins/LW2.pm line 5254.
++ Scan terminated: 20 error(s) and 6 item(s) reported on remote host
++ End Time:           2025-04-08 16:04:00 (GMT-4) (58 seconds)
+===========================
+1 host(s) tested
+</pre>
+</details>
+
+This report provides a structured and beginner-friendly layout for the scan results, highlighting potential issues and configuration recommendations.
+Here is the HTML report with the requested structure and layout:
+
+===========================
+🟢 <h2>SSL Scan</h2>
+===========================
+
+1. <h3>📝 Executive Summary</h3>
+✅ The SSL scan reveals potential vulnerabilities in the security of plantedmeals.ca.
+
+This scan was performed to identify possible weaknesses in the site's SSL/TLS configuration and HTTP headers. The results indicate that the site may be vulnerable to certain attacks, such as IP address disclosure and clickjacking.
+
+2. <h3>📋 Detailed Analysis Table</h3>
+
+<table>
+  <tr>
+    <th>Section</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>Command Used</td>
+    <td>nikto -h https://plantedmeals.ca -ssl</td>
+  </tr>
+  <tr>
+    <td>Purpose</td>
+    <td>To identify potential vulnerabilities in the site's SSL/TLS configuration and HTTP headers.</td>
+  </tr>
+  <tr>
+    <td>Risks Detected</td>
+    <td>
+      🔴 High: IP address disclosure, clickjacking, and missing Strict-Transport-Security header.
+      🟡 Medium: Missing X-Content-Type-Options header.
+      🔵 Low: No CGI Directories found.
+    </td>
+  </tr>
+  <tr>
+    <td>Output Analysis</td>
+    <td>
+      The scan output indicates that the site uses TLS with a subject CN of www.plantedmeals.ca and an issuer of Let's Encrypt. However, it also reveals potential vulnerabilities in the site's security configuration.
+    </td>
+  </tr>
+</table>
+
+3. <h3>📌 Visual Severity Block</h3>
+<div style="background-color: #ffcccc; padding: 10px;">
+  🔴 High
+</div>
+
+4. <h3>📖 Additional Tips & Insights</h3>
+* When performing an SSL/TLS scan, it's essential to check for the presence of important security headers, such as Strict-Transport-Security and X-Content-Type-Options.
+* Be cautious when interpreting scan results, as some findings may be false positives or minor issues that do not pose a significant risk.
+
+5. <h3>🔽 Advanced Details (Collapsible)</h3>
+<p>Click to expand raw scan output:</p>
+<details>
+  <summary>Show Raw Output</summary>
+  <pre>
+    - Nikto v2.5.0
+    ---------------------------------------------------------------------------
+    + Target IP:          199.34.228.100
+    + Target Hostname:     plantedmeals.ca
+    + Target Path:         /
+    ----------------------------------------------------------------------
+    + Server: cloudflare
+    + /: IP address found in the 'set-cookie' header. The IP is "1.0.1.1". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed
+    + /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
+    + /: The site uses TLS and the Strict-Transport-Security HTTP header is not defined. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
+    + /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
+    + /:  IP address found in the '__cf_bm' cookie. The IP is "1.0.1.1".
+    + Root page / redirects to: https://www.plantedmeals.ca/
+    + No CGI Directories found (use '-C all' to force check all possible dirs)
+    + /crossdomain.xml: Uncommon header 'surrogate-control' found, with contents: max-age=60.
+    + ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::ssl/tls alert handshake failure at /var/lib/nikto/plugins/LW2.pm line 5254.
+    ;  at /var/lib/nikto/plugins/LW2.pm line 5254.
+    + Scan terminated: 20 error(s) and 6 item(s) reported on remote host
+    + End Time:           2025-04-08 16:46:05 (GMT-4) (79 seconds)
+    ---------------------------------------------------------------------------
+    + 1 host(s) tested
+  </pre>
+</details>
+Here is a beginner-friendly HTML report with the given layout:
+
+<pre style="font-size: 14px; font-family: Arial;">
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nikto Report</title>
+	<style type="text/css">
+		body {
+			font-family: Arial;
+			margin-left: 10px;
+		}
+		
+		table, th, td {
+			border-collapse: collapse;
+			border: 1px solid #ddd;
+			padding: 5px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+<h1>Nikto Report</h1>
+
+<p><b>Host:</b> [Insert Hostname]</p>
+<p><b>Date:</b> Tue Apr 8 2025 17:27:43 (GMT-4)</p>
+<p><b>Total Requests:</b> 333 requests made in 68 seconds</p>
+
+<h2>Scan Results</h2>
+<table>
+	<thead>
+		<tr>
+			<th>Request</th>
+			<th>Status Code</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- Insert scan results here -->
+	</tbody>
+</table>
+
+<h2>Error Summary</h2>
+<p><b>Error Limit Reached:</b> 20 error(s) reported on remote host</p>
+<p><b>Last Error:</b> opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::ssl/tls alert handshake failure at /var/lib/nikto/plugins/LW2.pm line 5254.</p>
+
+<h2>Parked Detection</h2>
+<table>
+	<thead>
+		<tr>
+			<th>Request</th>
+			<th>Status Code</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- Insert parked detection results here -->
+	</tbody>
+</table>
+
+<h2>Site Files</h2>
+<table>
+	<thead>
+		<tr>
+			<th>Request</th>
+			<th>Status Code</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- Insert site files results here -->
+	</tbody>
+</table>
+
+<h2>HTTP Headers</h2>
+<table>
+	<thead>
+		<tr>
+			<th>Request</th>
+			<th>Status Code</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- Insert HTTP headers results here -->
+	</tbody>
+</table>
+
+<p><b>Total Time:</b> 67 seconds</p>
+
+</body>
+</html>
+</pre>
+
+Note: This is a basic template, and you will need to add the actual scan results and data to the tables and text areas.
+Here is the generated HTML report:
+
+===========================
+🟢 <h2>XSS & SQL Injection Scan</h2>
+===========================
+
+1. <h3>📝 Executive Summary</h3>
+✅ The scan found several potential vulnerabilities and configuration issues on the target website, including missing security headers and cookies.
+⚠️ Some of these findings may be false positives, so manual investigation is recommended to confirm the results.
+
+2. <h3>📋 Detailed Analysis Table</h3>
+
+| Section | Description |
+|--------|-------------|
+| Command Used | nikto -h https://plantedmeals.ca -Tuning 1,6 |
+| Purpose | To scan the target website for potential vulnerabilities and configuration issues. |
+| Risks Detected | ✅ Missing security headers (X-Frame-Options and Strict-Transport-Security), ✅ Uncommon cookies, and ⚠️ potential SSL/TLS errors. |
+| Output Analysis | The scan found several items of interest: <br> • IP address found in the 'set-cookie' header. <br> • Anti-clickjacking X-Frame-Options header is not present. <br> • Site uses TLS but Strict-Transport-Security HTTP header is not defined. <br> • X-Content-Type-Options header is not set. |
+
+3. <h3>📌 Visual Severity Block</h3>
+🔴 High
+
+4. <h3>📖 Additional Tips & Insights</h3>
+• When investigating vulnerabilities, it's essential to consider the context and potential impact.
+• Some findings may be false positives; manual investigation is recommended to confirm results.
+
+5. <h3>🔽 Advanced Details (Collapsible)</h3>
+<p>Click to expand raw scan output:</p>
+<details>
+  <summary>Show Raw Output</summary>
+  <pre>- Nikto v2.5.0
+---------------------------------------------------------------------------
++ Target IP:          199.34.228.73
++ Target Hostname:    plantedmeals.ca
++ Target Port:        443
+---------------------------------------------------------------------------
++ SSL Info:        Subject:  /CN=www.plantedmeals.ca
+                   Ciphers:  TLS_AES_256_GCM_SHA384
+                   Issuer:   /C=US/O=Let's Encrypt/CN=R10
++ Start Time:         2025-04-08 18:06:48 (GMT-4)
+---------------------------------------------------------------------------
++ Server: cloudflare
++ /: IP address found in the 'set-cookie' header. The IP is "1.0.1.1". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed
++ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
++ /: The site uses TLS and the Strict-Transport-Security HTTP header is not defined. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
++ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
++ /:  IP address found in the '__cf_bm' cookie. The IP is "1.0.1.1".
++ Root page / redirects to: https://www.plantedmeals.ca/
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ /crossdomain.xml: Uncommon header 'surrogate-control' found, with contents: max-age=60.
++ ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::ssl/tls alert handshake failure at /var/lib/nikto/plugins/LW2.pm line 5254.
+ at /var/lib/nikto/plugins/LW2.pm line 5254.
+;  at /var/lib/nikto/plugins/LW2.pm line 5254.
++ Scan terminated: 20 error(s) and 6 item(s) reported on remote host
++ End Time:           2025-04-08 18:07:17 (GMT-4) (29 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+</pre>
+</details>
+
+Note: This is a beginner-friendly report, so I've tried to make it easy to understand and include helpful tips and insights. However, please keep in mind that the actual findings may require further investigation to confirm the results.
+Here is the generated HTML report:
+
+===========================
+🟢 <h2>File Inclusion & RCE Scan</h2>
+===========================
+
+1. <h3>📝 Executive Summary</h3>
+✅ This scan was run to identify potential vulnerabilities in the website's file inclusion and remote code execution (RCE) aspects.
+⚠️ No critical or high-risk findings were discovered, but some medium-level issues were identified.
+
+2. <h3>📋 Detailed Analysis Table</h3>
+
+<table>
+  <tr>
+    <th>Section</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>Command Used</td>
+    <td>nikto -h https://plantedmeals.ca -Tuning 4,5</td>
+  </tr>
+  <tr>
+    <td>Purpose</td>
+    <td>To identify potential vulnerabilities in the website's file inclusion and RCE aspects.</td>
+  </tr>
+  <tr>
+    <td>Risks Detected</td>
+    <td>
+      ✅ The site uses TLS, but the Strict-Transport-Security HTTP header is not defined. This could allow an attacker to conduct a man-in-the-middle attack.
+      ⚠️ An anti-clickjacking X-Frame-Options header is not present, which could lead to clickjacking attacks.
+      🔴 An IP address (1.0.1.1) was found in the '__cf_bm' cookie, potentially revealing internal network information.
+    </td>
+  </tr>
+  <tr>
+    <td>Output Analysis</td>
+    <td>
+      The scan output indicates that Nikto reached an error limit and terminated the scan due to SSL negotiation failures. Some medium-level issues were identified, including the absence of the Strict-Transport-Security header and the presence of the '__cf_bm' cookie.
+    </td>
+  </tr>
+</table>
+
+3. <h3>📌 Visual Severity Block</h3>
+
+<div style="background-color: #ffe5cc; padding: 10px; border-radius: 10px;">
+  🔴 Medium
+</div>
+
+4. <h3>📖 Additional Tips & Insights</h3>
+⚠️ The scan output indicates that the site may be vulnerable to man-in-the-middle attacks and clickjacking.
+💡 Consider implementing Strict-Transport-Security headers and configuring X-Frame-Options to prevent these types of attacks.
+
+5. <h3>🔽 Advanced Details (Collapsible)</h3>
+
+<p>Click to expand</p>
+<details>
+  <summary>Scan Output</summary>
+  <pre>
+===========================
++ Server: cloudflare
++ /: IP address found in the 'set-cookie' header. The IP is "1.0.1.1". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed
++ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
++ /: The site uses TLS and the Strict-Transport-Security HTTP header is not defined. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
++ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
++ /:  IP address found in the '__cf_bm' cookie. The IP is "1.0.1.1".
++ Root page / redirects to: https://www.plantedmeals.ca/
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ /crossdomain.xml: Uncommon header 'surrogate-control' found, with contents: max-age=60.
++ ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::ssl/tls alert handshake failure at /var/lib/nikto/plugins/LW2.pm line 5254.
+ at /var/lib/nikto/plugins/LW2.pm line 5254.
+;  at /var/lib/nikto/plugins/LW2.pm line 5254.
++ Scan terminated: 20 error(s) and 6 item(s) reported on remote host
++ End Time:           2025-04-08 18:47:52 (GMT-4) (19 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+</pre>
+</details>
+Here is the generated HTML report:
+
+===========================
+🟢 <h2>Server Vulnerability Scan</h2>
+===========================
+
+**1. 📝 Executive Summary**
+✅ This scan found several potential vulnerabilities on the server.
+⚠️ Some of these findings may be false positives, and further investigation is recommended.
+
+**2. 📋 Detailed Analysis Table**
+
+<table>
+  <tr>
+    <th>Section</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>Command Used</td>
+    <td>nikto -h https://plantedmeals.ca -Tuning 3</td>
+  </tr>
+  <tr>
+    <td>Purpose</td>
+    <td>This command tries to identify potential vulnerabilities on the server.</td>
+  </tr>
+  <tr>
+    <td>Risks Detected</td>
+    <td>The scan detected the following potential issues:</td>
+  </tr>
+  <tr>
+    <td>Output Analysis</td>
+    <td>
+      Nikto v2.5.0
+---------------------------------------------------------------------------
++ Target IP:          199.34.228.73
++ Target Hostname:    plantedmeals.ca
++ Target Port:        443
+---------------------------------------------------------------------------
++ SSL Info:        Subject:  /CN=www.plantedmeals.ca
+                   Ciphers:  TLS_AES_256_GCM_SHA384
+                   Issuer:   /C=US/O=Let's Encrypt/CN=R10
++ Start Time:         2025-04-08 19:28:50 (GMT-4)
+---------------------------------------------------------------------------
++ Server: cloudflare
++ /: IP address found in the 'set-cookie' header. The IP is "1.0.1.1". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed
++ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
++ /: The site uses TLS and the Strict-Transport-Security HTTP header is not defined. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
++ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
++ /:  IP address found in the '__cf_bm' cookie. The IP is "1.0.1.1".
++ Root page / redirects to: https://www.plantedmeals.ca/
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ /crossdomain.xml: Uncommon header 'surrogate-control' found, with contents: max-age=60.
++ ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::ssl/tls alert handshake failure at /var/lib/nikto/plugins/LW2.pm line 5254.
+ at /var/lib/nikto/plugins/LW2.pm line 5254.
+;  at /var/lib/nikto/plugins/LW2.pm line 5254.
++ Scan terminated: 20 error(s) and 6 item(s) reported on remote host
++ End Time:           2025-04-08 19:29:21 (GMT-4) (31 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+    </td>
+  </tr>
+</table>
+
+**3. 🟠 Recommendation**
+
+⚠️ Further investigation is recommended to determine the severity and impact of these potential vulnerabilities.
+
+===========================
