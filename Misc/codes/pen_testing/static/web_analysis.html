@@ -1,296 +1,131 @@
-Here is the generated HTML report:
+<h2>Basic Scan</h2>
 
-===========================
-🟢 <h2>Basic Scan</h2>
-===========================
+<h3>Introduction</h3>
+* This report summarizes the results of a security scan performed on the website **plantedmeals.ca**. <br>
+* The scan was conducted using **Nikto v2.5.0** and aimed to identify potential vulnerabilities and provide
+recommendations for remediation.<br>
 
-1. <h3>📝 Executive Summary</h3>
+<h3>Scan Results</h3>
 
-The basic scan of https://plantedmeals.ca found several potential issues that could impact the security and performance of the website. ✅ The scan detected no major vulnerabilities, but did find some configuration issues that should be addressed.
-
-• ⚠️ The site uses TLS encryption, but the Strict-Transport-Security HTTP header is not defined.
-• 🔴 The anti-clickjacking X-Frame-Options header is not present, which could allow clickjacking attacks.
-• 🔴 The X-Content-Type-Options header is not set, which could allow user agents to render content in a different way than intended.
-
-2. <h3>📋 Detailed Analysis Table</h3>
-
-<table>
+<table border="1">
   <tr>
-    <th>Section</th>
+    <th>Issue</th>
     <th>Description</th>
+    <th>Severity Level</th>
   </tr>
   <tr>
-    <td>Command Used</td>
-    <td>nikto -h https://plantedmeals.ca</td>
+    <td><b>IP Address Disclosure in Set-Cookie Header</b></td>
+    <td>The scan detected an IP address (1.0.1.1) in the set-cookie header, which may indicate a vulnerability.</td>
+    <td>🔴 High Severity – Immediate attention required.</td>
   </tr>
   <tr>
-    <td>Purpose</td>
-    <td>To scan the website for potential vulnerabilities and configuration issues.</td>
-  </tr>
-  <tr>
-    <td>Risks Detected</td>
-    <td>
-      ✅ TLS encryption is used, but Strict-Transport-Security HTTP header is not defined.
-      ⚠️ The site does not have an anti-clickjacking X-Frame-Options header.
-      ⚠️ The X-Content-Type-Options header is not set.
+    <td><b>Missing X-Frame-Options Header</b></td>
+    <td>The scan found that the website does not have an X-Frame-Options header, which may allow clickjacking attacks.
     </td>
+    <td>🔴 High Severity – Immediate attention required.</td>
   </tr>
   <tr>
-    <td>Output Analysis</td>
-    <td>
-      + Target IP:          199.34.228.73
-      + Target Hostname:    plantedmeals.ca
-      + Target Port:        443
-      ...
-    </td>
+    <td><b>Missing Strict-Transport-Security (STS) Header</b></td>
+    <td>The scan detected that the website does not have an STS header, which may allow man-in-the-middle attacks.</td>
+    <td>🔴 High Severity – Immediate attention required.</td>
+  </tr>
+  <tr>
+    <td><b>Missing X-Content-Type-Options Header</b></td>
+    <td>The scan found that the website does not have an X-Content-Type-Options header, which may allow content spoofing
+      attacks.</td>
+    <td>🔴 High Severity – Immediate attention required.</td>
+  </tr>
+  <tr>
+    <td><b>Error: Error Limit Reached</b></td>
+    <td>The scan terminated due to an error limit reached (20 errors) with the message "Error: opening stream: can't
+      connect: SSL negotiation failed."</td>
+    <td>🔴 High Severity – Immediate attention required.</td>
   </tr>
 </table>
 
-3. <h3>📌 Visual Severity Block</h3>
+<h3>💡 Additional Tips & Insights</h3>
 
-<div style="background-color: #ffcccc; padding: 10px;">
-  🔴 High - The site uses TLS encryption, but the Strict-Transport-Security HTTP header is not defined.
-</div>
+* 💡 Expert tip: Regularly review and update your website's configuration to prevent similar vulnerabilities.<br>
+* ⚠️ Flag: The scan output may contain false positives or negatives; manual investigation is recommended.<br>
 
-4. <h3>📖 Additional Tips & Insights</h3>
-
-• Be cautious of clickjacking attacks, as the X-Frame-Options header is not present.
-• Consider setting the Strict-Transport-Security HTTP header to improve TLS security.
-• Verify that the X-Content-Type-Options header is set correctly.
-
-5. <h3>📊 Detailed Report</h3>
+<h3>🔽 Advanced Details</h3>
 
 <details>
-  <summary>Click to expand</summary>
-  <pre>
-===========================
- Nikto scan report
-===========================
-
+  <summary>Show Raw Output</summary>
+  <pre>- Nikto v2.5.0
+---------------------------------------------------------------------------
 + Target IP:          199.34.228.73
 + Target Hostname:    plantedmeals.ca
 + Target Port:        443
-
-/: IP address found in the 'set-cookie' header. The IP is "1.0.1.1". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed
-/: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
-/: The site uses TLS and the Strict-Transport-Security HTTP header is not defined. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
-/: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
-/:  IP address found in the '__cf_bm' cookie. The IP is "1.0.1.1".
+---------------------------------------------------------------------------
++ SSL Info:        Subject:  /CN=www.plantedmeals.ca
+                   Ciphers:  TLS_AES_256_GCM_SHA384
+                   Issuer:   /C=US/O=Let's Encrypt/CN=R10
++ Start Time:         2025-04-09 16:26:37 (GMT-4)
+---------------------------------------------------------------------------
++ Server: cloudflare
++ /: IP address found in the 'set-cookie' header. The IP is "1.0.1.1". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed
++ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
++ /: The site uses TLS and the Strict-Transport-Security HTTP header is not defined. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
++ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
++ /:  IP address found in the '__cf_bm' cookie. The IP is "1.0.1.1".
 + Root page / redirects to: https://www.plantedmeals.ca/
 + No CGI Directories found (use '-C all' to force check all possible dirs)
 + /crossdomain.xml: Uncommon header 'surrogate-control' found, with contents: max-age=60.
-+ ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::ssl/tls alert handshake failure at /var/lib/nikto/plugins/LW2.pm line 5254.
-at /var/lib/nikto/plugins/LW2.pm line 5254.
-;  at /var/lib/nikto/plugins/LW2.pm line 5254.
-+ Scan terminated: 20 error(s) and 6 item(s) reported on remote host
-+ End Time:           2025-04-08 16:04:00 (GMT-4) (58 seconds)
-===========================
-1 host(s) tested
-</pre>
-</details>
++ ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't connect: SSL negotiation failed: error:0A00000
+Here is a detailed, structured, and beginner-friendly HTML report with the specified layout:
 
-This report provides a structured and beginner-friendly layout for the scan results, highlighting potential issues and configuration recommendations.
-Here is the HTML report with the requested structure and layout:
+<br>
 
-===========================
-🟢 <h2>SSL Scan</h2>
-===========================
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+</style>
+<hr>
+<h2>SSL/TLS Scan Report</h2>
 
-1. <h3>📝 Executive Summary</h3>
-✅ The SSL scan reveals potential vulnerabilities in the security of plantedmeals.ca.
+<h3>📊 Summary</h3>
+The SSL/TLS scan was performed on <b>plantedmeals.ca</b> using Nikto v2.5.0. The scan revealed several potential security issues and recommended remediation steps to address them.
 
-This scan was performed to identify possible weaknesses in the site's SSL/TLS configuration and HTTP headers. The results indicate that the site may be vulnerable to certain attacks, such as IP address disclosure and clickjacking.
+<h3>💻 Analysis Results</h3>
 
-2. <h3>📋 Detailed Analysis Table</h3>
-
-<table>
+<table border="1">
   <tr>
-    <th>Section</th>
-    <th>Description</th>
+    <th>Issue Description</th>
+    <th>Severity Level</th>
+    <th>Recommended Remediation</th>
   </tr>
   <tr>
-    <td>Command Used</td>
-    <td>nikto -h https://plantedmeals.ca -ssl</td>
+    <td>IP address found in the 'set-cookie' header. The IP is "1.0.1.1".</td>
+    <td>🔴 High Severity – Immediate attention required.</td>
+    <td>Disable or remove the vulnerable service, and re-scan to confirm vulnerability resolution.</td>
   </tr>
   <tr>
-    <td>Purpose</td>
-    <td>To identify potential vulnerabilities in the site's SSL/TLS configuration and HTTP headers.</td>
+    <td>The anti-clickjacking X-Frame-Options header is not present.</td>
+    <td>🔴 High Severity – Immediate attention required.</td>
+    <td>Add the X-Frame-Options header with a value of "SAMEORIGIN" to prevent clickjacking attacks.</td>
   </tr>
   <tr>
-    <td>Risks Detected</td>
-    <td>
-      🔴 High: IP address disclosure, clickjacking, and missing Strict-Transport-Security header.
-      🟡 Medium: Missing X-Content-Type-Options header.
-      🔵 Low: No CGI Directories found.
-    </td>
+    <td>The site uses TLS and the Strict-Transport-Security HTTP header is not defined.</td>
+    <td>🔴 High Severity – Immediate attention required.</td>
+    <td>Add a valid Strict-Transport-Security (HSTS) policy to ensure all communication with the site occurs over HTTPS.</td>
   </tr>
   <tr>
-    <td>Output Analysis</td>
-    <td>
-      The scan output indicates that the site uses TLS with a subject CN of www.plantedmeals.ca and an issuer of Let's Encrypt. However, it also reveals potential vulnerabilities in the site's security configuration.
-    </td>
+    <td>The X-Content-Type-Options header is not set.</td>
+    <td>🔴 High Severity – Immediate attention required.</td>
+    <td>Add a valid X-Content-Type-Options (XCTO) policy to prevent MIME-sniffing attacks and ensure that the browser honors the Content-Type header sent by the server.</td>
   </tr>
 </table>
 
-3. <h3>📌 Visual Severity Block</h3>
-<div style="background-color: #ffcccc; padding: 10px;">
-  🔴 High
-</div>
+<h3>💡 Additional Tips & Insights</h3>
 
-4. <h3>📖 Additional Tips & Insights</h3>
-* When performing an SSL/TLS scan, it's essential to check for the presence of important security headers, such as Strict-Transport-Security and X-Content-Type-Options.
-* Be cautious when interpreting scan results, as some findings may be false positives or minor issues that do not pose a significant risk.
+<ul>
+  <li>Always prioritize immediate remediation steps for high-severity issues, as they can pose significant risks to your users' security and data integrity.</li>
+  <li>Regularly review and update your SSL/TLS configurations to ensure compliance with industry best practices and regulatory requirements.</li>
+</ul>
 
-5. <h3>🔽 Advanced Details (Collapsible)</h3>
-<p>Click to expand raw scan output:</p>
-<details>
-  <summary>Show Raw Output</summary>
-  <pre>
-    - Nikto v2.5.0
-    ---------------------------------------------------------------------------
-    + Target IP:          199.34.228.100
-    + Target Hostname:     plantedmeals.ca
-    + Target Path:         /
-    ----------------------------------------------------------------------
-    + Server: cloudflare
-    + /: IP address found in the 'set-cookie' header. The IP is "1.0.1.1". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed
-    + /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
-    + /: The site uses TLS and the Strict-Transport-Security HTTP header is not defined. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
-    + /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
-    + /:  IP address found in the '__cf_bm' cookie. The IP is "1.0.1.1".
-    + Root page / redirects to: https://www.plantedmeals.ca/
-    + No CGI Directories found (use '-C all' to force check all possible dirs)
-    + /crossdomain.xml: Uncommon header 'surrogate-control' found, with contents: max-age=60.
-    + ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::ssl/tls alert handshake failure at /var/lib/nikto/plugins/LW2.pm line 5254.
-    ;  at /var/lib/nikto/plugins/LW2.pm line 5254.
-    + Scan terminated: 20 error(s) and 6 item(s) reported on remote host
-    + End Time:           2025-04-08 16:46:05 (GMT-4) (79 seconds)
-    ---------------------------------------------------------------------------
-    + 1 host(s) tested
-  </pre>
-</details>
-Here is a beginner-friendly HTML report with the given layout:
-
-<pre style="font-size: 14px; font-family: Arial;">
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Nikto Report</title>
-	<style type="text/css">
-		body {
-			font-family: Arial;
-			margin-left: 10px;
-		}
-		
-		table, th, td {
-			border-collapse: collapse;
-			border: 1px solid #ddd;
-			padding: 5px;
-			text-align: center;
-		}
-	</style>
-</head>
-<body>
-<h1>Nikto Report</h1>
-
-<p><b>Host:</b> [Insert Hostname]</p>
-<p><b>Date:</b> Tue Apr 8 2025 17:27:43 (GMT-4)</p>
-<p><b>Total Requests:</b> 333 requests made in 68 seconds</p>
-
-<h2>Scan Results</h2>
-<table>
-	<thead>
-		<tr>
-			<th>Request</th>
-			<th>Status Code</th>
-			<th>Description</th>
-		</tr>
-	</thead>
-	<tbody>
-		<!-- Insert scan results here -->
-	</tbody>
-</table>
-
-<h2>Error Summary</h2>
-<p><b>Error Limit Reached:</b> 20 error(s) reported on remote host</p>
-<p><b>Last Error:</b> opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::ssl/tls alert handshake failure at /var/lib/nikto/plugins/LW2.pm line 5254.</p>
-
-<h2>Parked Detection</h2>
-<table>
-	<thead>
-		<tr>
-			<th>Request</th>
-			<th>Status Code</th>
-			<th>Description</th>
-		</tr>
-	</thead>
-	<tbody>
-		<!-- Insert parked detection results here -->
-	</tbody>
-</table>
-
-<h2>Site Files</h2>
-<table>
-	<thead>
-		<tr>
-			<th>Request</th>
-			<th>Status Code</th>
-			<th>Description</th>
-		</tr>
-	</thead>
-	<tbody>
-		<!-- Insert site files results here -->
-	</tbody>
-</table>
-
-<h2>HTTP Headers</h2>
-<table>
-	<thead>
-		<tr>
-			<th>Request</th>
-			<th>Status Code</th>
-			<th>Description</th>
-		</tr>
-	</thead>
-	<tbody>
-		<!-- Insert HTTP headers results here -->
-	</tbody>
-</table>
-
-<p><b>Total Time:</b> 67 seconds</p>
-
-</body>
-</html>
-</pre>
-
-Note: This is a basic template, and you will need to add the actual scan results and data to the tables and text areas.
-Here is the generated HTML report:
-
-===========================
-🟢 <h2>XSS & SQL Injection Scan</h2>
-===========================
-
-1. <h3>📝 Executive Summary</h3>
-✅ The scan found several potential vulnerabilities and configuration issues on the target website, including missing security headers and cookies.
-⚠️ Some of these findings may be false positives, so manual investigation is recommended to confirm the results.
-
-2. <h3>📋 Detailed Analysis Table</h3>
-
-| Section | Description |
-|--------|-------------|
-| Command Used | nikto -h https://plantedmeals.ca -Tuning 1,6 |
-| Purpose | To scan the target website for potential vulnerabilities and configuration issues. |
-| Risks Detected | ✅ Missing security headers (X-Frame-Options and Strict-Transport-Security), ✅ Uncommon cookies, and ⚠️ potential SSL/TLS errors. |
-| Output Analysis | The scan found several items of interest: <br> • IP address found in the 'set-cookie' header. <br> • Anti-clickjacking X-Frame-Options header is not present. <br> • Site uses TLS but Strict-Transport-Security HTTP header is not defined. <br> • X-Content-Type-Options header is not set. |
-
-3. <h3>📌 Visual Severity Block</h3>
-🔴 High
-
-4. <h3>📖 Additional Tips & Insights</h3>
-• When investigating vulnerabilities, it's essential to consider the context and potential impact.
-• Some findings may be false positives; manual investigation is recommended to confirm results.
-
-5. <h3>🔽 Advanced Details (Collapsible)</h3>
+<h3>🔽 Advanced Details</h3>
 <p>Click to expand raw scan output:</p>
 <details>
   <summary>Show Raw Output</summary>
@@ -303,7 +138,7 @@ Here is the generated HTML report:
 + SSL Info:        Subject:  /CN=www.plantedmeals.ca
                    Ciphers:  TLS_AES_256_GCM_SHA384
                    Issuer:   /C=US/O=Let's Encrypt/CN=R10
-+ Start Time:         2025-04-08 18:06:48 (GMT-4)
++ Start Time:         2025-04-09 17:18:18 (GMT-4)
 ---------------------------------------------------------------------------
 + Server: cloudflare
 + /: IP address found in the 'set-cookie' header. The IP is "1.0.1.1". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed
@@ -314,126 +149,163 @@ Here is the generated HTML report:
 + Root page / redirects to: https://www.plantedmeals.ca/
 + No CGI Directories found (use '-C all' to force check all possible dirs)
 + /crossdomain.xml: Uncommon header 'surrogate-control' found, with contents: max-age=60.
-+ ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::ssl/tls alert handshake failure at /var/lib/nikto/plugins/LW2.pm line 5254.
- at /var/lib/nikto/plugins/LW2.pm line 5254.
-;  at /var/lib/nikto/plugins/LW2.pm line 5254.
-+ Scan terminated: 20 error(s) and 6 item(s) reported on remote host
-+ End Time:           2025-04-08 18:07:17 (GMT-4) (29 seconds)
----------------------------------------------------------------------------
-+ 1 host(s) tested
++ ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't open connection
 </pre>
 </details>
 
-Note: This is a beginner-friendly report, so I've tried to make it easy to understand and include helpful tips and insights. However, please keep in mind that the actual findings may require further investigation to confirm the results.
-Here is the generated HTML report:
+<h3>🔧 Remediation Steps</h3>
 
-===========================
-🟢 <h2>File Inclusion & RCE Scan</h2>
-===========================
+<p>To remediate the identified issues and improve the security posture of your website:</p>
 
-1. <h3>📝 Executive Summary</h3>
-✅ This scan was run to identify potential vulnerabilities in the website's file inclusion and remote code execution (RCE) aspects.
-⚠️ No critical or high-risk findings were discovered, but some medium-level issues were identified.
+<ul>
+  <li>Disable or remove the vulnerable service.</li>
+  <li>Add the X-Frame-Options header with a value of "SAMEORIGIN" to prevent clickjacking attacks.</li>
+  <li>Add a valid Strict-Transport-Security (HSTS) policy to ensure all communication with your website occurs over
+    HTTPS.</li>
+  <li>Add a valid X-Content-Type-Options (XCTO) policy to prevent MIME-sniffing attacks and ensure that the browser
+    honors the Content-Type header sent by your server.</li>
+</ul>
 
-2. <h3>📋 Detailed Analysis Table</h3>
+<h3>📊 Conclusion</h3>
 
-<table>
+The SSL/TLS scan revealed several potential security issues on your website. It is essential to prioritize immediate
+remediation steps for high-severity issues to mitigate risks to your users' security and data integrity. Regularly
+review and update your SSL/TLS configurations to ensure compliance with industry best practices and regulatory
+requirements.
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+</style>
+<hr>
+<h2>Verbose Scan</h2>
+
+<h3>Host Information</h3>
+<table border="1">
   <tr>
-    <th>Section</th>
-    <th>Description</th>
+    <th>Host</th>
+    <td>plantedmeals.ca</td>
   </tr>
   <tr>
-    <td>Command Used</td>
-    <td>nikto -h https://plantedmeals.ca -Tuning 4,5</td>
-  </tr>
-  <tr>
-    <td>Purpose</td>
-    <td>To identify potential vulnerabilities in the website's file inclusion and RCE aspects.</td>
-  </tr>
-  <tr>
-    <td>Risks Detected</td>
-    <td>
-      ✅ The site uses TLS, but the Strict-Transport-Security HTTP header is not defined. This could allow an attacker to conduct a man-in-the-middle attack.
-      ⚠️ An anti-clickjacking X-Frame-Options header is not present, which could lead to clickjacking attacks.
-      🔴 An IP address (1.0.1.1) was found in the '__cf_bm' cookie, potentially revealing internal network information.
-    </td>
-  </tr>
-  <tr>
-    <td>Output Analysis</td>
-    <td>
-      The scan output indicates that Nikto reached an error limit and terminated the scan due to SSL negotiation failures. Some medium-level issues were identified, including the absence of the Strict-Transport-Security header and the presence of the '__cf_bm' cookie.
-    </td>
+    <th>Date Scanned</th>
+    <td>2025-04-09 18:15:05 GMT-4</td>
   </tr>
 </table>
 
-3. <h3>📌 Visual Severity Block</h3>
-
-<div style="background-color: #ffe5cc; padding: 10px; border-radius: 10px;">
-  🔴 Medium
-</div>
-
-4. <h3>📖 Additional Tips & Insights</h3>
-⚠️ The scan output indicates that the site may be vulnerable to man-in-the-middle attacks and clickjacking.
-💡 Consider implementing Strict-Transport-Security headers and configuring X-Frame-Options to prevent these types of attacks.
-
-5. <h3>🔽 Advanced Details (Collapsible)</h3>
-
-<p>Click to expand</p>
-<details>
-  <summary>Scan Output</summary>
-  <pre>
-===========================
-+ Server: cloudflare
-+ /: IP address found in the 'set-cookie' header. The IP is "1.0.1.1". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed
-+ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
-+ /: The site uses TLS and the Strict-Transport-Security HTTP header is not defined. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
-+ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
-+ /:  IP address found in the '__cf_bm' cookie. The IP is "1.0.1.1".
-+ Root page / redirects to: https://www.plantedmeals.ca/
-+ No CGI Directories found (use '-C all' to force check all possible dirs)
-+ /crossdomain.xml: Uncommon header 'surrogate-control' found, with contents: max-age=60.
-+ ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::ssl/tls alert handshake failure at /var/lib/nikto/plugins/LW2.pm line 5254.
- at /var/lib/nikto/plugins/LW2.pm line 5254.
-;  at /var/lib/nikto/plugins/LW2.pm line 5254.
-+ Scan terminated: 20 error(s) and 6 item(s) reported on remote host
-+ End Time:           2025-04-08 18:47:52 (GMT-4) (19 seconds)
----------------------------------------------------------------------------
-+ 1 host(s) tested
-</pre>
-</details>
-Here is the generated HTML report:
-
-===========================
-🟢 <h2>Server Vulnerability Scan</h2>
-===========================
-
-**1. 📝 Executive Summary**
-✅ This scan found several potential vulnerabilities on the server.
-⚠️ Some of these findings may be false positives, and further investigation is recommended.
-
-**2. 📋 Detailed Analysis Table**
-
-<table>
+<h3>Scan Results</h3>
+<table border="1">
   <tr>
-    <th>Section</th>
+    <th>Sensitivity Level</th>
+    <th>Vulnerability</th>
     <th>Description</th>
   </tr>
+  <!-- Insert vulnerability information here -->
   <tr>
-    <td>Command Used</td>
-    <td>nikto -h https://plantedmeals.ca -Tuning 3</td>
+    <td>🔴 High</td>
+    <td>SSL/TLS Alert Handshake Failure</td>
+    <td>Error: opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::ssl/tls alert
+      handshake failure at /var/lib/nikto/plugins/LW2.pm line 5254.</td>
+  </tr>
+  <!-- Additional vulnerabilities can be inserted here -->
+</table>
+
+<h3>Remediation Methods</h3>
+<ol>
+  <li>Identify the vulnerable service or software and check its version.</li>
+  <li>Check if a patch is available and apply it according to vendor recommendations.</li>
+  <li>Disable the service if it's not necessary or not used.</li>
+  <li>Re-scan to confirm vulnerability resolution.</li>
+</ol>
+
+<h3>📊 Conclusion</h3>
+The Nikto Web Scanner detected potential vulnerabilities on example.com. It is recommended to review and remediate these
+findings to ensure the security of your website.
+
+<h3>🔧 Remediation Steps</h3>
+<ul>
+  <li>1. Identify the vulnerable service or software.
+  </li>
+  <li>2. Check current version and available patches.
+  </li>
+  <li>3. Apply vendor-recommended updates or disable the service if unnecessary.
+  </li>
+  <li>4. Re-scan to confirm vulnerability resolution.
+  </li>
+</ul>
+
+<hr>
+<h2>XSS & SQL Injection Scan</h2>
+
+<h3>📊 Summary</h3>
+
+This scan was conducted using Nikto v2.5.0 to identify potential vulnerabilities on the target host `plantedmeals.ca`.
+The scan detected 20 errors and reported 6 items.
+
+<h3>💻 Analysis Results</h3>
+
+<table border="1">
+  <tr>
+    <th>Issue</th>
+    <th>Description</th>
+    <th>Severity Level</th>
   </tr>
   <tr>
-    <td>Purpose</td>
-    <td>This command tries to identify potential vulnerabilities on the server.</td>
+    <td>IP address found in the 'set-cookie' header.</td>
+    <td>The IP address "1.0.1.1" was found in the 'set-cookie' header.</td>
+    <td>🔴 High Severity – Immediate attention required.</td>
   </tr>
   <tr>
-    <td>Risks Detected</td>
-    <td>The scan detected the following potential issues:</td>
+    <td>The anti-clickjacking X-Frame-Options header is not present.</td>
+    <td>The anti-clickjacking X-Frame-Options header is missing, making the site vulnerable to clickjacking attacks.
+    </td>
+    <td>🔴 High Severity – Immediate attention required.</td>
   </tr>
   <tr>
-    <td>Output Analysis</td>
-    <td>
-      Nikto v2.5.0
+    <td>The site uses TLS and the Strict-Transport-Security HTTP header is not defined.</td>
+    <td>The site uses Transport Layer Security (TLS) but does not have a Strict-Transport-Security (HSTS) header
+      defined, making it vulnerable to man-in-the-middle attacks.</td>
+    <td>🔴 High Severity – Immediate attention required.</td>
+  </tr>
+  <tr>
+    <td>The X-Content-Type-Options header is not set.</td>
+    <td>The X-Content-Type-Options header is missing, allowing user agents to render the content in a different fashion
+      than expected.</td>
+    <td>🔴 High Severity – Immediate attention required.</td>
+  </tr>
+  <tr>
+    <td>IP address found in the '__cf_bm' cookie.</td>
+    <td>The IP address "1.0.1.1" was found in the '__cf_bm' cookie, indicating potential Cloudflare issues.</td>
+    <td>🔴 High Severity – Immediate attention required.</td>
+  </tr>
+</table>
+
+<h3>🔧 Remediation Steps</h3>
+
+<ul>
+  <li>1. **Identify the vulnerable service or software**: Determine which services or software are affected by these
+    vulnerabilities.</li>
+  <li>2. **Check current version and available patches**: Check the current version of the affected software/services
+    and apply any available patches.</li>
+  <li>3. **Apply vendor-recommended updates or disable the service if unnecessary**: Apply the recommended updates or
+    disable the service if it is not necessary.</li>
+  <li>4. **Re-scan to confirm vulnerability resolution**: Run another scan to confirm that the vulnerabilities have been
+    resolved.</li>
+</ul>
+
+
+<h3>💡 Additional Tips & Insights</h3>
+
+* 💡 Expert tip: Regularly update your software/services and configure HSTS to prevent man-in-the-middle attacks.
+* ⚠️ Flag: Some output might be a false positive, so double-check the results before taking action.
+* 🔍 Suggest manual steps for deeper investigation: Run additional scans or manually review logs to gather more
+information about potential vulnerabilities.
+
+<h3>🔽 Advanced Details</h3>
+
+<details>
+  <summary>Show Raw Output</summary>
+  <pre>- Nikto v2.5.0
 ---------------------------------------------------------------------------
 + Target IP:          199.34.228.73
 + Target Hostname:    plantedmeals.ca
@@ -442,30 +314,178 @@ Here is the generated HTML report:
 + SSL Info:        Subject:  /CN=www.plantedmeals.ca
                    Ciphers:  TLS_AES_256_GCM_SHA384
                    Issuer:   /C=US/O=Let's Encrypt/CN=R10
-+ Start Time:         2025-04-08 19:28:50 (GMT-4)
++ Start Time:         2025-04-09 18:50:28 (GMT-4)
 ---------------------------------------------------------------------------
 + Server: cloudflare
 + /: IP address found in the 'set-cookie' header. The IP is "1.0.1.1". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed
 + /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
 + /: The site uses TLS and the Strict-Transport-Security HTTP header is not defined. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
-+ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
-+ /:  IP address found in the '__cf_bm' cookie. The IP is "1.0.1.1".
-+ Root page / redirects to: https://www.plantedmeals.ca/
-+ No CGI Directories found (use '-C all' to force check all possible dirs)
-+ /crossdomain.xml: Uncommon header 'surrogate-control' found, with contents: max-age=60.
-+ ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::ssl/tls alert handshake failure at /var/lib/nikto/plugins/LW2.pm line 5254.
- at /var/lib/nikto/plugins/LW2.pm line 5254.
-;  at /var/lib/nikto/plugins/LW2.pm line 5254.
-+ Scan terminated: 20 error(s) and 6 item(s) reported on remote host
-+ End Time:           2025-04-08 19:29:21 (GMT-4) (31 seconds)
----------------------------------------------------------------------------
-+ 1 host(s) tested
-    </td>
++ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
++ /: IP address found in the '__cf_bm' cookie.
+</pre>
+</details>
+
+<h3>📊 Conclusion</h3>
+
+This report highlights potential vulnerabilities on the target host `plantedmeals.ca`. To resolve these issues, follow
+the recommended remediation steps and review the advanced details for additional information.
+Here is a beginner-friendly HTML report with the specified layout:
+<hr>
+<h2>File Inclusion & RCE Scan</h2>
+
+<h3>📊 Summary</h3>
+
+* Date: April 9, 2025 <br>
+* Target Hostname: plantedmeals.ca<br>
+* Target Port: 443<br>
+* Scan Duration: 18 seconds<br>
+* Error Count: 20<br>
+
+<h3>🔽 Advanced Details</h3>
+
+<p>Click to expand raw scan output:</p>
+<details>
+  <summary>Show Raw Output</summary>
+  <pre>
+  - Nikto v2.5.0
+  ---------------------------------------------------------------------------
+  + Target IP:          199.34.228.73
+  + Target Hostname:    plantedmeals.ca
+  + Target Port:        443
+  ---------------------------------------------------------------------------
+  + SSL Info:        Subject:  /CN=www.plantedmeals.ca
+                    Ciphers:  TLS_AES_256_GCM_SHA384
+                    Issuer:   /C=US/O=Let's Encrypt/CN=R10
+  + Start Time:         2025-04-09 19:41:25 (GMT-4)
+  ---------------------------------------------------------------------------
+  + Server: cloudflare
+  + /: IP address found in the 'set-cookie' header. The IP is "1.0.1.1". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed
+  + /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
+  + /: The site uses TLS and the Strict-Transport-Security HTTP header is not defined. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
+  + /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
+  + /:  IP address found in the '__cf_bm' cookie. The IP is "1.0.1.1".
+  + Root page / redirects to: https://www.plantedmeals.ca/
+  + No CGI Directories found (use '-C all' to force check all possible dirs)
+  + /crossdomain.xml: Uncommon header 'surrogate-control' found, with contents: max-age=60.
+  + ERROR: Error limit (20) reached for host, giving up. Last error: opening stream: can't connect: SSL negotiation failed: error:0A000410:SSL routines::ssl/tls alert handshake failure at /var/lib/nikto/plugins/LW2.pm line 5254.
+  at /var/lib/nikto/plugins/LW2.pm line 5254.
+  ;  at /var/lib/nikto/plugins/LW2.pm line 5254.
+  + Scan terminated: 20 error(s) and 6 item(s) reported on remote host
+  + End Time:           2025-04-09 19:41:43 (GMT-4) (18 seconds)
+  ---------------------------------------------------------------------------
+  + 1 host(s) tested
+  </pre>
+</details>
+
+<h3>💡 Additional Tips & Insights</h3>
+
+* 💡 Expert tips or common misconfigurations related to the issue.<br>
+* ⚠️ Flag if any output might be a false positive.<br>
+* 🔍 Suggest manual steps for deeper investigation.<br>
+
+
+<h3>🔧 Remediation Steps</h3>
+<ul>
+  <li>1. Identify the vulnerable service or software.</li>
+  <li>2. Check current version and available patches.</li>
+  <li>3. Apply vendor-recommended updates or disable the service if unnecessary.</li>
+  <li>4. Re-scan to confirm vulnerability resolution.</li>
+</ul>
+
+<hr>
+<h2>Server Vulnerability Scan</h2>
+
+
+<h2>Introduction</h2> <br>
+
+This report summarizes the findings of a web application security scan conducted using [scanner tool]. The scan was
+performed on [target URL] and identified several vulnerabilities and potential issues. This report provides an overview
+of the scan results, including severity levels, recommended remediation steps, and additional tips for further
+investigation.
+
+<h3>💻 Analysis Results</h3>
+
+<table border="1">
+  <tr>
+    <th>Issue</th>
+    <th>Severity Level</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>IP address found in the 'set-cookie' header.</td>
+    <td>🔴 High</td>
+    <td>This vulnerability allows an attacker to inject malicious code into a user's browser. The IP address "1.0.1.1"
+      was found in the 'set-cookie' header.</td>
+  </tr>
+  <tr>
+    <td>The anti-clickjacking X-Frame-Options header is not present.</td>
+    <td>🔴 High</td>
+    <td>This vulnerability allows an attacker to inject malicious code into a user's browser. The absence of the
+      X-Frame-Options header makes it possible for attackers to frame the site within an iframe.</td>
+  </tr>
+  <tr>
+    <td>The site uses TLS and the Strict-Transport-Security HTTP header is not defined.</td>
+    <td>🔴 High</td>
+    <td>This vulnerability allows an attacker to inject malicious code into a user's browser. The absence of the HSTS
+      header makes it possible for attackers to conduct man-in-the-middle attacks.</td>
+  </tr>
+  <tr>
+    <td>The X-Content-Type-Options header is not set.</td>
+    <td>🔴 High</td>
+    <td>This vulnerability allows an attacker to inject malicious code into a user's browser. The absence of the
+      X-Content-Type-Options header makes it possible for attackers to inject malicious content.</td>
+  </tr>
+  <tr>
+    <td>No CGI Directories found (use '-C all' to force check all possible dirs).</td>
+    <td>🟡 Low</td>
+    <td>This issue is a false positive. The absence of CGI directories does not pose a significant threat.</td>
+  </tr>
+  <tr>
+    <td>Error: Error limit (20) reached for host, giving up.</td>
+    <td>🔴 High</td>
+    <td>This error indicates that the scan terminated due to an excessive number of errors. This may indicate a
+      significant vulnerability or misconfiguration.</td>
   </tr>
 </table>
 
-**3. 🟠 Recommendation**
 
-⚠️ Further investigation is recommended to determine the severity and impact of these potential vulnerabilities.
+<h3>🔧 Remediation Steps</h3>
+<ul>
+  <li>1. Identify the vulnerable service or software.</li>
+  <li>2. Check current version and available patches.</li>
+  <li>3. Apply vendor-recommended updates or disable the service if unnecessary.</li>
+  <li>4. Re-scan to confirm vulnerability resolution.</li>
+</ul>
 
-===========================
+<h3>💡 Additional Tips & Insights</h3>
+
+* 💡 Expert tip: The absence of the X-Frame-Options header makes it possible for attackers to frame the site within an
+iframe. This can be mitigated by setting the X-Frame-Options header to "SAMEORIGIN" or "DENY".<br>
+* ⚠️ Flag: Some output might be a false positive.<br>
+* 🔍 Suggest manual steps for deeper investigation: Run a more detailed scan using [scanner tool] with additional
+options.<br>
+
+<h3>🔽 Advanced Details</h3>
+
+<p>Click to expand raw scan output:</p>
+<details>
+  <summary>Show Raw Output</summary>
+  <pre>- Nikto v2.5.0
+  ---------------------------------------------------------------------------
+  + Target IP:          199.34.228.73
+  + Target Hostname:    plantedmeals.ca
+  + Target Port:        443
+  ---------------------------------------------------------------------------
+  + SSL Info:        Subject:  /CN=www.plantedmeals.ca
+                    Ciphers:  TLS_AES_256_GCM_SHA384
+                    Issuer:   /C=US/O=Let's Encrypt/CN=R10
+  + Start Time:         2025-04-09 20:24:18 (GMT-4)
+  ---------------------------------------------------------------------------
+  + Server: cloudflare
+  + /: IP address found in the 'set-cookie' header. The IP is "1.0.1.1". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed
+  + /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
+  + /: The site uses TLS and the Strict-Transport-Security HTTP header is not defined. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
+  + /: The X-Content-Type-Options header is not set. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
+  + Error: Error limit (20) reached for host, giving up.
+  </pre>
+</details>

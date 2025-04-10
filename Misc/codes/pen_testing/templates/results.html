@@ -5,76 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scan Results</title>
     <link rel="stylesheet" href="/static/css/script.css">
-    <script>
-        async function formatAndRedirectReport(url, targetPage) {
-            try {
-                const response = await fetch(url);
-                const rawHtml = await response.text();
-                const formattedHtml = transformHtml(rawHtml);
-                const blob = new Blob([formattedHtml], { type: 'text/html' });
-                const blobUrl = URL.createObjectURL(blob);
-                window.location.href = blobUrl;
-            } catch (error) {
-                console.error("Error loading report:", error);
-            }
-        }
-
-        function transformHtml(html) {
-            let parser = new DOMParser();
-            let doc = parser.parseFromString(html, "text/html");
-            let sections = [];
-            let reports = doc.querySelectorAll("h2");
-
-            reports.forEach(report => {
-                let title = report.textContent.trim();
-                let content = "";
-                let sibling = report.nextSibling;
-                while (sibling && sibling.nodeName !== "H2") {
-                    if (sibling.nodeType === Node.TEXT_NODE) {
-                        let textContent = sibling.textContent.trim();
-
-                        // Add <br><br> before and <br> after, and make headers bold & blue
-                        textContent = textContent.replace(
-                            /(\*\*(Command:|Risks Detected:|Analysis:|Remediation Steps:|Severity:|Recommendations:|Conclusion:|Command Analysis:|Output Analysis:|Analysis of Output:)\*\*)/g, 
-                            '<br><br><strong style="color:blue;">$2</strong><br>'
-                        );
-
-                        content += `<p>${textContent}</p>`;
-                    }
-                    sibling = sibling.nextSibling;
-                }
-                sections.push(`<div class='section'><h2>${title}</h2>${content}</div>`);
-            });
-
-            return `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Formatted Security Report</title>
-                <style>
-                    body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; background-color: #f4f4f4; color: #333; }
-                    h1 { font-size: 28px; color: #2C3E50; text-align: center; margin-bottom: 20px; }
-                    h2 { font-size: 24px; color: #34495E; border-bottom: 2px solid #34495E; padding-bottom: 5px; margin-top: 20px; }
-                    .section { background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
-                    .content { margin-left: 20px; font-size: 18px; }
-                    p { margin-bottom: 15px; }
-                    strong { font-size: 20px; }
-                </style>
-            </head>
-            <body>
-                <h1>Formatted Security Report</h1>
-                ${sections.join("\n")}
-            </body>
-            </html>`;
-        }
-    </script>
+    
 </head>
 <body>
     <div class="container">
         <h1>Scan Results</h1>
         <div class="grid">
-            <a href="#" onclick="formatAndRedirectReport('/static/net_analysis.html', 'net_analysis.html')" class="block">Network Security Scan Analysis</a>
-            <a href="#" onclick="formatAndRedirectReport('/static/web_analysis.html', 'web_analysis.html')" class="block">Web Security Scan Analysis</a>
+            <a href="/static/net_analysis.html" class="block">Network Security Scan Analysis</a>
+            <a href="/static/web_analysis.html" class="block">Web Security Scan Analysis</a>
             <a href="/static/net_output.txt" class="block">Network Security Scan Result Output</a>
             <a href="/static/web_output.txt" class="block">Web Security Scan Result Output</a>
         </div>
