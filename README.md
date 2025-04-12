@@ -1,24 +1,36 @@
-# W25_4495_S1_JackieK
+# NShield – Scan. Detect. Secure.
 
-Development of an AI-Integrated Automated Scanning Tool for Security Analysis and Remediation
+**AI-Driven Automated Tool for Security Analysis and Remediation**
 
+## 👤 Author Information
 
-Name : Jackie Kim
-Student ID : 300376300
-Course : CSIS4495-001 Applied Research Project
+- **Name:** Jackie Kim  
+- **Student ID:** 300376300  
+- **Course:** CSIS4495-001 Applied Research Project  
 
-Project Overview
-The Automated Penetration Testing Tool is designed to scan an organization's website for potential security vulnerabilities. The tool performs various scanning tasks, including host discovery, port scanning, OS detection, vulnerability scanning, and code analysis. It generates an HTML report summarizing the scan results, highlighting the vulnerabilities, and suggesting remediation methods using an integrated AI tool.
+---
 
-This project aims to help organizations identify weaknesses in their web infrastructure and improve security through automated testing.
+## 🛠️ Project Overview
 
-Features
-Host Discovery: Identifies active and reachable target IP addresses and provides information about open ports, OS guesses, and traceroute data.
-Web Enumeration: Scans for open HTTP and HTTPS ports, identifying services such as Cloudflare's HTTP proxy services.
-DNS Enumeration: Uses DNS brute-forcing to identify subdomains of the target.
-Vulnerability Scanning: Uses Nmap scripts to scan for HTTP title, headers, and methods.
-Code Analysis: Integrates the Semgrep tool to scan for code vulnerabilities, highlighting those with a HIGH impact.
-HTML Report: Generates a clickable HTML report containing detailed scan results for each command, with links to specific findings.
-AI Integration: Uses an AI tool to analyze the generated report and provide remediation suggestions for identified vulnerabilities.
+**NShield** is an intelligent, user-friendly automated scanning tool tailored for penetration testers, students, and cybersecurity professionals. Developed using Python and Flask, NShield performs comprehensive **network and web application vulnerability scans** using industry-standard tools like **Nmap** and **Nikto**. 
 
-***To run the developed penetration testing scanning tool, please download the "pentesting" directory and follow the instructions provided in its README file.***
+What sets NShield apart is its built-in AI integration using **Ollama**, which analyzes scan outputs and generates detailed reports that include:
+- Vulnerability descriptions
+- Risk assessments
+- Severity ratings
+- Remediation strategies
+
+The result is a streamlined security assessment process that reduces complexity and increases accessibility—even for those with limited cybersecurity experience.
+
+---
+
+## 📦 Features
+
+- ✅ Automated **network** and **web application** vulnerability scanning
+- ✅ Integration of **Nmap** and **Nikto** with pre-built commands
+- ✅ AI-generated reports with security analysis and remediation
+- ✅ Beginner-friendly web interface using Flask
+- ✅ Organized HTML reports for both raw output and AI analysis
+- ✅ Installation progress tracking and visual feedback
+
+---
